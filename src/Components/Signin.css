@@ -1,0 +1,9 @@
+.signin {
+    text-align: center;
+    background-image: url("http://armedpolice.punjab.gov.in/wp-content/uploads/2020/10/DSC_4768-1024x683.jpg");
+    position: fixed;
+    min-width:100%;
+    min-height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
