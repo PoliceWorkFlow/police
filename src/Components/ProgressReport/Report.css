@@ -1,0 +1,23 @@
+.dash_header{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: space-between;
+  }
+  
+  .dash_left {
+    flex: 0.9;
+  }
+
+  .dash{
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .dash_dropdown{
+    background-color: white;
+  }
+
+  .dash_header > h2 {
+    color: #272020;
+  }

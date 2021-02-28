@@ -1,4 +1,6 @@
 import React from 'react';
+import {Avatar} from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import 'tachyons';
 
 class Signin extends React.Component {
@@ -6,7 +8,9 @@ class Signin extends React.Component {
    	super(props);
    	this.state = {
    		signinEmail: '',
-   		signinPass: ''
+   		signinPass: '',
+	    avatarStyle: {backgroundColor:'#1bbd7e'},
+		paperStyle: { padding :10, height:'65vh',width:500, margin:"20px auto"}   
    	}
    }
 
@@ -19,8 +23,13 @@ class Signin extends React.Component {
    }
 
    onSubmitSignIn = () => {
-	   console.log(this.state.signinEmail);
-	   console.log(this.state.signinPass);
+	    console.log(this.state.signinEmail);
+	    console.log(this.state.signinPass);
+
+	    if(this.state.signinEmail === 'abc')
+            this.props.onRouteChange('ssp');
+	    else
+	        this.props.onRouteChange('station');
    	 /* fetch('http://localhost:3000/signinuser', {
    		method: 'post',
    		headers: {'Content-Type': 'application/json'},
@@ -36,24 +45,28 @@ class Signin extends React.Component {
       	else
       		alert('Wrong Credentials');
       })*/
-	}
-      
+
+     }
+     
 	 render(){
-	 	//const {onRouteChange} = this.props;
+	 	const {onRouteChange} = this.props;
 
 	 return(
-	 <article className="br3 ba shadow-2 b--black-10 mv4 w-100 w-50-m w-25-l mw5 center">	
-	    <main className="pa4 black-80">
+	 <article style = {this.state.paperStyle} className="br3 ba shadow-2 b--black-10 mv4 w-100 w-50-m w-25-l mw5 center">
+		 <Avatar style={this.state.avatarStyle} className="center pa3 shadow-2"><LockOutlinedIcon/></Avatar>	
+	    <main className="pa3 black-80">
 	      <div className="measure">
 	       <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-	         <legend className="f2 fw6 ph0 mh0">Sign In</legend>
+		   
+	         <legend className="f3 fw6 ph0 mh0">Sign In</legend>
 	         <div className="mt3">
-	          <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
+	          <label className="db fw6 lh-copy f6" htmlFor="email-address">Username</label>
 	          <input 
 	            className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
 	            type="email" 
 	            name="email-address" 
 	            id="email-address"
+				required
 	            onChange={this.onEmailChange} 
 	            />
 	         </div>
@@ -76,6 +89,7 @@ class Signin extends React.Component {
 	         value="Sign in" 
 	         />
 	      </div>
+		  
 	    </div>
 	  </main>
 	</article>  
@@ -85,4 +99,3 @@ class Signin extends React.Component {
 }
 
 export default Signin;
-
