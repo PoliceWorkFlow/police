@@ -10,7 +10,7 @@ class Signin extends React.Component {
    		signinEmail: '',
    		signinPass: '',
 	    avatarStyle: {backgroundColor:'#1bbd7e'},
-		paperStyle: { padding :10, height:'65vh',width:500, margin:"20px auto"}   
+		paperStyle: { padding :10, height:'65vh',width:500, margin:"20px auto", backgroundColor: 'white'}   
    	}
    }
 
