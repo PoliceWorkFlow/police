@@ -7,15 +7,15 @@ class Signin extends React.Component {
    constructor(props){
    	super(props);
    	this.state = {
-   		signinEmail: '',
+   		signinusername: '',
    		signinPass: '',
 	    avatarStyle: {backgroundColor:'#1bbd7e'},
 		paperStyle: { padding :10, height:'65vh',width:500, margin:"20px auto", backgroundColor: 'white'}   
    	}
    }
 
-   onEmailChange = (event) => {
-   	 this.setState({signinEmail: event.target.value});
+   onUsernameChange = (event) => {
+   	 this.setState({signinusername: event.target.value});
    }
 
    onPassChange = (event) => {
@@ -23,29 +23,30 @@ class Signin extends React.Component {
    }
 
    onSubmitSignIn = () => {
-	    console.log(this.state.signinEmail);
-	    console.log(this.state.signinPass);
-
-	    if(this.state.signinEmail === 'abc')
+	 /*   if(this.state.signinEmail === 'abc')
             this.props.onRouteChange('ssp');
 	    else
-	        this.props.onRouteChange('station');
-   	 /* fetch('http://localhost:3000/signinuser', {
+	        this.props.onRouteChange('station');*/
+
+   	 fetch('http://localhost:3000/signin', {
    		method: 'post',
    		headers: {'Content-Type': 'application/json'},
    		body: JSON.stringify({
-   			email: this.state.signinEmail,
+   			username: this.state.signinusername,
    			password: this.state.signinPass
    		})
    	})
       .then(response => response.json())
       .then(data => {
-      	if(data === 'success')
-      		this.props.onRouteChange('home',this.state.signinEmail);
-      	else
-      		alert('Wrong Credentials');
-      })*/
-
+      	if(data === 'unable to login')
+		  alert('Wrong Credentials');	
+      	else{
+		  if(data>0 && data<11)	  
+		    this.props.onRouteChange('station',data);
+		  else
+		     this.props.onRouteChange('ssp');	
+		  }	
+      })
      }
      
 	 render(){
@@ -56,23 +57,23 @@ class Signin extends React.Component {
 		 <Avatar style={this.state.avatarStyle} className="center pa3 shadow-2"><LockOutlinedIcon/></Avatar>	
 	    <main className="pa3 black-80">
 	      <div className="measure">
-	       <fieldset id="sign_up" className="ba b--white ph0 mh0">
+	       <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
 	         <legend className="f2 fw6 ph0 mh0">Sign In</legend>
 	         <div className="mt3">
 	          <label className="db fw6 lh-copy f6" htmlFor="email-address">Username</label>
 	          <input 
-	            className="pa2 input-reset ba bg-white hover-bg-black hover-black w-100"
+	            className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
 	            type="email" 
 	            name="email-address" 
 	            id="email-address"
 				required
-	            onChange={this.onEmailChange} 
+	            onChange={this.onUsernameChange} 
 	            />
 	         </div>
 	         <div className="mv3">
 	          <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
 	          <input 
-	            className="b pa2 input-reset ba bg-white hover-bg-black hover-black w-100" 
+	            className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
 	            type="password" 
 	            name="password"  
 	            id="password"

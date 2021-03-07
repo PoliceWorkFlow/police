@@ -49,7 +49,7 @@ const Navigation = ({onRouteChange, route}) => {
 		return(
 			 <nav style={{display: 'flex' , justifyContent: 'flex-end'}}>
 			<div className="flex-grow flex items-center pt2 pb4">
-			<p  onClick={() => onRouteChange('station')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Go Back</p>	    
+			<p  onClick={() => onRouteChange('station', 0)} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Go Back</p>	    
 			<p  onClick={() => onRouteChange('signin')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Sign Out</p>
 			</div>
 			</nav>	

@@ -3,8 +3,8 @@ import './App.css';
 import './Components/Signin.css'
 import SignIn from './Components/Signin';
 import Logo from './Components/Logo/Logo';
-import DashboardSSP from './Components/Dash_SSP/Dashboard';
-import DashboardStation from './Components/Dash_station/Dashboard';
+import DashboardSSP from './Components/Dashboard/Dash_SSP';
+import DashboardStation from './Components/Dashboard/Dash_PS';
 import ProgressReport from './Components/ProgressReport/Report'
 import Navigation from './Components/Navigation';
 import PSReport from './Components/PSReport/PS';
@@ -14,12 +14,17 @@ class App extends Component {
   constructor(){
   super();
     this.state = {
-      route : 'signin'
+      route : 'signin',
+      policeStation: ' '
     }
   }
   
-  onRouteChange = (route) => {
+  onRouteChange = (route, val ) => {
     this.setState({route: route});
+
+    if(route === 'station' && val !== 0)
+      this.setState({policeStation: val});
+      
   }
 
   render(){
@@ -37,7 +42,7 @@ class App extends Component {
       return (
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
-          <DashboardStation />
+          <DashboardStation policeStation={this.state.policeStation}/>
          </div>
         );
     }
@@ -64,7 +69,7 @@ class App extends Component {
       return (
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
-          <PSReport />
+          <PSReport policeStation={this.state.policeStation} />
          </div>
         );
     }
