@@ -5,9 +5,10 @@ import InfoBox from './InfoBox';
 import Table from './Table';
 import 'tachyons';
 
-function Dashboard(){
+function Dashboard(props){
     const [station_chosen, setStaion] = React.useState('all');
-	const [police_station] = React.useState(['Police Station 1', 'Police Station 2', 'Police Station 3', 'Police Station 4', 'Police Station 5', 'Police Station 6', 'Police Station 7', 'Police Station 8', 'Police Station 9', 'Police Station 10']);
+	  const [police_station] = React.useState(['Police Station 1', 'Police Station 2', 'Police Station 3', 'Police Station 4', 'Police Station 5', 'Police Station 6', 'Police Station 7', 'Police Station 8', 'Police Station 9', 'Police Station 10']);
+    console.log(props.progressReport);
 
 	const onStationChange = (event) => {
 		//console.log(event.target.value);

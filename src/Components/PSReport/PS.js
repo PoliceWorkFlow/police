@@ -31,8 +31,11 @@ function PS(props) {
     
 	function onSubmitChallan() {
         //  console.log(challan.overLoading);
-
-	 fetch('http://localhost:3000/addchallandetails', {
+      if(challan.overLoading<0 || challan.withoutHelmet<0 || challan.drunken<0 || challan.covid19<0 || challan.overspeed<0 || challan.others<0)
+	      alert("ERROR!!!!  Add only positive values"); 
+      
+	else{
+	   fetch('http://localhost:3000/addchallandetails', {
    		method: 'post',
    		headers: {'Content-Type': 'application/json'},
    		body: JSON.stringify({
@@ -47,9 +50,21 @@ function PS(props) {
       	else
 		  alert('Unable to add the details. Kindly add it again')
       }) 
+	 }
 	}
 
 	function onSubmitRecovery(){
+	  var flag = true;
+		
+	  for(var ind in recovery) {
+		   if(recovery[ind]<0){
+			flag = false;	 
+			alert("ERROR!!!!  Add only positive values"); 
+			break;
+		   }
+	   }
+	  
+	  if(flag){
 		fetch('http://localhost:3000/addrecoverydetails', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
@@ -64,12 +79,23 @@ function PS(props) {
 		   alert('Recovery Details added');	
 		   else
 		   alert('Unable to add the details. Kindly add it again')
-	   }) 
-	 }
-
+	   })
+	 } 
+   }
 
 	function onSubmitInvestigation(){
-		fetch('http://localhost:3000/addinvestigationdetails', {
+		var flag = true;
+		
+		for(var ind in ipc) {
+			 if(ipc[ind]<0 || local[ind]<0){
+			  flag = false;	 
+			  alert("ERROR!!!!  Add only positive values"); 
+			  break;
+			 }
+		 }
+		
+		if(flag) {
+		 fetch('http://localhost:3000/addinvestigationdetails', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
@@ -83,8 +109,9 @@ function PS(props) {
 		   if(data === 'success')
 		   alert('Investigation Details added');	
 		   else
-		   alert('Unable to add the details. Kindly add it again')
+		   alert(data);
 	   }) 
+	    }
 	 }
 
 	return(
@@ -141,6 +168,7 @@ function PS(props) {
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   style={{ width: "175px" }}
 					   type='number'
+					   min='0'
 					   placeholder='Pending'
 					   onChange = {e => {
 						const val = e.target.value;
@@ -156,6 +184,7 @@ function PS(props) {
 					   type='number'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   min='0'
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -172,6 +201,7 @@ function PS(props) {
 					   type='number'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   min='0'
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -184,6 +214,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -201,6 +232,7 @@ function PS(props) {
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
 					   onChange = {e => {
@@ -215,6 +247,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -232,6 +265,7 @@ function PS(props) {
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
 					   onChange = {e => {
@@ -246,6 +280,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -263,6 +298,7 @@ function PS(props) {
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
 					   onChange = {e => {
@@ -277,6 +313,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -294,6 +331,7 @@ function PS(props) {
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
 					   onChange = {e => {
@@ -308,6 +346,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -330,6 +369,7 @@ function PS(props) {
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
 					   onChange = {e => {
@@ -343,6 +383,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -360,6 +401,7 @@ function PS(props) {
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
 					   onChange = {e => {
@@ -374,6 +416,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -390,6 +433,7 @@ function PS(props) {
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
 					   onChange = {e => {
@@ -404,6 +448,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -420,6 +465,7 @@ function PS(props) {
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
 					   onChange = {e => {
@@ -434,6 +480,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -450,6 +497,7 @@ function PS(props) {
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
 					   onChange = {e => {
@@ -464,6 +512,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -481,6 +530,7 @@ function PS(props) {
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
 					   onChange = {e => {
@@ -495,6 +545,7 @@ function PS(props) {
 					<input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
+					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
 					   onChange = {e => {
@@ -525,8 +576,9 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "OVER LOADING  TIPPER & TRUCKS" 
 						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
-							const val = e.target.value;
+							const val = e.target.value; 
 							setData(prevState => {
 								return { ...prevState, overLoading: val }
 							  });
@@ -538,6 +590,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "DRUNKEN  DRIVING"
 						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setData(prevState => {
@@ -551,6 +604,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "OVER SPEED"
 						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setData(prevState => {
@@ -566,6 +620,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "WITHOUT HELMET/SEAT BELT"
 						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setData(prevState => {
@@ -579,6 +634,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "WITHOUT MASK, COVID-19 CHALLAN"
 						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setData(prevState => {
@@ -592,6 +648,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "OTHERS"
 						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setData(prevState => {
@@ -615,8 +672,9 @@ function PS(props) {
 					 <Grid item xs={3}>
 						<TextField
 						  variant = "outlined"
-						  label = "ILLICIT LIQUOR"
-						  type = "text"
+						  label = "ILLICIT LIQUOR(in Litres)"
+						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {
@@ -628,8 +686,9 @@ function PS(props) {
  
 						  <TextField
 						  variant = "outlined"
-						  label = "POPPY HUSK"
-						  type = "text"
+						  label = "POPPY HUSK(in Grams)"
+						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {
@@ -657,8 +716,9 @@ function PS(props) {
 					 <Grid item xs={3}>
 					   <TextField
 						  variant = "outlined"
-						  label = "LICIT LIQUOR"
-						  type = "text"
+						  label = "LICIT LIQUOR(in Litres)"
+						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {
@@ -670,8 +730,9 @@ function PS(props) {
  
 					   <TextField
 						  variant = "outlined"
-						  label = "HEROIN"
-						  type = "text"
+						  label = "HEROIN(in Gram)"
+						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {
@@ -684,7 +745,8 @@ function PS(props) {
 						 <TextField
 						  variant = "outlined"
 						  label = "INJECTIONS"
-						  type = "text"
+						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {
@@ -698,8 +760,9 @@ function PS(props) {
 					<Grid item xs={3}>
 					   <TextField
 						  variant = "outlined"
-						  label = "LAHAN"
-						  type = "text"
+						  label = "LAHAN(in Gram)"
+						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {
@@ -711,8 +774,9 @@ function PS(props) {
  
 					   <TextField
 						  variant = "outlined"
-						  label = "OPIUM"
-						  type = "text"
+						  label = "OPIUM(in Gram)"
+						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {
@@ -740,8 +804,9 @@ function PS(props) {
 					<Grid item xs={3}>
 					   <TextField
 						  variant = "outlined"
-						  label = "GANJA"
-						  type = "text"
+						  label = "GANJA(in Gram)"
+						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {
@@ -753,8 +818,9 @@ function PS(props) {
  
 					   <TextField
 						  variant = "outlined"
-						  label = "CHARAS"
-						  type = "text"
+						  label = "CHARAS(in Gram)"
+						  type = "number"
+						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {

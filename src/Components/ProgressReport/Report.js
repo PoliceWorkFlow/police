@@ -28,8 +28,8 @@ function Report() {
 	const [police_station] = useState(['Police Station 1', 'Police Station 2', 'Police Station 3', 'Police Station 4', 'Police Station 5', 'Police Station 6', 'Police Station 7', 'Police Station 8', 'Police Station 9', 'Police Station 10']);
 	
 	const [progress, setData] = useState({
-		casesubmitted: '', propertyDisp: '', henious: '', POarrested: '', propertyCrime: '', untrace_in_court: '',
-	    disposal_compl: '', cleaniness: '', feedback: '', handling: '', ndps: '', arm: '', excise: '', gambling: '', commercial: ''
+		casesubmitted: 0, propertyDisp: 0, henious: 0, POarrested: 0, propertyCrime: 0, untrace_in_court: 0,
+	    disposal_compl: 0, cleaniness: 0, feedback: 0, handling: 0, ndps: 0, arm: 0, excise: 0, gambling: 0, commercial: 0
 	});
 
 	const onStationChange = (event) => {
@@ -38,22 +38,33 @@ function Report() {
 
 	function onSubmit(){
 		const index = police_station.indexOf(station_chosen) + 1;
-        
-		fetch('http://localhost:3000/addProgressReport', {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				policeStation: index,
-				report: progress
+        var flag = true;
+		
+		for(var ind in progress) {
+			 if(progress[ind]<0){
+			  flag = false;	 
+			  alert("ERROR!!!!  Add only positive values"); 
+			  break;
+			 }
+		 }
+		
+		 if(flag){
+			fetch('http://localhost:3000/addProgressReport', {
+				method: 'post',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					policeStation: index,
+					report: progress
+				})
 			})
-		  })
-	   .then(response => response.json())
-	   .then(data => {
-		   if(data === 'success')
-		   alert('Progress Report added successfully');	
-		   else
-		   alert('Unable to add the Progress Report. Kindly add it again')
-	   }) 
+		.then(response => response.json())
+		.then(data => {
+			if(data === 'success')
+			alert('Progress Report added successfully');	
+			else
+			alert('Unable to add the Progress Report. Kindly add it again')
+		 }) 
+	   }
 	}
 
 	const classes = useStyle();
@@ -87,6 +98,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Cases Submitted In Court"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 						   const val = e.target.value;
@@ -101,6 +113,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Undetected cases traced of Henius Crime" 
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -115,6 +128,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Untraced cases of crime against property"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -129,6 +143,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Disposal of Complaints"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -143,6 +158,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Negligence in duty/public dealing/image in public & feedback"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -159,6 +175,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Property Disposal"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -173,6 +190,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Number of PO arrested"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -187,6 +205,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Untrace cases put on court"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -201,6 +220,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Cleaniness of Police Station"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -215,6 +235,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Handling of Law & order Situation"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -235,6 +256,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "NDPS"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -251,6 +273,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "Commercial Recovery"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -267,6 +290,7 @@ function Report() {
 					     variant = "outlined"
 						 label = "ARM Act"
 						 type = 'number'
+						 inputProps={{ min: "0"}}
 						 required
 						 onChange = {e => {
 							const val = e.target.value;
@@ -283,6 +307,7 @@ function Report() {
 					      variant = "outlined"
 						  label = "Excise Act"
 						  type = 'number'
+						  inputProps={{ min: "0"}}
 						  required
 						  onChange = {e => {
 							const val = e.target.value;
@@ -299,6 +324,7 @@ function Report() {
 					       variant = "outlined"
 						   label = "Gambling Act"
 						   type = 'number'
+						   inputProps={{ min: "0"}}
 						   required
 						   onChange = {e => {
 							const val = e.target.value;

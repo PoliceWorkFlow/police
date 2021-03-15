@@ -2,6 +2,7 @@ import React from 'react';
 import './dashboard.css';
 import { MenuItem, FormControl, Select, Card, CardContent} from "@material-ui/core";
 import InfoBox from './InfoBox';
+import sortData from './util';
 import Table from './Table';
 import 'tachyons';
 
@@ -9,13 +10,13 @@ function Dashboard(props){
     
   const [case_chosen, setStaion] = React.useState('Investigation');
 	const [cases] = React.useState(['Investigation', 'Recovery', 'Challan']);
+  const [casesType, setCasesType] = React.useState("pending");
 
 	const onCaseTypeChange = (event) => {
 		//console.log(event.target.value);
 		setStaion(event.target.value);
     }
-    
-        return(
+       return(
          <div className="dash">
             <div className="dash_left">
                 <div className='dash_header'>
@@ -34,23 +35,17 @@ function Dashboard(props){
                <div className="dash_stats">
                  <InfoBox 
                     isRed
-                   // active = {casesType === "cases"}
-                    //onClick = {e => setCasesType('cases')}
-                    //title="TOTAL CASES" cases={prettyPrintStat(countryInfo.todayCases)} total={prettyPrintStat(countryInfo.cases)}
+                    active = {casesType === "pending"}
+                    onClick = {e => setCasesType('pending')}
+                    title="Pending Case" cases={props.ipc.underInvPend}
                     />
 
-                    <InfoBox
-                    //active = {casesType === "recovered"}
-                    //onClick = {e => setCasesType('recovered')}
-                    //title="SOLVED CASES" cases={prettyPrintStat(countryInfo.todayRecovered)} total={prettyPrintStat(countryInfo.recovered)}
+                  <InfoBox
+                    active = {casesType === "disposed"}
+                    onClick = {e => setCasesType('disposed')}
+                    title="Disposed Case" cases={props.ipc.underInvDisp}
                     />
 
-                    <InfoBox
-                    isRed
-                    //active = {casesType === "deaths"}
-                    //onClick = {e => setCasesType('deaths')}
-                    //title="PENDING CASES" cases={prettyPrintStat(countryInfo.todayDeaths)} total={prettyPrintStat(countryInfo.deaths)}
-                    />
               </div> 
           </div>
 
