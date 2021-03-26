@@ -16,10 +16,10 @@ class App extends Component {
     this.state = {
       route : 'signin',
       policeStation: ' ',
-      challan: { },
-      recovery: { },
-      ipc: { },
-      local: { },
+      challan: {},
+      recovery: {},
+      ipc: {},
+      local: {},
       progressReport: []
     }
   }
@@ -42,9 +42,13 @@ class App extends Component {
       } 
     }
 
-    if(route === 'ssp' && data !== 0)
-       this.setState({progressReport: data});
-  }
+    if(route === 'ssp' && data !== 0){
+        data.sort(function(a, b) {
+          return a.id - b.id;
+        });
+        this.setState({progressReport: data});
+     }
+}
 
   render(){
     const {route} = this.state;

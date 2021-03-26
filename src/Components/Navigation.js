@@ -14,12 +14,14 @@ const Navigation = ({onRouteChange, route}) => {
 
     else if(route === 'ssp'){
        return(
-     	   <nav style={{display: 'flex' , justifyContent: 'flex-end'}}>
-	       <div className="flex-grow flex items-center pt2 pb4">
+     	   <nav >
+	       <div className="flex-grow flex items-center pt2 pb3" style={{display: 'flex' , justifyContent: 'flex-end'}}>
 		   <p  onClick={() => onRouteChange('progressReport')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Progress Report</p>	    
 	       <p  onClick={() => onRouteChange('signin')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Sign Out</p>
 	       </div>
-	       </nav>	
+		   <h2  className='f3 tl pl4'>SSP OFFICE</h2>
+	       </nav>
+		   	
         );
      } 
 
@@ -38,7 +40,7 @@ const Navigation = ({onRouteChange, route}) => {
 		return(
 			 <nav style={{display: 'flex' , justifyContent: 'flex-end'}}>
 			<div className="flex-grow flex items-center pt2 pb4">
-			<p  onClick={() => onRouteChange('ssp')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Go Back</p>	    
+			<p  onClick={() => onRouteChange('ssp',0)} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Go Back</p>	    
 			<p  onClick={() => onRouteChange('signin')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Sign Out</p>
 			</div>
 			</nav>	

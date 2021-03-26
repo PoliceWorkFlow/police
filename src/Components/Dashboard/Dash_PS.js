@@ -11,7 +11,8 @@ function Dashboard(props){
   const [case_chosen, setStaion] = React.useState('Investigation');
 	const [cases] = React.useState(['Investigation', 'Recovery', 'Challan']);
   const [casesType, setCasesType] = React.useState("pending");
-
+  
+  //console.log(props.challan);
 	const onCaseTypeChange = (event) => {
 		//console.log(event.target.value);
 		setStaion(event.target.value);

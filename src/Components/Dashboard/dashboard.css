@@ -20,16 +20,27 @@ body {
 
 .dash_left {
   flex: 0.9;
+  justify-content: space-evenly;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+  padding: 10px;
+
 }
 
 .dash_stats {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 10px;
 }
 
 .dash{
-  display: flex;
+   display: flex;
   justify-content: space-evenly;
 }
 
