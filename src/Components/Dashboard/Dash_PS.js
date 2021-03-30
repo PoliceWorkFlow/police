@@ -50,16 +50,20 @@ function Dashboard(props){
               </div> 
           </div>
 
-        <Card className="dash_right">
-           <CardContent>
-             <h3>Rank </h3>
-                <Table /*countries={tableData}*/ />
-            <h3 className="dash_graphTitle">CRIME CASES</h3>
-              
-         </CardContent>
-      </Card>
+        
         </div>          
         );
 }
 
 export default Dashboard;
+
+/*
+<Card className="dash_right">
+           <CardContent>
+             <h3>Rank </h3>
+                <Table  />
+                <h3 className="dash_graphTitle">CRIME CASES</h3>
+              
+                </CardContent>
+             </Card>
+             */

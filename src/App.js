@@ -48,7 +48,14 @@ class App extends Component {
         });
         this.setState({progressReport: data});
      }
-}
+   }
+
+   onProgressChanges = (data) => {
+         const id = data.id - 1;
+         var progressReport = [...this.state.progressReport];
+         progressReport[id] = data;
+         this.setState({progressReport});
+        }
 
   render(){
     const {route} = this.state;
@@ -80,10 +87,11 @@ class App extends Component {
     }
 
     else if(route === 'progressReport'){
+      //console.log(this.state.progressReport);
       return (
         <div className='App'>
-         <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
-          <ProgressReport />
+         <Navigation onRouteChange={this.onRouteChange} route={this.state.route}  /> 
+          <ProgressReport onProgressChanges={this.onProgressChanges} />
          </div>
         );
     }

@@ -200,8 +200,7 @@ export default class StackedBarChart extends React.Component{
 
              ]
         }
-        console.log(this.props.flag);
-
+        
         if(this.props.flag === 1){
             return (
                 <div>

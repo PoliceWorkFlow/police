@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './Report.css';
 import { MenuItem, FormControl, Select, Grid, Button, Paper, TextField, makeStyles} from "@material-ui/core";
 import 'tachyons';
+import { Details } from '@material-ui/icons';
 
 const useStyle = makeStyles(theme => ({
 	root: {
@@ -17,15 +18,11 @@ const useStyle = makeStyles(theme => ({
 	}
 }))
 
-/*const initailState = {
-	casesubmitted: '', propertyDisp: '', henious: '', POarrested: '', propertyCrime: '', untrace_in_court: '',
-	disposal_compl: '', cleaniness: '', feedback: '', handling: '', ndps: '', arm: '', excise: '', gambling: '', commercial: ''
-};*/
 
-function Report() {
+function Report(props) {
 	
 	const [station_chosen, setStaion] = useState('');
-	const [police_station] = useState(['Police Station 1', 'Police Station 2', 'Police Station 3', 'Police Station 4', 'Police Station 5', 'Police Station 6', 'Police Station 7', 'Police Station 8', 'Police Station 9', 'Police Station 10']);
+	const [police_station] = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
 	
 	const [progress, setData] = useState({
 		casesubmitted: 0, propertyDisp: 0, henious: 0, POarrested: 0, propertyCrime: 0, untrace_in_court: 0,
@@ -59,8 +56,11 @@ function Report() {
 			})
 		.then(response => response.json())
 		.then(data => {
-			if(data === 'success')
-			alert('Progress Report added successfully');	
+			console.log(data);
+			if(data.id === index){
+				props.onProgressChanges(data);
+				alert('Progress Report added successfully');	
+			}
 			else
 			alert('Unable to add the Progress Report. Kindly add it again')
 		 }) 
@@ -73,7 +73,7 @@ function Report() {
 		<div className="dash">
 		<div className="dash_left">
 			<div className='dash_header'>
-				<h2>Monthly Report</h2>
+				<h2>Progress Report</h2>
 
 				<FormControl className="dash_dropdown">  
 				<Select variant="outlined" value = {station_chosen} onChange={onStationChange} displayEmpty>

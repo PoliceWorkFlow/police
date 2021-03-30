@@ -1,7 +1,7 @@
 import React from 'react';
 import './dashboard.css';
 import { MenuItem, FormControl, Select, Grid, Card, CardContent} from "@material-ui/core";
-//import InfoBox from './InfoBox';
+import 'tachyons';
 import Table from './Table';
 import 'tachyons';
 import Sample from './stacked_graph'
@@ -9,52 +9,53 @@ import Grou from './group_chart'
 import Simple from './simplechart'
 
 function Dashboard(props){
+   
+   const [case_chosen, setCaseType] = React.useState('Cases Submitted in Court')
+	const caseType = React.useState([ 'Cases Submitted in Court', 'Henius Crime', 'Untraced cases of crime against property', 'Disposal of Complaints', 'Property Disposal', 'PO arrested', 'Untraced Cases put in court',
+                     'Negligence in duty/Public dealing/image', 'Cleaniness of Police Station', 'Handling of Law and Order','Cases Register Under Detection Work' ]);
 
-    const [station_chosen, setStaion] = React.useState('');
-	  const [police_station] = React.useState(['Police Stations vs Cases', 'Cases vs Police Stations', 'Police Stations total Marks', 
-                     'Comparative Display Based on all Field 1', 'Comparative Display Based on all Field 2', 'Untraced Crime Cases', 
-                     'Cases submitted in Court Comparison', 'Disposal of Complaints', 'Property Disposal', 'Points on Arrest','Points on Untraced Cases put in court',
-                     'Negligence in duty/Public dealing/image', 'Cleaniness of Police Station', 'Handling of Law and Order',
-                     'Cases Register Under Detection Work' ]);
-    
-    console.log(props.progressReport);
-  
- 	 const onStationChange = (event) => {
+ 	 const onCaseTypeChange = (event) => {
 		//console.log(event.target.value);
-		setStaion(event.target.value);
+		setCaseType(event.target.value);
     }
     return(
-         <div className="dash"> 
-            <div className="dash_left">
-                
-            <div class="row">
-               <div class="column">
-                  { props.progressReport.length === 0
-                     ? <p></p>
-                     :  <Sample Report = {props.progressReport} flag = {1}/>
-                     }
+      <div>
+         { props.progressReport.length === 0
+               ? <p></p>
+               :   
+               <div className="dash">
+               <div className="dash_left"> 
+                  <div class="row">
+                  <div class="column">
+                        <Sample Report = {props.progressReport} flag = {1}/>
+                  </div>
+                  <div class="column">
+                     <Sample Report = {props.progressReport} flag = {2} />
+                  </div>
+                  </div>
+                  <FormControl className="dash_dropdown">  
+                    <Select variant="outlined" onChange={onCaseTypeChange} value={case_chosen} >
+                     { caseType.map((cases) => (
+                        <MenuItem value = {cases}> {cases} </MenuItem>
+                        ))}
+                    </Select>
+                    </FormControl>
                </div>
-               <div class="column">
-                  { props.progressReport.length === 0
-                     ? <p></p>
-                     :  <Sample Report = {props.progressReport} flag = {2} />
-                     }
-               </div>
-               </div>
-           
-             </div>
-               
-        <Card className="dash_right">
-           <CardContent>
-             <h3>Rank </h3>
-                <Table /*countries={tableData}*/ />
-            <h3 className="dash_graphTitle">CRIME CASES</h3>
-              
-         </CardContent>
-      </Card>
-        </div>          
+
+               <Card className="dash_right">
+               <CardContent>
+               <h3>Rank </h3>
+                  <Table report = {props.progressReport} flag = {1} />
+               <h3 className="pt4">Last Updated On</h3>
+                     <Table report = {props.progressReport} flag = {2} />  
+               </CardContent>
+               </Card>
+            </div> 
+            }  
+
+          </div>                
         );
-    
+      
 }
 
 export default Dashboard;
