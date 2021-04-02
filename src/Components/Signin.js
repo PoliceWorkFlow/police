@@ -38,14 +38,15 @@ class Signin extends React.Component {
    	})
       .then(response => response.json())
       .then(data => {
+		  //console.log(data);
       	if(data === 'unable to login')
 		  alert('Wrong Credentials');	
       	else{
 		  var ind = data[0];
 		  if(ind>0 && ind<11)	  
-		    this.props.onRouteChange('station',data);
+		    this.props.onRouteChange('station', data);
 		  else
-		     this.props.onRouteChange('ssp',data);	
+		     this.props.onRouteChange('ssp', data);	
 		  }	
       })
      }

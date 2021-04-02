@@ -1,7 +1,6 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import {Grid} from "@material-ui/core";
 
 export default class StackedBarChart extends React.Component{
    
@@ -98,39 +97,35 @@ export default class StackedBarChart extends React.Component{
                 enabled: false
             },
             series: [
-                { 
-                    name: 'Case In Court',
-                    data: this.state.cases_in_court
-                },  
                 {
-                    name: 'Henius Crime ',
-                    data: this.state.henius
+                    name: 'Disposal of Complaints',
+                    data: this.state.disp_comp
+                },
+                {
+                    name: 'Untraced cases in court',
+                    data: this.state.untrace_cases
+                },
+                {
+                    name: 'PO arrested ',
+                    data: this.state.po_arrested
+                },
+                {
+                    name: 'Property Disp ',
+                    data: this.state.prop_disp
                 },
                 {
                     name: 'Crime against Property ',
                     data: this.state.untrace_prop
                 },
-
                 {
-                    name: 'Property Disp ',
-                    data: this.state.prop_disp
+                    name: 'Henius Crime ',
+                    data: this.state.henius
                 },
-
-                {
-                    name: 'PO arrested ',
-                    data: this.state.po_arrested
-                },
-
-                {
-                    name: 'Untraced cases in court',
-                    data: this.state.untrace_cases
-                },
-
-                {
-                    name: 'Disp Compl',
-                    data: this.state.disp_comp
-                },
-            
+                { 
+                    name: 'Case In Court',
+                    data: this.state.cases_in_court
+                },  
+               
              ]
         }
 
@@ -165,39 +160,39 @@ export default class StackedBarChart extends React.Component{
                 enabled: false
             },
             series: [
+
                 {
-                    name: 'Cleaniness',
-                    data: this.state.clean
-                },
-                {
-                    name: 'Handling',
-                    data: this.state.handling
-                },
-                {
-                    name: 'Public Image & feedback',
-                    data: this.state.feedback
-                },
-                {
-                    name: 'NDPS',
-                    data: this.state.ndps
-                },
-                {
-                    name: 'Commercial',
-                    data: this.state.commercial
-                },
-                {
-                    name: 'ARM',
-                    data: this.state.arm
+                    name: 'Gambling',
+                    data: this.state.gambling
                 },
                 {
                     name: 'Excise',
                     data: this.state.excise
                 },
                 {
-                    name: 'Gambling',
-                    data: this.state.gambling
+                    name: 'ARM',
+                    data: this.state.arm
                 },
-
+                {
+                    name: 'Commercial',
+                    data: this.state.commercial
+                },
+                {
+                    name: 'NDPS',
+                    data: this.state.ndps
+                },
+                {
+                    name: 'Public Image & feedback',
+                    data: this.state.feedback
+                },
+                {
+                    name: 'Handling',
+                    data: this.state.handling
+                },
+                {
+                    name: 'Cleaniness',
+                    data: this.state.clean
+                },  
              ]
         }
         
@@ -207,6 +202,7 @@ export default class StackedBarChart extends React.Component{
                  <HighchartsReact
                             highcharts={Highcharts} 
                             options={configObj}
+                            containerProps={{ style: { height: "430px", width: "450px" }}}
                             //callback={this.highchartsCallback}
                    />
                   </div> 
@@ -219,6 +215,7 @@ export default class StackedBarChart extends React.Component{
                 <HighchartsReact
                     highcharts={Highcharts} 
                     options={configObj1}
+                    containerProps={{ style: { height: "430px", width: "450px" } }}
                     //callback={this.highchartsCallback}
                  />
                     
@@ -228,23 +225,3 @@ export default class StackedBarChart extends React.Component{
         
     }
 }
-
- /*
-   return (
-            <div>
-             <HighchartsReact
-                        highcharts={Highcharts} 
-                        options={configObj}
-                        //callback={this.highchartsCallback}
-               />
-                
-             <HighchartsReact
-                        highcharts={Highcharts} 
-                        options={configObj1}
-                        //callback={this.highchartsCallback}
-             />
-                
-            </div>
-        )          
-
-*/

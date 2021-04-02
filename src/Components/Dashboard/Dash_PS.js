@@ -1,27 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './dashboard.css';
 import { MenuItem, FormControl, Select, Card, CardContent} from "@material-ui/core";
 import InfoBox from './InfoBox';
-import sortData from './util';
 import Table from './Table';
 import 'tachyons';
 
 function Dashboard(props){
     
-  const [case_chosen, setStaion] = React.useState('Investigation');
-	const [cases] = React.useState(['Investigation', 'Recovery', 'Challan']);
-  const [casesType, setCasesType] = React.useState("pending");
-  
-  //console.log(props.challan);
+  const [case_chosen, setStaion] = useState('Investigation');
+	const [cases] = useState(['Investigation', 'Recovery', 'Challan']);
+  const [casesType, setCasesType] = useState("pending");
+  const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
+ 
 	const onCaseTypeChange = (event) => {
-		//console.log(event.target.value);
 		setStaion(event.target.value);
     }
-       return(
+    
+      return(
          <div className="dash">
             <div className="dash_left">
                 <div className='dash_header'>
-                    <h2>POLICE STATION {props.policeStation}</h2>
+                    <h2>{policeStation[0][props.policeStation - 1]}</h2>
 
                     <FormControl className="dash_dropdown">  
                     <Select variant="outlined" onChange={onCaseTypeChange} value={case_chosen}>

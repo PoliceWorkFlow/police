@@ -16,10 +16,10 @@ class App extends Component {
     this.state = {
       route : 'signin',
       policeStation: ' ',
-      challan: {},
-      recovery: {},
-      ipc: {},
-      local: {},
+      challan: [],
+      recovery: [],
+      ipc: [],
+      local: [],
       progressReport: []
     }
   }
@@ -43,10 +43,35 @@ class App extends Component {
     }
 
     if(route === 'ssp' && data !== 0){
-        data.sort(function(a, b) {
+        var report = data.report; 
+        report.sort(function(a, b) {
           return a.id - b.id;
         });
-        this.setState({progressReport: data});
+        this.setState({progressReport: report});
+
+        var challan = data.challan; 
+        challan.sort(function(a, b) {
+          return a.id - b.id;
+        });
+        this.setState({challan});
+
+        var recovery = data.recovery; 
+        recovery.sort(function(a, b) {
+          return a.id - b.id;
+        });
+        this.setState({recovery});
+
+        var ipc = data.ipc; 
+        ipc.sort(function(a, b) {
+          return a.id - b.id;
+        });
+        this.setState({ipc});
+
+        var local = data.local; 
+        local.sort(function(a, b) {
+          return a.id - b.id;
+        });
+        this.setState({local});
      }
    }
 
@@ -72,7 +97,7 @@ class App extends Component {
       return (
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
-          <DashboardStation policeStation={this.state.policeStation} challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local} />
+          <DashboardStation policeStation={this.state.policeStation} challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local}/>
          </div>
         );
     }
@@ -81,7 +106,7 @@ class App extends Component {
       return (
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
-          <DashboardSSP progressReport={this.state.progressReport}/>
+          <DashboardSSP progressReport={this.state.progressReport} challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local}/>
          </div>
         );
     }

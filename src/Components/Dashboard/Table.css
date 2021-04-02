@@ -1,7 +1,16 @@
 .table {
-    margin-top: 20px;
+    margin-top: 10px;
     overflow: scroll;
-    height: 400px;
+    height: 375px;
+    width: 250px;
+    color: #6a5d5d;
+}
+
+.table2 {
+    margin-top: 10px;
+    overflow: scroll;
+    height: 525px;
+    width: 250px;
     color: #6a5d5d;
 }
 
