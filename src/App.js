@@ -26,7 +26,8 @@ class App extends Component {
   
   onRouteChange = (route, data ) => {
     this.setState({route: route});
-
+  
+    /*
     if(route === 'station' && data !== 0){    
       this.setState({policeStation: data[0]});
 
@@ -41,8 +42,11 @@ class App extends Component {
             this.setState({ local: data[i] });         
       } 
     }
+    */
 
-    if(route === 'ssp' && data !== 0){
+    if((route === 'ssp' || route === 'station') && data !== 0){
+        this.setState({policeStation: data.id});
+
         var report = data.report; 
         report.sort(function(a, b) {
           return a.id - b.id;
@@ -62,6 +66,7 @@ class App extends Component {
         this.setState({recovery});
 
         var ipc = data.ipc; 
+        //console.log(ipc);
         ipc.sort(function(a, b) {
           return a.id - b.id;
         });
@@ -97,7 +102,7 @@ class App extends Component {
       return (
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
-          <DashboardStation policeStation={this.state.policeStation} challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local}/>
+          <DashboardStation policeStation={this.state.policeStation} progressReport={this.state.progressReport} challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local}/>
          </div>
         );
     }

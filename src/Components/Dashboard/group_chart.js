@@ -1,24 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { Bar } from "react-chartjs-2";
 
 import './stylo.css';
 import { Group } from "@material-ui/icons";
 import { useForkRef } from "@material-ui/core";
-/*
- underInvPend: local.underinvPend,
-         underInvDisp: local.underinvDisp,
-         cancelledPend: local.cancelledPend,
-         cancelledDisp: local.cancelledDisp,
-         underInv1YrPend: local.over1yearPend,
-         underInv1YrDisp: local.over1yearDisp,
-         underInv6monPend: local.over6monthPend,
-         underInv6monDisp: local.over6monthDisp,
-         underInvo3monPend: local.over3monthPend,
-         underInvo3monDisp: local.over3monthDisp,
-         underInvl3monPend: 
-         underInvl3monDisp
-*/
 
 class App extends React.Component {
   constructor(props) {
@@ -57,52 +42,55 @@ class App extends React.Component {
       var dataDisp = [];
       var dataPendLocal = [];
       var dataDispLocal = [];
-      
-      console.log(this.state.underInv1yrDisp);
 
       if(type === 'Under Investigation'){
           dataDisp = this.state.underInvDisp;
           dataPend = this.state.underInvPend;
           dataDispLocal = this.state.underInvDispL;
           dataPendLocal = this.state.underInvPendL;
+        //  console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
       }
       else if(type === 'Cancellation/Untrace'){
         dataDisp = this.state.cancelledDisp;
         dataPend = this.state.cancelledPend;
         dataDispLocal = this.state.cancelledDispL;
         dataPendLocal = this.state.cancelledPendL;
+       // console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
         }
       else if(type === 'Under Investigation Over 1 Year'){
-          dataDisp = this.state.underInv1yrDisp;
-          dataPend = this.state.underInv1yrPend;
-          dataDispLocal = this.state.underInv1yrDispL;
-          dataPendLocal = this.state.underInv1yrPendL;
+          dataDisp = this.state.underInv1YrDisp;
+          dataPend = this.state.underInv1YrPend;
+          dataDispLocal = this.state.underInv1YrDispL;
+          dataPendLocal = this.state.underInv1YrPendL; 
       }
       else if(type === 'Under Investigation Over 6 Month'){
         dataDisp = this.state.underInv6monDisp;
         dataPend = this.state.underInv6monPend;
         dataDispLocal = this.state.underInv6monDispL;
         dataPendLocal = this.state.underInv6monPendL;
+        //console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
       }
       else if(type === 'Under Investigation Over 3 Month'){
         dataDisp = this.state.underInvo3monDisp;
         dataPend = this.state.underInvo3monPend;
         dataDispLocal = this.state.underInvo3monDispL;
         dataPendLocal = this.state.underInvo3monPendL;
+        //console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
       }
       else if(type === 'Under Investigation less than 3 month'){
         dataDisp = this.state.underInvl3monDisp;
         dataPend = this.state.underInvl3monPend;
         dataDispLocal = this.state.underInvl3monDispL;
         dataPendLocal = this.state.underInvl3monPendL;
+        //console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
       }
      
       const data = {
         labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib',
-        'Sri Chamkaru Sahib', 'Sadar Rupanagar', 'Sadar Morinda', 'Nupurbedi', 'Singh Bhagwantpur'
+        'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'
         ],
         datasets: [
-          {
+          { 
             label: 'Under IPC Law Pending',
             backgroundColor: "rgba(54, 162, 235, 0.6)",
             borderColor: "rgba(54, 162, 235, 5.6)",
@@ -120,29 +108,29 @@ class App extends React.Component {
             //stack: 1,
             hoverBackgroundColor: "rgba(255,99,132,2.6)",
             hoverBorderColor: "rgba(255,99,132,5.6)",
-            data:  dataDisp
+            data: dataDisp
           },
 
           {
             label: 'Under Local & Special Law Pending',
-            backgroundColor: "rgba(255, 206, 86, 0.6)",
-            borderColor: "rgba(255, 206, 86, 0.6)",
+            backgroundColor: "rgba(255, 159, 64, 0.6)",
+            borderColor: "rgba(255, 159, 64, 5.6)",
             borderWidth: 1,
             //stack: 1,
-            hoverBackgroundColor: "rgba(255,99,132,2.6)",
-            hoverBorderColor: "rgba(255,99,132,5.6)",
-            data:  dataPendLocal
+            hoverBackgroundColor: "rgba(255, 159, 64, 2.6)",
+            hoverBorderColor: "rgba(255, 159, 64, 5.6)",
+            data: dataPendLocal
           },
 
           {
             label: 'Under Local & Special Law Disposed',
-            backgroundColor: "rgba(75, 192, 192, 0.6)",
-            borderColor: "rgba(75, 192, 192, 0.6)",
+            backgroundColor: "rgba(11, 156, 49, 0.5)",
+            borderColor: "rgba(11, 156, 49, 5.5)",
             borderWidth: 1,
             //stack: 1,
-            hoverBackgroundColor: "rgba(255,99,132,2.6)",
-            hoverBorderColor: "rgba(255,99,132,5.6)",
-            data:  dataDispLocal
+            hoverBackgroundColor: "rgba(11, 156, 49, 2.5)",
+            hoverBorderColor: "rgba(11, 156, 49, 5.5)",
+            data: dataDispLocal
           },
         ]
       }
@@ -177,6 +165,5 @@ class App extends React.Component {
     );
   }
 }
-
 
 export default App;

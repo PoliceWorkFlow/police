@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './dashboard.css';
-import { MenuItem, FormControl, Select, Card, CardContent} from "@material-ui/core";
+import { MenuItem, FormControl, Select, Card, CardContent } from "@material-ui/core";
 import InfoBox from './InfoBox';
 import Table from './Table';
 import 'tachyons';
@@ -47,8 +47,18 @@ function Dashboard(props){
                     />
 
               </div> 
-          </div>
-
+            </div>
+            
+            { props.progressReport.length === 0
+              ? <p></p> 
+              :
+               <Card className="dash_right">
+               <CardContent>
+               <h3>Rank </h3>
+                  <Table report = {props.progressReport} flag = {1} />
+               </CardContent>
+               </Card>
+              }
         
         </div>          
         );

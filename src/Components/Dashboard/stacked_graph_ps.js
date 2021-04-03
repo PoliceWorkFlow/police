@@ -9,8 +9,8 @@ class StackedChart extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            case_chosen: 'Challan Cases',
-            caseType: ['Challan Cases', 'Under Investigation', 'Cancellation/Untrace', 'Under Investigation Over 1 Year', 'Under Investigation Over 6 Month', 'Under Investigation Over 3 Month', 'Under Investigation less than 3 month'],
+            case_chosen: 'Under Investigation',
+            caseType: ['Under Investigation', 'Cancellation/Untraced', 'Under Investigation Over 1 Year', 'Under Investigation Over 6 Month', 'Under Investigation Over 3 Month', 'Under Investigation less than 3 month', 'Challan Cases'],
             overloading : [1*this.props.challan[0].overloading, 1*this.props.challan[1].overloading, 1*this.props.challan[2].overloading, 1*this.props.challan[3].overloading, 1*this.props.challan[4].overloading, 1*this.props.challan[5].overloading, 1*this.props.challan[6].overloading, 1*this.props.challan[7].overloading, 1*this.props.challan[8].overloading, 1*this.props.challan[9].overloading ],
             drunken: [1*this.props.challan[0].drunken, 1*this.props.challan[1].drunken, 1*this.props.challan[2].drunken, 1*this.props.challan[3].drunken, 1*this.props.challan[4].drunken, 1*this.props.challan[5].drunken, 1*this.props.challan[6].drunken, 1*this.props.challan[7].drunken, 1*this.props.challan[8].drunken, 1*this.props.challan[9].drunken ],
             overspeed: [1*this.props.challan[0].overspeed, 1*this.props.challan[1].overspeed, 1*this.props.challan[2].overspeed, 1*this.props.challan[3].overspeed, 1*this.props.challan[4].overspeed, 1*this.props.challan[5].overspeed, 1*this.props.challan[6].overspeed, 1*this.props.challan[7].overspeed, 1*this.props.challan[8].overspeed, 1*this.props.challan[9].overspeed ],
@@ -26,6 +26,8 @@ class StackedChart extends React.Component{
     }
 
     render(){
+
+      //  console.log(this.props.ipc);
        
         const configObj = {
             chart: {

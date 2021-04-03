@@ -63,7 +63,7 @@ class Chart extends Component{
 
    const chartData = {
     labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib',
-      'Sri Chamkaur Sahib', 'Sadar Rupanagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'
+      'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'
       ],
 
     datasets:[
