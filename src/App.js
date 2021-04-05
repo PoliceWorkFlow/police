@@ -8,6 +8,7 @@ import DashboardStation from './Components/Dashboard/Dash_PS';
 import ProgressReport from './Components/ProgressReport/Report'
 import Navigation from './Components/Navigation';
 import PSReport from './Components/PSReport/PS';
+import PSWiseReport from './Components/psWiseReport/psWiseReport';
 
 
 class App extends Component {
@@ -117,7 +118,6 @@ class App extends Component {
     }
 
     else if(route === 'progressReport'){
-      //console.log(this.state.progressReport);
       return (
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route}  /> 
@@ -131,6 +131,14 @@ class App extends Component {
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
           <PSReport policeStation={this.state.policeStation} />
+         </div>
+        );
+    }
+    else if(route === 'psWiseReport'){
+      return (
+        <div className='App'>
+          <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
+          <PSWiseReport challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local} />
          </div>
         );
     }

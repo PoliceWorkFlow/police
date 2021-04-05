@@ -19,6 +19,7 @@ function PS(props) {
 	
 	const [case_chosen, setStaion] = useState('Investigation');
 	const [cases] = useState(['Investigation', 'Recovery', 'Challan']);
+	const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
 	const [challan, setData] = useState({ overLoading: '0', withoutHelmet: '0', drunken: '0', covid19: '0', overspeed: '0', others: '0'});
     const [recovery, setDataRecovery] = useState({ illict: '0', licit: '0', lahan: '0', ganja: '0', poppy: '0', heroin: '0', opium: '0', charas: '0', tablets: '0', injections: '0', others: '0' });
 	const [ipc, setDataIPC] = useState({ underinvPend: '0', underinvDisp: '0', cancelledPend: '0', cancelledDisp: '0', over1yearPend: '0', over1yearDisp: '0', over6monthPend: '0', over6monthDisp: '0', over3monthPend: '0', over3monthDisp: '0', less3monthPend: '0', less3monthDisp: '0'});
@@ -118,7 +119,7 @@ function PS(props) {
 		<div className="dash">
 		<div className="dash_left">
 			<div className='dash_header'>
-				<h2>PS {props.policeStation} Monthly Report</h2>
+				<h2>{policeStation[0][props.policeStation - 1]} Monthly Report</h2>
 
 				<FormControl className="dash_dropdown">  
                     <Select variant="outlined" onChange={onCaseTypeChange} value={case_chosen}>
@@ -760,7 +761,7 @@ function PS(props) {
 					<Grid item xs={3}>
 					   <TextField
 						  variant = "outlined"
-						  label = "LAHAN(in Gram)"
+						  label = "LAHAN(in Litres)"
 						  type = "number"
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {

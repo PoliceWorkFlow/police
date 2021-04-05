@@ -50,7 +50,7 @@ class App extends React.Component {
           dataPendLocal = this.state.underInvPendL;
         //  console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
       }
-      else if(type === 'Cancellation/Untrace'){
+      else if(type === 'Cancellation/Untraced'){
         dataDisp = this.state.cancelledDisp;
         dataPend = this.state.cancelledPend;
         dataDispLocal = this.state.cancelledDispL;
