@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import 'tachyons';
 import { MenuItem, FormControl, Select, Grid} from "@material-ui/core";
+import DateFnsUtils from "@date-io/date-fns";
+import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import "date-fns";
 import Challan from './challan';
 import IPC from './ipc';
 import Local from './local';
@@ -9,16 +12,35 @@ import Recovery from './recovery';
 export default function CustomizedTables(props) {
   const [case_chosen, setStaion] = useState('Under IPC Law');
   const [caseType] = useState(['Under IPC Law', 'Under Local & Special Law', 'Recovery', 'Challan']);
-
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const months = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
 
   const onCaseTypeChange = (event) => {
     setStaion(event.target.value);
    } 
 
+  const handleDateChange = (date) => {
+     const monYear = months[0][date.getMonth()] + ' ' + date.getFullYear();
+     setSelectedDate(monYear);
+
+     fetch('http://localhost:3000/extractDetails', {
+				method: 'post',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					monYear: monYear
+			  	})
+		   	})
+		  	.then(response => response.json())
+		  	.then(data => { 
+             props.onMonthChange(data);
+          })
+     
+  } 
+
   return (
      <div>
         <Grid container >
-					 <Grid item xs={9}>
+					 <Grid item xs={8}>
             <h2 class="pt2">POLICE STATION WISE REPORT </h2>
             </Grid>
             <Grid item xs={3}>
@@ -29,10 +51,22 @@ export default function CustomizedTables(props) {
                   ))}
               </Select>
               </FormControl>
-        </Grid> 
-        </Grid>
-        
-        
+              </Grid>
+             <Grid item xs={1} style={{paddingTop: '14px'}}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils} >
+						 <DatePicker 
+							variant="outlined"
+							openTo="year"
+							views={["year", "month"]}
+							dateFormat="MM/yyyy"
+							showMonthYearPicker
+							label="Select Date"
+							value={selectedDate}
+							onChange= { date => handleDateChange(date)}
+							/>  
+				   </MuiPickersUtilsProvider>
+           </Grid>
+        </Grid>         
     
         { case_chosen === 'Challan'
             ? <Challan challan={props.challan}/>

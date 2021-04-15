@@ -5,7 +5,7 @@ import 'tachyons';
 import Table from './Table';
 import 'tachyons';
 import Stacked from './stacked_graph'
-import StackedPS from './stacked_graph_ps'
+import StackedPS from './graph_investigation'
 import Bar from './simplechart'
 
 function Dashboard(props){
@@ -18,6 +18,9 @@ function Dashboard(props){
                :   
                <div className="dash">
                <div className="dash_left"> 
+               <div className='dash_header'> 
+                      <h2>SSP OFFICE</h2>
+                       </div>
                   <div class="row">
                   <div class="column">
                         <Stacked Report = {props.progressReport} flag = {1}/>
@@ -31,15 +34,11 @@ function Dashboard(props){
                         <Bar Report = {props.progressReport} />
                   </div>
                   <div class="column">
-                    { props.challan.length === 0 || props.recovery.length === 0 || props.ipc.length === 0 || props.local.length === 0 
-                        ? <p></p>
-                        :
-                        <StackedPS ipc = {props.ipc} local = {props.local} challan = {props.challan} recovery = {props.recovery}/> 
-                     }
+                    <StackedPS /> 
                    </div>
                   </div>  
                </div>
-
+               <div style={{paddingTop:'45px'}}>
                <Card className="dash_right">
                <CardContent>
                <h3>Rank </h3>
@@ -48,6 +47,7 @@ function Dashboard(props){
                      <Table report = {props.progressReport} flag = {2} />  
                </CardContent>
                </Card>
+               </div>
             </div> 
             }  
 
@@ -57,15 +57,3 @@ function Dashboard(props){
 }
 
 export default Dashboard;
-
-/*
-
-                    <FormControl className="dash_dropdown">  
-                    <Select variant="outlined" onChange={onStationChange} value={station_chosen} >
-                    <MenuItem value = "all">Ropar</MenuItem>
-                    { police_station.map((station) => (
-                       <MenuItem value = {station}> {station} </MenuItem>
-                      ))}
-                    </Select>
-                    </FormControl>
-                    */

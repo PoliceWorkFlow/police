@@ -3,6 +3,7 @@ import './dashboard.css';
 import { MenuItem, FormControl, Select, Card, CardContent } from "@material-ui/core";
 import InfoBox from './InfoBox';
 import Table from './Table';
+import Stacked from './stacked_graph'
 import 'tachyons';
 
 function Dashboard(props){
@@ -17,51 +18,37 @@ function Dashboard(props){
     }
     
       return(
-         <div className="dash">
-            <div className="dash_left">
-                <div className='dash_header'>
-                    <h2>{policeStation[0][props.policeStation - 1]}</h2>
-
-                    <FormControl className="dash_dropdown">  
-                    <Select variant="outlined" onChange={onCaseTypeChange} value={case_chosen}>
-                   
-                     { cases.map((caseType) => (
-                       <MenuItem value = {caseType}> {caseType} </MenuItem>
-                      ))}
-                     </Select>
-                    </FormControl>
-                </div> 
-
-               <div className="dash_stats">
-                 <InfoBox 
-                    isRed
-                    active = {casesType === "pending"}
-                    onClick = {e => setCasesType('pending')}
-                    title="Pending Case" cases={props.ipc.underInvPend}
-                    />
-
-                  <InfoBox
-                    active = {casesType === "disposed"}
-                    onClick = {e => setCasesType('disposed')}
-                    title="Disposed Case" cases={props.ipc.underInvDisp}
-                    />
-
-              </div> 
-            </div>
-            
-            { props.progressReport.length === 0
-              ? <p></p> 
-              :
-               <Card className="dash_right">
-               <CardContent>
-               <h3>Rank </h3>
-                  <Table report = {props.progressReport} flag = {1} />
-               </CardContent>
-               </Card>
-              }
-        
-        </div>          
+          <div >   
+             { props.progressReport.length === 0
+                   ? <p></p>
+                    :   
+                    <div className="dash">
+                    <div className="dash_left">
+                      <div className='dash_header'> 
+                      <h2>{policeStation[0][props.policeStation - 1]}</h2>
+                       </div>
+                        <div class="row">
+                        <div class="column">
+                              <Stacked Report = {props.progressReport} flag = {1}/>
+                        </div>
+                        <div class="column">
+                          <Stacked Report = {props.progressReport} flag = {2} />
+                        </div>
+                        </div> 
+                       </div> 
+                       <div style={{paddingTop:'45px'}}>
+                        <Card className="dash_right">
+                        <CardContent>
+                        <h3>Rank </h3>
+                            <Table report = {props.progressReport} flag = {1} />
+                        </CardContent>
+                        </Card> 
+                        </div>
+                      </div>  
+                }   
+         </div>        
         );
+       
 }
 
 export default Dashboard;

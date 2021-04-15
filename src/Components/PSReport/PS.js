@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
-import { MenuItem, FormControl, Select, Grid, Button, Paper, TextField, makeStyles} from "@material-ui/core";
+import {Grid, Button, Paper, TextField, makeStyles} from "@material-ui/core";
+import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import 'tachyons';
-
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
+ 
 const useStyle = makeStyles(theme => ({
 	root: {
 		'& .MuiFormControl-root' : {
@@ -17,44 +20,81 @@ const useStyle = makeStyles(theme => ({
 
 function PS(props) {
 	
-	const [case_chosen, setStaion] = useState('Investigation');
-	const [cases] = useState(['Investigation', 'Recovery', 'Challan']);
 	const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
-	const [challan, setData] = useState({ overLoading: '0', withoutHelmet: '0', drunken: '0', covid19: '0', overspeed: '0', others: '0'});
-    const [recovery, setDataRecovery] = useState({ illict: '0', licit: '0', lahan: '0', ganja: '0', poppy: '0', heroin: '0', opium: '0', charas: '0', tablets: '0', injections: '0', others: '0' });
-	const [ipc, setDataIPC] = useState({ underinvPend: '0', underinvDisp: '0', cancelledPend: '0', cancelledDisp: '0', over1yearPend: '0', over1yearDisp: '0', over6monthPend: '0', over6monthDisp: '0', over3monthPend: '0', over3monthDisp: '0', less3monthPend: '0', less3monthDisp: '0'});
-	const [local, setDatalocal] = useState({ underinvPend: '0', underinvDisp: '0', cancelledPend: '0', cancelledDisp: '0', over1yearPend: '0', over1yearDisp: '0', over6monthPend: '0', over6monthDisp: '0', over3monthPend: '0', over3monthDisp: '0', less3monthPend: '0', less3monthDisp: '0'});
-	const onCaseTypeChange = (event) => {
-		setStaion(event.target.value);
-    }
+	const [challan, setData] = useState({ overLoading: '0', withoutHelmet: '0', drunken: '0', covid19: '0', overspeed: '0', others: '0', monYear: '' });
+    const [recovery, setDataRecovery] = useState({ illict: '0', licit: '0', lahan: '0', ganja: '0', poppy: '0', heroin: '0', opium: '0', charas: '0', tablets: '0', injections: '0', others: '0', monYear: '' });
+	const [ipc, setDataIPC] = useState({ underinvPend: '0', underinvDisp: '0', cancelledPend: '0', cancelledDisp: '0', over1yearPend: '0', over1yearDisp: '0', over6monthPend: '0', over6monthDisp: '0', over3monthPend: '0', over3monthDisp: '0', less3monthPend: '0', less3monthDisp: '0', monYear: ''});
+	const [local, setDatalocal] = useState({ underinvPend: '0', underinvDisp: '0', cancelledPend: '0', cancelledDisp: '0', over1yearPend: '0', over1yearDisp: '0', over6monthPend: '0', over6monthDisp: '0', over3monthPend: '0', over3monthDisp: '0', less3monthPend: '0', less3monthDisp: '0', monYear: ''});
+    const [selectedDate, setSelectedDate] = useState(new Date());
+	const months = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
 
 	const classes = useStyle();
-    
-	function onSubmitChallan() {
-        //  console.log(challan.overLoading);
-      if(challan.overLoading<0 || challan.withoutHelmet<0 || challan.drunken<0 || challan.covid19<0 || challan.overspeed<0 || challan.others<0)
+
+    function onSubmitChallan() {
+
+	 challan.monYear = months[0][selectedDate.getMonth()] + ' ' + selectedDate.getFullYear();
+
+     if(challan.overLoading<0 || challan.withoutHelmet<0 || challan.drunken<0 || challan.covid19<0 || challan.overspeed<0 || challan.others<0)
 	      alert("ERROR!!!!  Add only positive values"); 
       
-	else{
-	   fetch('http://localhost:3000/addchallandetails', {
-   		method: 'post',
-   		headers: {'Content-Type': 'application/json'},
-   		body: JSON.stringify({
-   			policeStation: props.policeStation,
-   			challan: challan
-   		})
-   	  })
-      .then(response => response.json())
-      .then(data => {
-      	if(data === 'success')
-		  alert('Challan Details added');	
-      	else
-		  alert('Unable to add the details. Kindly add it again')
-      }) 
-	 }
+		else{
+			fetch('http://localhost:3000/checkMonthYear', {
+				method: 'post',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					policeStation: props.policeStation,
+					monYear: challan.monYear,
+					type: 'Challan'
+				})
+			})
+			.then(response => response.json())
+			.then(data => {
+
+				if(data === 'Yes'){
+				   if(window.confirm("Report for this month already exist!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
+					fetch('http://localhost:3000/addchallandetails', {
+						method: 'post',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({
+							policeStation: props.policeStation,
+							challan: challan,
+							type: 'update'
+						})
+					})
+					.then(response => response.json())
+					.then(data => {  
+						if(data === 'success')
+						alert('Challan Detail Updated');	
+						else
+						alert('Unable to update the details. Kindly add it again') 
+				     })  
+				   } 
+				 }  
+				   
+                else{
+					fetch('http://localhost:3000/addchallandetails', {
+						method: 'post',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({
+							policeStation: props.policeStation,
+							challan: challan,
+							type: 'new report'
+						})
+					})
+					.then(response => response.json())
+					.then(data => {
+						if(data === 'success')
+						alert('Challan Details added');	
+						else
+						alert('Unable to add the details. Kindly add it again')
+					}) 
+				}  
+			})
+		}
 	}
 
 	function onSubmitRecovery(){
+	  recovery.monYear = months[0][selectedDate.getMonth()] + ' ' + selectedDate.getFullYear();
 	  var flag = true;
 		
 	  for(var ind in recovery) {
@@ -66,27 +106,66 @@ function PS(props) {
 	   }
 	  
 	  if(flag){
-		fetch('http://localhost:3000/addrecoverydetails', {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				policeStation: props.policeStation,
-				recovery: recovery
+		fetch('http://localhost:3000/checkMonthYear', {
+				method: 'post',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					policeStation: props.policeStation,
+					monYear: recovery.monYear,
+					type: 'Recovery'
+				})
 			})
-		  })
-	   .then(response => response.json())
-	   .then(data => {
-		   if(data === 'success')
-		   alert('Recovery Details added');	
-		   else
-		   alert('Unable to add the details. Kindly add it again')
-	   })
-	 } 
-   }
+			.then(response => response.json())
+			.then(data => {
+				if(data === 'Yes'){
+                    if(window.confirm("Report for this month already exist!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
+						console.log(recovery);
+						fetch('http://localhost:3000/addrecoverydetails', {
+							method: 'post',
+							headers: {'Content-Type': 'application/json'},
+							body: JSON.stringify({
+								policeStation: props.policeStation,
+								recovery: recovery,
+								type: 'update'
+							})
+						})
+						.then(response => response.json())
+						.then(data => {  
+							if(data === 'success')
+							alert('Recovery Details Updated');	
+							else
+							alert('Unable to update the details. Kindly add it again') 
+						 })  
+					   } 
+				  }  
+				
+				else{   
+					fetch('http://localhost:3000/addrecoverydetails', {
+						method: 'post',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({
+							policeStation: props.policeStation,
+							recovery: recovery,
+							type: 'newdata'
+						})
+					})
+				.then(response => response.json())
+				.then(data => {
+					if(data === 'success')
+					alert('Recovery Details added');	
+					else
+					alert('Unable to add the details. Kindly add it again')
+				})
+			  }
+	       }) 
+        }
+	}
 
 	function onSubmitInvestigation(){
 		var flag = true;
-		
+		ipc.monYear = months[0][selectedDate.getMonth()] + ' ' + selectedDate.getFullYear();
+	    local.monYear = ipc.monYear;
+
 		for(var ind in ipc) {
 			 if(ipc[ind]<0 || local[ind]<0){
 			  flag = false;	 
@@ -96,43 +175,74 @@ function PS(props) {
 		 }
 		
 		if(flag) {
-		 fetch('http://localhost:3000/addinvestigationdetails', {
-			method: 'post',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				policeStation: props.policeStation,
-				ipc: ipc,
-				local: local
+			fetch('http://localhost:3000/checkMonthYear', {
+				method: 'post',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					policeStation: props.policeStation,
+					monYear: ipc.monYear,
+					type: 'Investigation'
+				})
 			})
-		  })
-	   .then(response => response.json())
-	   .then(data => {
-		   if(data === 'success')
-		   alert('Investigation Details added');	
-		   else
-		   alert(data);
-	   }) 
-	    }
-	 }
+			.then(response => response.json())
+			.then(data => {
+				if(data === 'Yes'){
+
+					if(window.confirm("Report for this month already exist!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
+						fetch('http://localhost:3000/addinvestigationdetails', {
+							method: 'post',
+							headers: {'Content-Type': 'application/json'},
+							body: JSON.stringify({
+								policeStation: props.policeStation,
+								ipc: ipc,
+							    local: local,
+								type: 'update'
+							})
+						})
+						.then(response => response.json())
+						.then(data => {  
+							if(data === 'success')
+							alert('Investigation Details Updated');	
+							else
+							alert('Unable to update the details. Kindly add it again') 
+						 })  
+					   } 
+                    
+				}
+				else{
+
+				 fetch('http://localhost:3000/addinvestigationdetails', {
+						method: 'post',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({
+							policeStation: props.policeStation,
+							ipc: ipc,
+							local: local,
+							type: 'new report'
+						})
+					})
+				.then(response => response.json())
+				.then(data => {
+					if(data === 'success')
+					  alert('Investigation Details added');	
+					else
+					  alert(data);
+				   }) 
+					}
+				})
+	  }
+	}
 
 	return(
 		<div className="dash">
 		<div className="dash_left">
 			<div className='dash_header'>
 				<h2>{policeStation[0][props.policeStation - 1]} Monthly Report</h2>
-
-				<FormControl className="dash_dropdown">  
-                    <Select variant="outlined" onChange={onCaseTypeChange} value={case_chosen}>
-                     { cases.map((caseType) => (
-                       <MenuItem value = {caseType}> {caseType} </MenuItem>
-                      ))}
-                     </Select>
-                    </FormControl>
                 </div> 
 			
-			<h2> {case_chosen} </h2> 
+			<h2> {props.caseType} </h2>
 			
-			{ case_chosen === 'Investigation'
+			{ props.caseType === 'Investigation'
 			   ?  
 			   <Paper className={classes.pageContent}>
 			   <form> 
@@ -156,7 +266,7 @@ function PS(props) {
 					</div>	
 					<div className = "pt3 pb3">
 					 Und Inv less 3 Month:
-					</div>	
+					</div>
 				   </div>    
 
 				   </Grid>
@@ -358,6 +468,7 @@ function PS(props) {
 					     }
 					    }
 					   />
+					   
 
 					</div>	
 				   </div>   
@@ -560,6 +671,27 @@ function PS(props) {
 					</div>	
 				   </div>   
 				   </Grid> 
+				   <Grid xs={6}>
+				   <div className="pt3 pb3 fw6">
+				     Month and Year of the Investigation Data:
+					</div>
+					</Grid>	
+				   <Grid xs={3}>
+				   <MuiPickersUtilsProvider utils={DateFnsUtils} >
+						 <DatePicker
+							variant="inline"
+							openTo="year"
+							views={["year", "month"]}
+							dateFormat="MM/yyyy"
+							showMonthYearPicker
+							helperText="Start from year selection"
+							value={selectedDate}
+							onChange= { e => {
+							    setSelectedDate(e);
+							}}
+							/>  
+						</MuiPickersUtilsProvider>
+					</Grid>				
 			   </Grid>
 
 				  <Button variant="contained" color="secondary" onClick={onSubmitInvestigation}>
@@ -567,7 +699,7 @@ function PS(props) {
 				 </Button>	
 				 </form>			 
 			   </Paper>		
-			   : ( case_chosen === 'Challan'
+			   : ( props.caseType === 'Challan'
 			       ? 
 				   <Paper className={classes.pageContent}>
 				   <form> 
@@ -613,7 +745,22 @@ function PS(props) {
 							  });
 						  }
 						  }
-						 /> 
+						  />
+                         <MuiPickersUtilsProvider utils={DateFnsUtils} >
+						 <DatePicker
+							variant="inline"
+							openTo="year"
+							views={["year", "month"]}
+							dateFormat="MM/yyyy"
+							showMonthYearPicker
+							label="Month and Year of the Challan Data"
+							helperText="Start from year selection"
+							value={selectedDate}
+							onChange= { e => {
+							    setSelectedDate(e);
+							}}
+							/>  
+						</MuiPickersUtilsProvider>
 					 </Grid>
  
 					 <Grid item xs={6}>
@@ -829,7 +976,23 @@ function PS(props) {
 							  });
 						  }
 						  }
-						 /> 
+						 />
+
+						<MuiPickersUtilsProvider utils={DateFnsUtils} >
+						 <DatePicker
+							variant="inline"
+							openTo="year"
+							views={["year", "month"]}
+							dateFormat="MM/yyyy"
+							showMonthYearPicker
+							label="Month & Year of the Data"
+							helperText="Start from year selection"
+							value={selectedDate}
+							onChange= { e => {
+							    setSelectedDate(e);
+							}}
+							/>  
+						</MuiPickersUtilsProvider> 
  
 						</Grid>
 					</Grid>
@@ -849,17 +1012,3 @@ function PS(props) {
 }
 
 export default PS;
-
-
-/*
- <Grid container className={classes.root} spacing={1} >
-				 <Grid item xs={2}>
-				   </Grid>	 
-				 <Grid item xs={4}>
-				   <p className="db fw6 lh-copy f4 pt3">UNDER IPC</p>
-				   </Grid>
-				   <Grid item xs={6}>
-				   <p className="db fw6 lh-copy f4 pt3">UNDER LOCAL AND SPECIAL LAW</p>
-				   </Grid>
-                   </Grid>
-*/

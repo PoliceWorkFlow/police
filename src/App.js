@@ -21,29 +21,16 @@ class App extends Component {
       recovery: [],
       ipc: [],
       local: [],
-      progressReport: []
+      progressReport: [],
+      caseType: ''
     }
   }
   
   onRouteChange = (route, data ) => {
     this.setState({route: route});
-  
-    /*
-    if(route === 'station' && data !== 0){    
-      this.setState({policeStation: data[0]});
-
-      for(var i=1; i<5; i++){
-          if(data[i].type === 'Challan')
-            this.setState({challan: data[i] });
-          else if(data[i].type === 'Recovery')
-            this.setState({ recovery: data[i] });
-          else if(data[i].type === 'IPC')
-            this.setState({ ipc: data[i] });
-          else if(data[i].type === 'Local')
-            this.setState({ local: data[i] });         
-      } 
-    }
-    */
+    
+    if(route === 'stationReport')
+       this.setState({caseType: data});
 
     if((route === 'ssp' || route === 'station') && data !== 0){
         this.setState({policeStation: data.id});
@@ -54,7 +41,7 @@ class App extends Component {
         });
         this.setState({progressReport: report});
 
-        var challan = data.challan; 
+       var challan = data.challan; 
         challan.sort(function(a, b) {
           return a.id - b.id;
         });
@@ -78,6 +65,7 @@ class App extends Component {
           return a.id - b.id;
         });
         this.setState({local});
+  
      }
    }
 
@@ -87,6 +75,33 @@ class App extends Component {
          progressReport[id] = data;
          this.setState({progressReport});
         }
+   
+   onMonthChange = (data) => {
+        var challan = data.challan; 
+        challan.sort(function(a, b) {
+          return a.id - b.id;
+        });
+        this.setState({challan});
+
+        var ipc = data.ipc;
+        ipc.sort(function(a, b) {
+          return a.id - b.id;
+        });
+        this.setState({ipc});
+
+        var recovery = data.recovery;
+        recovery.sort(function(a, b) {
+          return a.id - b.id;
+        });
+        this.setState({recovery});
+
+        var local = data.local; 
+        local.sort(function(a, b) {
+          return a.id - b.id;
+        });
+        this.setState({local});
+    }
+
 
   render(){
     const {route} = this.state;
@@ -110,9 +125,9 @@ class App extends Component {
     
     else if(route === 'ssp'){
       return (
-        <div className='App'>
-         <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
-          <DashboardSSP progressReport={this.state.progressReport} challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local}/>
+        <div className='App '>
+         <Navigation onRouteChange={this.onRouteChange} route={this.state.route} />
+          <DashboardSSP progressReport={this.state.progressReport} />
          </div>
         );
     }
@@ -130,16 +145,23 @@ class App extends Component {
       return (
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
-          <PSReport policeStation={this.state.policeStation} />
+          <PSReport policeStation={this.state.policeStation} caseType={this.state.caseType} />
          </div>
         );
     }
     else if(route === 'psWiseReport'){
       return (
-        <div className='App'>
-          <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
-          <PSWiseReport challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local} />
-         </div>
+        <div>
+          {  this.state.challan.length === 0 || this.state.recovery.length === 0 || this.state.ipc.length === 0 || this.state.local.length === 0 
+            ? <p></p>
+            :  
+             <div className='App'>
+              <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
+              <PSWiseReport challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local} onMonthChange={this.onMonthChange}/>
+              </div>
+          }
+          </div>
+        
         );
     }
   }

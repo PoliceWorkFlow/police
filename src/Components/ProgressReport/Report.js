@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import './Report.css';
 import { MenuItem, FormControl, Select, Grid, Button, Paper, TextField, makeStyles} from "@material-ui/core";
 import 'tachyons';
+import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
 import { Details } from '@material-ui/icons';
 
 const useStyle = makeStyles(theme => ({
@@ -23,10 +26,12 @@ function Report(props) {
 	
 	const [station_chosen, setStaion] = useState('');
 	const [police_station] = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
-	
+	const [selectedDate, setSelectedDate] = useState(new Date());
+	const months = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
+
 	const [progress, setData] = useState({
 		casesubmitted: 0, propertyDisp: 0, henious: 0, POarrested: 0, propertyCrime: 0, untrace_in_court: 0,
-	    disposal_compl: 0, cleaniness: 0, feedback: 0, handling: 0, ndps: 0, arm: 0, excise: 0, gambling: 0, commercial: 0
+	    disposal_compl: 0, cleaniness: 0, feedback: 0, handling: 0, ndps: 0, arm: 0, excise: 0, gambling: 0, commercial: 0, monYear: ''
 	});
 
 	const onStationChange = (event) => {
@@ -36,6 +41,7 @@ function Report(props) {
 	function onSubmit(){
 		const index = police_station.indexOf(station_chosen) + 1;
         var flag = true;
+		progress.monYear = months[0][selectedDate.getMonth()] + ' ' + selectedDate.getFullYear();
 		
 		for(var ind in progress) {
 			 if(progress[ind]<0){
@@ -46,24 +52,41 @@ function Report(props) {
 		 }
 		
 		 if(flag){
-			fetch('http://localhost:3000/addProgressReport', {
+			fetch('http://localhost:3000/checkMonthYear', {
 				method: 'post',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
 					policeStation: index,
-					report: progress
+					monYear: progress.monYear,
+					type: 'Report'
 				})
 			})
-		.then(response => response.json())
-		.then(data => {
-			console.log(data);
-			if(data.id === index){
-				props.onProgressChanges(data);
-				alert('Progress Report added successfully');	
-			}
-			else
-			alert('Unable to add the Progress Report. Kindly add it again')
-		 }) 
+			.then(response => response.json())
+			.then(data => {
+                 console.log(data);
+				if(data === 'Yes')
+				   alert("Report for this month already exist !!!")
+				else{
+					fetch('http://localhost:3000/addProgressReport', {
+						method: 'post',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({
+							policeStation: index,
+							report: progress
+						})
+					})
+				   .then(response => response.json())
+				   .then(data => {
+					// console.log(data);
+					 if(data.id === index){
+						props.onProgressChanges(data);
+						alert('Progress Report added successfully');	
+					}
+					else
+					alert('Unable to add the Progress Report. Kindly add it again')
+				 }) 
+				}   
+			 })
 	   }
 	}
 
@@ -111,7 +134,7 @@ function Report(props) {
 
 						 <TextField
 					     variant = "outlined"
-						 label = "Undetected cases traced of Henius Crime" 
+						 label = "Undetected cases traced of heinous Crime" 
 						 type = 'number'
 						 inputProps={{ min: "0"}}
 						 required
@@ -335,9 +358,26 @@ function Report(props) {
 						   }
 						  /> 
 						  </Grid>
-
-						</Grid>  
+						  <Grid xs={4}>
+							<MuiPickersUtilsProvider utils={DateFnsUtils} >
+								<DatePicker
+									variant="inline"
+									openTo="year"
+									views={["year", "month"]}
+									dateFormat="MM/yyyy"
+									showMonthYearPicker
+									label="Month and Year of the Progress Report"
+									helperText="Start from year selection"
+									value={selectedDate}
+									onChange= { e => {
+										setSelectedDate(e);
+									}}
+									/>  
+								</MuiPickersUtilsProvider>	
+					       </Grid>  
+						</Grid>
 						</form>
+					
 				  <Button variant="contained" color="secondary" onClick={onSubmit}>
 				    Submit
 			      </Button>				

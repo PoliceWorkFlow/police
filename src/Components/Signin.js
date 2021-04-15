@@ -23,10 +23,6 @@ class Signin extends React.Component {
    }
 
    onSubmitSignIn = () => {
-	 /*   if(this.state.signinEmail === 'abc')
-            this.props.onRouteChange('ssp');
-	    else
-	        this.props.onRouteChange('station');*/
 
    	 fetch('http://localhost:3000/signin', {
    		method: 'post',
@@ -38,11 +34,12 @@ class Signin extends React.Component {
    	})
       .then(response => response.json())
       .then(data => {
+		  console.log(data);
       	if(data === 'unable to login')
 		  alert('Wrong Credentials');	
       	else{
 		  var ind = data.id;
-		  if(ind>0 && ind<11)	  
+		  if(ind>0 && ind<11)
 		    this.props.onRouteChange('station', data);
 		  else
 		     this.props.onRouteChange('ssp', data);	
@@ -51,7 +48,6 @@ class Signin extends React.Component {
      }
      
 	 render(){
-	 	const {onRouteChange} = this.props;
 
 	 return(
 	 <article style = {this.state.paperStyle} className="br3 ba shadow-2 b--black-10 mv4 w-100 w-50-m w-25-l mw5 center">

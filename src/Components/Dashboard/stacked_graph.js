@@ -118,7 +118,7 @@ export default class StackedBarChart extends React.Component{
                     data: this.state.untrace_prop
                 },
                 {
-                    name: 'Henius Crime ',
+                    name: 'Heinous Crime ',
                     data: this.state.henius
                 },
                 { 

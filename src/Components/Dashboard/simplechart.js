@@ -25,7 +25,7 @@ class Chart extends Component{
             commercial: [2*this.props.Report[0].commercial, 2*this.props.Report[1].commercial, 2*this.props.Report[2].commercial, 2*this.props.Report[3].commercial, 2*this.props.Report[4].commercial, 2*this.props.Report[5].commercial,2*this.props.Report[6].commercial, 2*this.props.Report[7].commercial, 2*this.props.Report[8].commercial, 2*this.props.Report[9].commercial],
             scores: [1*this.props.Report[0].score, 1*this.props.Report[1].score, 1*this.props.Report[2].score, 1*this.props.Report[3].score,1*this.props.Report[4].score, 1*this.props.Report[5].score, 1*this.props.Report[6].score, 1*this.props.Report[7].score, 1*this.props.Report[8].score, 1*this.props.Report[9].score],
             case_chosen: 'Cases Submitted in Court',
-            caseType: ['Cases Submitted in Court', 'Henius Crime', 'Untraced cases of crime against property', 'Disposal of Complaints', 'Property Disposal', 'PO arrested', 'Untraced Cases put in court', 'Negligence in duty/Public dealing/image', 'Cleaniness of Police Station', 'Handling of Law and Order', 'Scores']
+            caseType: ['Cases Submitted in Court', 'Heinous Crime', 'Untraced cases of crime against property', 'Disposal of Complaints', 'Property Disposal', 'PO arrested', 'Untraced Cases put in court', 'Negligence in duty/Public dealing/image', 'Cleaniness of Police Station', 'Handling of Law and Order', 'Scores']
     }
   }
 
@@ -40,7 +40,7 @@ class Chart extends Component{
 
    if(case_chosen === 'Cases Submitted in Court')
        data = this.state.cases_in_court
-   else if(case_chosen === 'Henius Crime') 
+   else if(case_chosen === 'Heinous Crime') 
         data = this.state.henius 
    else if(case_chosen === 'Untraced cases of crime against property') 
         data = this.state.untrace_prop        
