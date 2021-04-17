@@ -3,7 +3,9 @@ import 'tachyons';
 import './Navigation.css';
 import {Link} from '@material-ui/core';
 
+
 const Navigation = ({onRouteChange, route}) => {
+   
 	if(route === 'signin'){
 	 return(
 	     <nav style={{display: 'flex' , justifyContent: 'flex-end'}}>

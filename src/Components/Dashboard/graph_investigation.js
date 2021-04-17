@@ -1,12 +1,17 @@
 import React from 'react';
 import { MenuItem, FormControl, Select, Grid} from "@material-ui/core";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import "date-fns";
 import GroupChart from './group_chart';
-import DateFnsUtils from "@date-io/date-fns";
 import Stacked from './stacked_graph_ps'
 import 'tachyons';
 
+function handleDateChange(date){
+  const months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monYear = months[date.getMonth()] + ' ' + date.getFullYear();
+  return monYear;
+}
 
 class StackedChart extends React.Component{
     
@@ -14,7 +19,7 @@ class StackedChart extends React.Component{
         super(props);
         this.state = {
             case_chosen: 'Under Investigation',
-            selectedDate: new Date(),
+            selectedDate: handleDateChange(new Date()),
             ipc: [],
             local: [],
             challan: [],
@@ -42,7 +47,6 @@ class StackedChart extends React.Component{
 		   	})
 		  	.then(response => response.json())
 		  	.then(data => { 
-               // this.props.onMonthChange(data, monYear);
            this.setState({flag: true});
 
            var challan = data.challan; 
@@ -62,6 +66,11 @@ class StackedChart extends React.Component{
               return a.id - b.id;
             });
             this.setState({local});
+
+            if(this.state.case_chosen === 'Challan Cases')
+                this.setState({case_chosen: 'Under Investigation'});
+            else
+                this.setState({case_chosen: 'Challan Cases'});
           })   
     }
 
@@ -90,13 +99,14 @@ class StackedChart extends React.Component{
 							value={this.state.selectedDate}
 							onChange= { date => this.handleDateChange(date)}
 							/>  
-				</MuiPickersUtilsProvider>
+				     </MuiPickersUtilsProvider>
+              
               </Grid>
              </Grid>
              <div style = {{paddingTop: '20px'}}> 
              { 
                 this.state.flag === false
-                ?  <h3>Kindly Select Month & Year </h3>
+                ?  <h3>Kindly Select Date </h3>
                 :
                    this.state.case_chosen === 'Challan Cases' && this.state.challan.length !== 0
                     ? <Stacked challan={this.state.challan} />

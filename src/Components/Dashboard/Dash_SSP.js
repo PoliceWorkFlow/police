@@ -19,7 +19,7 @@ function Dashboard(props){
                <div className="dash">
                <div className="dash_left"> 
                <div className='dash_header'> 
-                      <h2>SSP OFFICE</h2>
+                <h2 className='center'>SSP OFFICE</h2>
                        </div>
                   <div class="row">
                   <div class="column">
@@ -43,7 +43,8 @@ function Dashboard(props){
                <CardContent>
                <h3>Rank </h3>
                   <Table report = {props.progressReport} flag = {1} />
-               <h3 className="pt4">Last Updated On</h3>
+               <h3 className="pt4"> Progress Report</h3>
+               <h4 className="pt1"> Last Updated On</h4>
                      <Table report = {props.progressReport} flag = {2} />  
                </CardContent>
                </Card>

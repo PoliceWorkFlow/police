@@ -1,7 +1,7 @@
 .table {
     margin-top: 10px;
     overflow: scroll;
-    height: 375px;
+    height: 400px;
     width: 250px;
     color: #6a5d5d;
 }
@@ -9,7 +9,7 @@
 .table2 {
     margin-top: 10px;
     overflow: scroll;
-    height: 525px;
+    height: 475px;
     width: 250px;
     color: #6a5d5d;
 }
@@ -20,7 +20,7 @@
 }
 
 .table td {
-    padding: 0.5rem;
+    padding: 0.6rem;
 }
 
 .table tr:nth-of-type(odd) {

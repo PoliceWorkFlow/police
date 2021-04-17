@@ -709,6 +709,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "OVER LOADING  TIPPER & TRUCKS" 
 						  type = "number"
+						  value = {challan.overLoading}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value; 
@@ -723,6 +724,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "DRUNKEN  DRIVING"
 						  type = "number"
+						  value = {challan.drunken}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -738,6 +740,7 @@ function PS(props) {
 						  label = "OVER SPEED"
 						  type = "number"
 						  inputProps={{ min: "0"}}
+						  value = {challan.overspeed}
 						  onChange = {e => {
 							const val = e.target.value;
 							setData(prevState => {
@@ -768,6 +771,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "WITHOUT HELMET/SEAT BELT"
 						  type = "number"
+						  value = {challan.withoutHelmet}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -782,6 +786,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "WITHOUT MASK, COVID-19 CHALLAN"
 						  type = "number"
+						  value = {challan.covid19}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -796,6 +801,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "OTHERS"
 						  type = "number"
+						  value = {challan.others}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -822,6 +828,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "ILLICIT LIQUOR(in Litres)"
 						  type = "number"
+						  value = {recovery.illict}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -836,6 +843,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "POPPY HUSK(in Grams)"
 						  type = "number"
+						  value = {recovery.poppy}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -850,6 +858,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "TABLETS"
 						  type = "text"
+						  value = {recovery.tablets}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {
@@ -866,6 +875,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "LICIT LIQUOR(in Litres)"
 						  type = "number"
+						  value = {recovery.licit}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -880,6 +890,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "HEROIN(in Gram)"
 						  type = "number"
+						  value = {recovery.heroin}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -894,6 +905,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "INJECTIONS"
 						  type = "number"
+						  value = {recovery.injections}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -910,6 +922,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "LAHAN(in Litres)"
 						  type = "number"
+						  value = {recovery.lahan}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -924,6 +937,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "OPIUM(in Gram)"
 						  type = "number"
+						  value = {recovery.opium}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -938,6 +952,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "OTHERS"
 						  type = "text"
+						  value = {recovery.others}
 						  onChange = {e => {
 							const val = e.target.value;
 							setDataRecovery(prevState => {
@@ -954,6 +969,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "GANJA(in Gram)"
 						  type = "number"
+						  value = {recovery.ganja}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;
@@ -968,6 +984,7 @@ function PS(props) {
 						  variant = "outlined"
 						  label = "CHARAS(in Gram)"
 						  type = "number"
+						  value = {recovery.charas}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
 							const val = e.target.value;

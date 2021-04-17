@@ -1,8 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import './stylo.css';
-import { Group } from "@material-ui/icons";
-import { useForkRef } from "@material-ui/core";
 
 class App extends React.Component {
   constructor(props) {

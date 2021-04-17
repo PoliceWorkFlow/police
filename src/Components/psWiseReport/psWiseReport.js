@@ -14,6 +14,7 @@ export default function CustomizedTables(props) {
   const [caseType] = useState(['Under IPC Law', 'Under Local & Special Law', 'Recovery', 'Challan']);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const months = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
+ // console.log(props);
 
   const onCaseTypeChange = (event) => {
     setStaion(event.target.value);
@@ -40,7 +41,7 @@ export default function CustomizedTables(props) {
   return (
      <div>
         <Grid container >
-					 <Grid item xs={8}>
+					 <Grid item xs={7}>
             <h2 class="pt2">POLICE STATION WISE REPORT </h2>
             </Grid>
             <Grid item xs={3}>
@@ -52,7 +53,7 @@ export default function CustomizedTables(props) {
               </Select>
               </FormControl>
               </Grid>
-             <Grid item xs={1} style={{paddingTop: '14px'}}>
+             <Grid item xs={2} style={{padding: '14px'}}>
             <MuiPickersUtilsProvider utils={DateFnsUtils} >
 						 <DatePicker 
 							variant="outlined"
@@ -69,12 +70,12 @@ export default function CustomizedTables(props) {
         </Grid>         
     
         { case_chosen === 'Challan'
-            ? <Challan challan={props.challan}/>
+            ? <Challan challan={props.challan} challanCheck={props.challanCheck}/>
             :   case_chosen === 'Under IPC Law'
-                ? <IPC ipc={props.ipc} />
+                ? <IPC ipc={props.ipc} ipcCheck={props.ipcCheck} />
                 :  case_chosen === 'Under Local & Special Law'
-                   ? <Local local={props.local} />
-                   : <Recovery recovery={props.recovery} />
+                   ? <Local local={props.local} localCheck={props.localCheck}/>
+                   : <Recovery recovery={props.recovery} recoveryCheck={props.recoveryCheck} />
           }    
     </div> 
   );
