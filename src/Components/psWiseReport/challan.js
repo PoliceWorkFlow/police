@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import {Table, TableBody, Tooltip, TableCell, TableContainer, TableHead, TableRow, Button} from '@material-ui/core';
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -41,7 +36,7 @@ const useStyles = makeStyles({
 });
 
 export default function CustomizedTables(props) {
-  console.log(props.challanCheck);
+  //console.log(props.challanCheck);
     const rows = [
         createData('Nangal', props.challan[0].overloading, props.challan[0].drunken, props.challan[0].overspeed, props.challan[0].withoutHelmet, props.challan[0].covid19, props.challan[0].others, props.challanCheck[2].status, props.challanCheck[1].status, props.challanCheck[0].status, props.challan[0].datemod),
         createData('City Morinda',  props.challan[1].overloading, props.challan[1].drunken, props.challan[1].overspeed, props.challan[1].withoutHelmet, props.challan[1].covid19, props.challan[1].others, props.challanCheck[5].status, props.challanCheck[4].status, props.challanCheck[3].status, props.challan[1].datemod),
@@ -87,9 +82,31 @@ export default function CustomizedTables(props) {
               <StyledTableCell align="right" >{row.helmet}</StyledTableCell>
               <StyledTableCell align="right" >{row.mask}</StyledTableCell>
               <StyledTableCell align="right" >{row.others}</StyledTableCell>
-              <StyledTableCell align="right" >{row.t1}</StyledTableCell>
-              <StyledTableCell align="right" >{row.t2}</StyledTableCell>
-              <StyledTableCell align="right" >{row.t3}</StyledTableCell>
+                { row.t1 === 'Not Filled'
+                  ? <StyledTableCell align="center" >
+                    <Tooltip title="Send Reminder" placement="left-start" interactive> 
+                    <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[2].monYear ,'Challan')} >Not Filled</Button> 
+                    </Tooltip> 
+                    </StyledTableCell> 
+                  : <StyledTableCell align="center" >{row.t1}</StyledTableCell>
+                  }
+                 { row.t2 === 'Not Filled'
+                  ? <StyledTableCell align="center" >
+                    <Tooltip title="Send Reminder" placement="left-start" interactive> 
+                     <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[1].monYear ,'Challan')} >Not Filled</Button>
+                      </Tooltip>
+                      </StyledTableCell>
+                  : <StyledTableCell align="center" >{row.t2}</StyledTableCell>
+                  }
+                  { row.t3 === 'Not Filled'
+                  ? 
+                    <StyledTableCell align="center" >
+                     <Tooltip title="Send Reminder" placement="left-start" interactive> 
+                       <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[0].monYear ,'Challan' )} >Not Filled</Button> 
+                     </Tooltip>
+                    </StyledTableCell>
+                  : <StyledTableCell align="center" >{row.t3}</StyledTableCell>
+                  }  
             </StyledTableRow>
           ))}
         </TableBody>

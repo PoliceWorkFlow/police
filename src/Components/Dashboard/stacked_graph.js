@@ -7,21 +7,6 @@ export default class StackedBarChart extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            cases_in_court: [(this.props.Report[0].caseincourt)/10, (this.props.Report[1].caseincourt)/10, (this.props.Report[2].caseincourt)/10, (this.props.Report[3].caseincourt)/10, (this.props.Report[4].caseincourt)/10, (this.props.Report[5].caseincourt)/10, (this.props.Report[6].caseincourt)/10, (this.props.Report[7].caseincourt)/10, (this.props.Report[8].caseincourt)/10, (this.props.Report[9].caseincourt)/10],
-            prop_disp: [this.props.Report[0].propDisp/10, this.props.Report[1].propDisp/10, this.props.Report[2].propDisp/10, this.props.Report[3].propDisp/10, this.props.Report[4].propDisp/10, this.props.Report[5].propDisp/10, this.props.Report[6].propDisp/10, this.props.Report[7].propDisp/10, this.props.Report[8].propDisp/10, this.props.Report[9].propDisp/10],
-            henius: [2*this.props.Report[0].heniusCrime, 2*this.props.Report[1].heniusCrime, 2*this.props.Report[2].heniusCrime, 2*this.props.Report[3].heniusCrime, 2*this.props.Report[4].heniusCrime, 2*this.props.Report[5].heniusCrime, 2*this.props.Report[6].heniusCrime, 2*this.props.Report[7].heniusCrime, 2*this.props.Report[8].heniusCrime, 2*this.props.Report[9].heniusCrime],
-            po_arrested: [2*this.props.Report[0].POarrested, 2*this.props.Report[1].POarrested, 2*this.props.Report[2].POarrested, 2*this.props.Report[3].POarrested, 2*this.props.Report[4].POarrested, 2*this.props.Report[5].POarrested, 2*this.props.Report[6].POarrested, 2*this.props.Report[7].POarrested, 2*this.props.Report[8].POarrested, 2*this.props.Report[9].POarrested],
-            untrace_prop: [this.props.Report[0].propCrime/10, this.props.Report[1].propCrime/10, this.props.Report[2].propCrime/10, this.props.Report[3].propCrime/10, this.props.Report[4].propCrime/10, this.props.Report[5].propCrime/10, this.props.Report[6].propCrime/10, this.props.Report[7].propCrime/10, this.props.Report[8].propCrime/10, this.props.Report[9].propCrime/10 ],
-            untrace_cases: [this.props.Report[0].untraceInCourt/5, this.props.Report[1].untraceInCourt/5, this.props.Report[2].untraceInCourt/5, this.props.Report[3].untraceInCourt/5, this.props.Report[4].untraceInCourt/5, this.props.Report[5].untraceInCourt/5, this.props.Report[6].untraceInCourt/5, this.props.Report[7].untraceInCourt/5, this.props.Report[8].untraceInCourt/5, this.props.Report[9].untraceInCourt/5],
-            disp_comp: [this.props.Report[0].compDisp/10, this.props.Report[1].compDisp/10, this.props.Report[2].compDisp/10, this.props.Report[3].compDisp/10, this.props.Report[4].compDisp/10, this.props.Report[5].compDisp/10, this.props.Report[6].compDisp/10, this.props.Report[7].compDisp/10, this.props.Report[8].compDisp/10, this.props.Report[9].compDisp/10 ],
-            clean: [1*this.props.Report[0].cleaniness, 1*this.props.Report[1].cleaniness, 1*this.props.Report[2].cleaniness, 1*this.props.Report[3].cleaniness, 1*this.props.Report[4].cleaniness, 1*this.props.Report[5].cleaniness, 1*this.props.Report[6].cleaniness, 1*this.props.Report[7].cleaniness, 1*this.props.Report[8].cleaniness, 1*this.props.Report[9].cleaniness ],
-            feedback: [1*this.props.Report[0].feedback, 1*this.props.Report[1].feedback, 1*this.props.Report[2].feedback, 1*this.props.Report[3].feedback, 1*this.props.Report[4].feedback, 1*this.props.Report[5].feedback, 1*this.props.Report[6].feedback, 1*this.props.Report[7].feedback, 1*this.props.Report[8].feedback, 1*this.props.Report[9].feedback ],
-            handling: [1*this.props.Report[0].handling, 1*this.props.Report[1].handling, 1*this.props.Report[2].handling, 1*this.props.Report[3].handling, 1*this.props.Report[4].handling, 1*this.props.Report[5].handling, 1*this.props.Report[6].handling, 1*this.props.Report[7].handling, 1*this.props.Report[8].handling, 1*this.props.Report[9].handling ],
-            ndps: [2*this.props.Report[0].ndps/5, 2*this.props.Report[1].ndps/5, 2*this.props.Report[2].ndps/5, 2*this.props.Report[3].ndps/5, 2*this.props.Report[4].ndps/5, 2*this.props.Report[5].ndps/5, 2*this.props.Report[6].ndps/5, 2*this.props.Report[7].ndps/5, 2*this.props.Report[8].ndps/5,2*this.props.Report[9].ndps/5 ],
-            arm: [1*this.props.Report[0].arm, 1*this.props.Report[1].arm, 1*this.props.Report[2].arm, 1*this.props.Report[3].arm,1*this.props.Report[4].arm, 1*this.props.Report[5].arm, 1*this.props.Report[6].arm, 1*this.props.Report[7].arm, 1*this.props.Report[8].arm, 1*this.props.Report[9].arm],
-            excise: [this.props.Report[0].excise/5, this.props.Report[1].excise/5, this.props.Report[2].excise/5, this.props.Report[3].excise/5, this.props.Report[4].excise/5, this.props.Report[5].excise/5, this.props.Report[6].excise/5, this.props.Report[7].excise/5, this.props.Report[8].excise/5, this.props.Report[9].excise/5 ],
-            gambling: [this.props.Report[0].gambling/5, this.props.Report[1].gambling/5, this.props.Report[2].gambling/5, this.props.Report[3].gambling/5, this.props.Report[4].gambling/5, this.props.Report[5].gambling/5, this.props.Report[6].gambling/5, this.props.Report[7].gambling/5, this.props.Report[8].gambling/5, this.props.Report[9].gambling/5],
-            commercial: [2*this.props.Report[0].commercial, 2*this.props.Report[1].commercial, 2*this.props.Report[2].commercial, 2*this.props.Report[3].commercial, 2*this.props.Report[4].commercial, 2*this.props.Report[5].commercial,2*this.props.Report[6].commercial, 2*this.props.Report[7].commercial, 2*this.props.Report[8].commercial, 2*this.props.Report[9].commercial]
          }
       }
     
@@ -64,8 +49,16 @@ export default class StackedBarChart extends React.Component{
         })
     }
 
-    render(){
- 
+    ConfigObj = (report) => {
+       
+        const cases_in_court= [(report[0].caseincourt)/10, (report[1].caseincourt)/10, (report[2].caseincourt)/10, (report[3].caseincourt)/10, (report[4].caseincourt)/10, (report[5].caseincourt)/10, (report[6].caseincourt)/10, (report[7].caseincourt)/10, (report[8].caseincourt)/10, (report[9].caseincourt)/10];
+        const  prop_disp= [report[0].propDisp/10, report[1].propDisp/10, report[2].propDisp/10, report[3].propDisp/10, report[4].propDisp/10, report[5].propDisp/10, report[6].propDisp/10, report[7].propDisp/10, report[8].propDisp/10, report[9].propDisp/10];
+        const henius= [2*report[0].heniusCrime, 2*report[1].heniusCrime, 2*report[2].heniusCrime, 2*report[3].heniusCrime, 2*report[4].heniusCrime, 2*report[5].heniusCrime, 2*report[6].heniusCrime, 2*report[7].heniusCrime, 2*report[8].heniusCrime, 2*report[9].heniusCrime];
+        const po_arrested = [2*report[0].POarrested, 2*report[1].POarrested, 2*report[2].POarrested, 2*report[3].POarrested, 2*report[4].POarrested, 2*report[5].POarrested, 2*report[6].POarrested, 2*report[7].POarrested, 2*report[8].POarrested, 2*report[9].POarrested];
+        const untrace_prop = [report[0].propCrime/10, report[1].propCrime/10, report[2].propCrime/10, report[3].propCrime/10, report[4].propCrime/10, report[5].propCrime/10, report[6].propCrime/10, report[7].propCrime/10, report[8].propCrime/10, report[9].propCrime/10 ];
+        const  untrace_cases = [report[0].untraceInCourt/5, report[1].untraceInCourt/5, report[2].untraceInCourt/5, report[3].untraceInCourt/5, report[4].untraceInCourt/5, report[5].untraceInCourt/5, report[6].untraceInCourt/5, report[7].untraceInCourt/5, report[8].untraceInCourt/5, report[9].untraceInCourt/5];
+        const disp_comp = [report[0].compDisp/10, report[1].compDisp/10, report[2].compDisp/10, report[3].compDisp/10, report[4].compDisp/10, report[5].compDisp/10, report[6].compDisp/10, report[7].compDisp/10, report[8].compDisp/10, report[9].compDisp/10 ];
+        
         const configObj = {
             chart: {
                 type: 'bar'
@@ -99,36 +92,50 @@ export default class StackedBarChart extends React.Component{
             series: [
                 {
                     name: 'Disposal of Complaints',
-                    data: this.state.disp_comp
+                    data: disp_comp
                 },
                 {
                     name: 'Untraced cases in court',
-                    data: this.state.untrace_cases
+                    data: untrace_cases
                 },
                 {
                     name: 'PO arrested ',
-                    data: this.state.po_arrested
+                    data: po_arrested
                 },
                 {
                     name: 'Property Disp ',
-                    data: this.state.prop_disp
+                    data: prop_disp
                 },
                 {
                     name: 'Crime against Property ',
-                    data: this.state.untrace_prop
+                    data: untrace_prop
                 },
                 {
                     name: 'Heinous Crime ',
-                    data: this.state.henius
+                    data: henius
                 },
                 { 
                     name: 'Case In Court',
-                    data: this.state.cases_in_court
+                    data: cases_in_court
                 },  
                
              ]
         }
 
+        return configObj
+    }
+
+    ConfigObj1 = (report) => {
+
+         const clean = [1*report[0].cleaniness, 1*report[1].cleaniness, 1*report[2].cleaniness, 1*report[3].cleaniness, 1*report[4].cleaniness, 1*report[5].cleaniness, 1*report[6].cleaniness, 1*report[7].cleaniness, 1*report[8].cleaniness, 1*report[9].cleaniness ];
+          const feedback = [1*report[0].feedback, 1*report[1].feedback, 1*report[2].feedback, 1*report[3].feedback, 1*report[4].feedback, 1*report[5].feedback, 1*report[6].feedback, 1*report[7].feedback, 1*report[8].feedback, 1*report[9].feedback ];
+          const handling = [1*report[0].handling, 1*report[1].handling, 1*report[2].handling, 1*report[3].handling, 1*report[4].handling, 1*report[5].handling, 1*report[6].handling, 1*report[7].handling, 1*report[8].handling, 1*report[9].handling ];
+          const ndps = [2*report[0].ndps/5, 2*report[1].ndps/5, 2*report[2].ndps/5, 2*report[3].ndps/5, 2*report[4].ndps/5, 2*report[5].ndps/5, 2*report[6].ndps/5, 2*report[7].ndps/5, 2*report[8].ndps/5,2*report[9].ndps/5 ];
+          const arm = [1*report[0].arm, 1*report[1].arm, 1*report[2].arm, 1*report[3].arm,1*report[4].arm, 1*report[5].arm, 1*report[6].arm, 1*report[7].arm, 1*report[8].arm, 1*report[9].arm];
+          const excise = [report[0].excise/5, report[1].excise/5, report[2].excise/5, report[3].excise/5, report[4].excise/5, report[5].excise/5, report[6].excise/5, report[7].excise/5, report[8].excise/5, report[9].excise/5 ];
+          const gambling = [report[0].gambling/5, report[1].gambling/5, report[2].gambling/5, report[3].gambling/5, report[4].gambling/5, report[5].gambling/5, report[6].gambling/5, report[7].gambling/5, report[8].gambling/5, report[9].gambling/5];
+          const commercial = [2*report[0].commercial, 2*report[1].commercial, 2*report[2].commercial, 2*report[3].commercial, 2*report[4].commercial, 2*report[5].commercial,2*report[6].commercial, 2*report[7].commercial, 2*report[8].commercial, 2*report[9].commercial];
+        
         const configObj1 = {
             chart: {
                 type: 'bar'
@@ -163,45 +170,50 @@ export default class StackedBarChart extends React.Component{
 
                 {
                     name: 'Gambling',
-                    data: this.state.gambling
+                    data: gambling
                 },
                 {
                     name: 'Excise',
-                    data: this.state.excise
+                    data: excise
                 },
                 {
                     name: 'ARM',
-                    data: this.state.arm
+                    data: arm
                 },
                 {
                     name: 'Commercial',
-                    data: this.state.commercial
+                    data: commercial
                 },
                 {
                     name: 'NDPS',
-                    data: this.state.ndps
+                    data: ndps
                 },
                 {
                     name: 'Public Image & feedback',
-                    data: this.state.feedback
+                    data: feedback
                 },
                 {
                     name: 'Handling',
-                    data: this.state.handling
+                    data: handling
                 },
                 {
                     name: 'Cleaniness',
-                    data: this.state.clean
+                    data: clean
                 },  
              ]
         }
-        
+
+        return configObj1
+    }
+
+
+    render(){
         if(this.props.flag === 1){
             return (
                 <div>
                  <HighchartsReact
                             highcharts={Highcharts} 
-                            options={configObj}
+                            options={this.ConfigObj(this.props.Report)}
                             containerProps={{ style: { height: "430px", width: "450px" }}}
                             //callback={this.highchartsCallback}
                    />
@@ -214,7 +226,7 @@ export default class StackedBarChart extends React.Component{
             <div>
                 <HighchartsReact
                     highcharts={Highcharts} 
-                    options={configObj1}
+                    options={this.ConfigObj1(this.props.Report)}  
                     containerProps={{ style: { height: "430px", width: "450px" } }}
                     //callback={this.highchartsCallback}
                  />

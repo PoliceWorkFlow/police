@@ -64,24 +64,43 @@ function Report(props) {
 			.then(response => response.json())
 			.then(data => {
                  console.log(data);
-				if(data === 'Yes')
-				   alert("Report for this month already exist !!!")
+				if(data === 'Yes'){
+					if(window.confirm("Report for this month already exist!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
+                        fetch('http://localhost:3000/addProgressReport', {
+						method: 'post',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({
+							policeStation: index,
+							report: progress,
+							type: 'update'
+						    })
+						})
+						.then(response => response.json())
+						.then(data => {
+							if(data === 'success'){
+								//props.onProgressChanges(data);
+								alert('Progress Report updated successfully');	
+							}
+							else
+							alert('Unable to update the Progress Report. Kindly update it again')
+						}) 
+					}
+			    } 
 				else{
 					fetch('http://localhost:3000/addProgressReport', {
 						method: 'post',
 						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({
 							policeStation: index,
-							report: progress
+							report: progress,
+							type: 'new report'
 						})
 					})
 				   .then(response => response.json())
 				   .then(data => {
-					// console.log(data);
-					 if(data.id === index){
-						props.onProgressChanges(data);
+					 if(data === 'success')
+						//props.onProgressChanges(data);
 						alert('Progress Report added successfully');	
-					}
 					else
 					alert('Unable to add the Progress Report. Kindly add it again')
 				 }) 

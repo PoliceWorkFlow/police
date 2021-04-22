@@ -1,11 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import {Table, TableBody, TableCell, Tooltip, TableContainer, TableHead, TableRow, Button} from '@material-ui/core';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -60,9 +55,9 @@ export default function CustomizedTables(props) {
     <TableContainer className={classes.container}>
       <Table stickyHeader aria-label="sticky table">
         <TableHead>
-          <TableRow>
+          <TableRow >
             <StyledTableCell>Name of PS</StyledTableCell>
-            <StyledTableCell align="right" style={{width: 50}}>Illicit Liquor</StyledTableCell>
+            <StyledTableCell align="right" >Illicit Liquor</StyledTableCell>
             <StyledTableCell align="right" >Licit Liquor</StyledTableCell>
             <StyledTableCell align="right" >Lahan</StyledTableCell>
             <StyledTableCell align="right" >Opium</StyledTableCell>
@@ -84,7 +79,7 @@ export default function CustomizedTables(props) {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="right" style={{width: 100}}>{row.illicit} L</StyledTableCell>
+              <StyledTableCell align="right" >{row.illicit} L</StyledTableCell>
               <StyledTableCell align="right" >{row.licit} L</StyledTableCell>
               <StyledTableCell align="right" >{row.lahan} L</StyledTableCell>
               <StyledTableCell align="right" >{row.opium} gm</StyledTableCell>
@@ -95,9 +90,30 @@ export default function CustomizedTables(props) {
               <StyledTableCell align="right" >{row.tablets}</StyledTableCell>
               <StyledTableCell align="right" >{row.injections}</StyledTableCell>
               <StyledTableCell align="right" >{row.others}</StyledTableCell>
-              <StyledTableCell align="right" >{row.t1}</StyledTableCell>
-              <StyledTableCell align="right" >{row.t2}</StyledTableCell>
-              <StyledTableCell align="right" >{row.t3}</StyledTableCell>
+              { row.t1 === 'Not Filled'
+                  ? <StyledTableCell align="center" >
+                     <Tooltip title="Send Reminder" placement="left-start" interactive>
+                      <Button variant="contained" color="lightsecondary" style={{ fontSize: '9px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[2].monYear ,'Recovery')} >Not Filled</Button>
+                      </Tooltip>
+                      </StyledTableCell>
+                  : <StyledTableCell align="center" >{row.t1}</StyledTableCell>
+                  }
+                 { row.t2 === 'Not Filled'
+                  ? <StyledTableCell align="center" >
+                     <Tooltip title="Send Reminder" placement="left-start" interactive>
+                        <Button variant="contained" color="lightsecondary" style={{ fontSize: '9px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[1].monYear ,'Recovery')} >Not Filled</Button>
+                      </Tooltip>
+                     </StyledTableCell>
+                  : <StyledTableCell align="center" >{row.t2}</StyledTableCell>
+                  }
+                  { row.t3 === 'Not Filled'
+                  ? <StyledTableCell align="center" >
+                     <Tooltip title="Send Reminder" placement="left-start" interactive>
+                       <Button variant="contained" color="lightsecondary" style={{ fontSize: '9px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Recovery')} >Not Filled</Button> 
+                     </Tooltip>
+                     </StyledTableCell>
+                  : <StyledTableCell align="center" >{row.t3}</StyledTableCell>
+                  }  
             </StyledTableRow>
           ))}
         </TableBody>

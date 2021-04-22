@@ -18,7 +18,29 @@ export default function CustomizedTables(props) {
 
   const onCaseTypeChange = (event) => {
     setStaion(event.target.value);
-   } 
+   }
+  
+   const onNotification = (ps, month, type) => {
+      console.log(ps + ' ' + month + ' ' + type);
+
+      fetch('http://localhost:3000/sendNotification', {
+				method: 'post',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({
+					ps: ps,
+               monYear: month,
+               type: type
+			  	})
+		   	})
+		  	.then(response => response.json())
+		  	.then(data => { 
+             if(data === 'Email sent')
+               alert('Notification Send!!!')
+             else
+               alert('Kindly send the notification again!!!')  
+          })
+     
+     } 
 
   const handleDateChange = (date) => {
      const monYear = months[0][date.getMonth()] + ' ' + date.getFullYear();
@@ -70,12 +92,12 @@ export default function CustomizedTables(props) {
         </Grid>         
     
         { case_chosen === 'Challan'
-            ? <Challan challan={props.challan} challanCheck={props.challanCheck}/>
+            ? <Challan challan={props.challan} challanCheck={props.challanCheck} onNotification={onNotification} />
             :   case_chosen === 'Under IPC Law'
-                ? <IPC ipc={props.ipc} ipcCheck={props.ipcCheck} />
+                ? <IPC ipc={props.ipc} ipcCheck={props.ipcCheck} onNotification={onNotification}/>
                 :  case_chosen === 'Under Local & Special Law'
-                   ? <Local local={props.local} localCheck={props.localCheck}/>
-                   : <Recovery recovery={props.recovery} recoveryCheck={props.recoveryCheck} />
+                   ? <Local local={props.local} localCheck={props.localCheck} onNotification={onNotification}/>
+                   : <Recovery recovery={props.recovery} recoveryCheck={props.recoveryCheck} onNotification={onNotification} />
           }    
     </div> 
   );

@@ -1,11 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import {Table, TableBody, TableCell, Tooltip, TableContainer, TableHead, TableRow, Button} from '@material-ui/core';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -134,9 +129,30 @@ export default function CustomizedTables(props) {
               <StyledTableCell align="right">{row.UI31D}</StyledTableCell>
               </StyledTableCell>
 
-              <StyledTableCell align="right" >{row.t1}</StyledTableCell>
-              <StyledTableCell align="right" >{row.t2}</StyledTableCell>
-              <StyledTableCell align="right" >{row.t3}</StyledTableCell>
+              { row.t1 === 'Not Filled'
+                  ? <StyledTableCell align="center" >
+                      <Tooltip title="Send Reminder" placement="left-start" interactive>
+                      <Button variant="contained" color="lightsecondary" style={{ fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.ipcCheck[2].monYear ,'IPC Law')} >Not Filled</Button>
+                      </Tooltip>
+                      </StyledTableCell>
+                  : <StyledTableCell align="center" >{row.t1}</StyledTableCell>
+                  }
+                 { row.t2 === 'Not Filled'
+                  ? <StyledTableCell align="center" > 
+                    <Tooltip title="Send Reminder" placement="left-start" interactive>
+                    <Button variant="contained" color="lightsecondary" style={{ fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.ipcCheck[1].monYear ,'IPC Law')} >Not Filled</Button> 
+                    </Tooltip>
+                    </StyledTableCell>
+                  : <StyledTableCell align="center" >{row.t2}</StyledTableCell>
+                  }
+                  { row.t3 === 'Not Filled'
+                  ? <StyledTableCell align="center" >
+                      <Tooltip title="Send Reminder" placement="left-start" interactive>
+                       <Button variant="contained" color="lightsecondary" style={{ fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.ipcCheck[0].monYear ,'IPC Law')} >Not Filled</Button>
+                      </Tooltip>
+                    </StyledTableCell>
+                  : <StyledTableCell align="center" >{row.t3}</StyledTableCell>
+                  }  
 
             </StyledTableRow>
           ))}

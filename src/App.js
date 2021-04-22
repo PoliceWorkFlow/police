@@ -65,13 +65,6 @@ class App extends Component {
           })
      }
    }
-
-   onProgressChanges = (data) => {
-         const id = data.id - 1;
-         var progressReport = [...this.state.progressReport];
-         progressReport[id] = data;
-         this.setState({progressReport});
-        }
    
    onMonthChange = (data) => {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -121,6 +114,7 @@ class App extends Component {
       else
          return  months.indexOf(b.monYear.split(' ')[0]) - months.indexOf(a.monYear.split(' ')[0]) 
     });
+
     this.setState({recoveryCheck});
 
         var challan = data.challan; 
@@ -160,6 +154,7 @@ class App extends Component {
         </div>
        );
     }
+
     else if (route === 'station'){
       return (
         <div className='App'>
@@ -171,7 +166,7 @@ class App extends Component {
             <Navigation onRouteChange={this.onRouteChange} route={this.state.route} />
             </Grid>
           </Grid>
-          <DashboardStation policeStation={this.state.policeStation} progressReport={this.state.progressReport} />
+          <DashboardStation policeStation={this.state.policeStation} progressReport={this.state.progressReport} onProgressChanges={this.onProgressChanges} />
          </div>
         );
     }
@@ -187,7 +182,10 @@ class App extends Component {
             <Navigation onRouteChange={this.onRouteChange} route={this.state.route} />
             </Grid>
           </Grid>
-          <DashboardSSP progressReport={this.state.progressReport}/>
+           { this.state.progressReport.length === 0
+            ? <p></p>
+            : <DashboardSSP progressReport={this.state.progressReport} />
+           }
          </div>
         );
     }
@@ -196,7 +194,7 @@ class App extends Component {
       return (
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route}  /> 
-          <ProgressReport onProgressChanges={this.onProgressChanges} />
+          <ProgressReport />
          </div>
         );
     }
@@ -209,6 +207,7 @@ class App extends Component {
          </div>
         );
     }
+
     else if(route === 'psWiseReport'){
       return (
         <div>
