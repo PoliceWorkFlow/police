@@ -141,7 +141,15 @@ class App extends Component {
         });
         this.setState({local});
     }
-
+  
+   onProgressChanges = (data) => {
+        var progress = this.state.progressReport;
+        let ps = {...progress[data.id - 1]};
+        ps = data;
+        progress[data.id - 1] = ps
+        //console.log(progress);
+        this.setState({progressReport: progress})
+    }  
 
   render(){
     const {route} = this.state;
@@ -166,8 +174,11 @@ class App extends Component {
             <Navigation onRouteChange={this.onRouteChange} route={this.state.route} />
             </Grid>
           </Grid>
-          <DashboardStation policeStation={this.state.policeStation} progressReport={this.state.progressReport} onProgressChanges={this.onProgressChanges} />
-         </div>
+          { this.state.progressReport.length === 0
+            ? <p></p>
+            : <DashboardStation policeStation={this.state.policeStation} progressReport={this.state.progressReport} onProgressChanges={this.onProgressChanges} />
+           }
+          </div>
         );
     }
     
@@ -193,8 +204,8 @@ class App extends Component {
     else if(route === 'progressReport'){
       return (
         <div className='App'>
-         <Navigation onRouteChange={this.onRouteChange} route={this.state.route}  /> 
-          <ProgressReport />
+         <Navigation onRouteChange={this.onRouteChange} route={this.state.route}  />  
+          <ProgressReport onProgressChanges={this.onProgressChanges}/>
          </div>
         );
     }

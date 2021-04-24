@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './dashboard.css';
-import { Card, CardContent} from "@material-ui/core";
+import { Card, CardContent, Grid} from "@material-ui/core";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
@@ -54,19 +54,25 @@ function Dashboard(props){
                <div className='dash_header'> 
                 <h2 className='center'>SSP OFFICE</h2>
                 </div>
-                 <MuiPickersUtilsProvider utils={DateFnsUtils} >
-			<DatePicker
-				variant="outlined"
-				openTo="year"
-				views={["year", "month"]}
-				dateFormat="MM/yyyy"
-				label="Select Month"
-				helperText=" "
-				value={selectedDate}
-				onChange= {date => onChangeDate(date)}  
-                        />  
-			</MuiPickersUtilsProvider> 
-             
+                <Grid container className='pb2'>
+                <Grid xs={10}>
+                <h3 className='pt1'>Comparative analysis based on Progress Report</h3>
+                </Grid>
+                <Grid xs={2}>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <DatePicker
+                              variant="outlined"
+                              openTo="year"
+                              views={["year", "month"]}
+                              dateFormat="MM/yyyy"
+                              label="Select Month"
+                             
+                              value={selectedDate}
+                              onChange= {date => onChangeDate(date)}  
+                              />  
+                        </MuiPickersUtilsProvider> 
+                        </Grid>
+                  </Grid>    
                   <div class="row">
                   <div class="column">
                    <Stacked Report={report} flag = {1} />
@@ -78,6 +84,7 @@ function Dashboard(props){
                   </div>
                   <div class="row" style = {{paddingTop: '15px'}}>
                   <div class="column">
+                  <h3 style={{paddingBottom:'10px'}}>Detailed Comparison of PS wrt each Attribute</h3>
                         <Bar Report = {report} date={selectedDate} />
                   </div>
                   <div class="column">

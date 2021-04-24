@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {Grid, Button, Paper, TextField, makeStyles} from "@material-ui/core";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import * as XLSX from "xlsx";
 import 'tachyons';
 import "date-fns";
+import './ps.css';
 import DateFnsUtils from "@date-io/date-fns";
  
 const useStyle = makeStyles(theme => ({
@@ -29,6 +31,121 @@ function PS(props) {
 	const months = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
 
 	const classes = useStyle();
+
+	const readRecovery = (file) => {
+
+			const promise = new Promise((resolve, reject) => {
+			const fileReader = new FileReader();
+			fileReader.readAsArrayBuffer(file);
+		
+			fileReader.onload = (e) => {
+				const bufferArray = e.target.result;
+		
+				const wb = XLSX.read(bufferArray, { type: "buffer" });
+				const wsname = wb.SheetNames[0];
+				const ws = wb.Sheets[wsname];
+		
+				const data = XLSX.utils.sheet_to_json(ws);
+		
+				resolve(data);
+			};
+		
+			fileReader.onerror = (error) => {
+				reject(error);
+			};
+			});
+		
+			promise.then((d) => {
+			const data = d[props.policeStation - 1];
+			//console.log(data);
+			const recoveryData={
+				illict: data.ILLICIT_LIQUOR, licit: data.LICIT_LIQUOR, lahan: data.LAHAN, ganja: data.GANJA, poppy: data.POPPY_HUSK, heroin: data.HEROIN, opium: data.OPIUM, charas: data.CHARAS, tablets: data.TABLETS, injections: data.INJECTION, others: data.OTHERS
+			} 
+			
+			console.log(recoveryData);
+			setDataRecovery(recoveryData)
+			});
+			
+	 };
+
+	 const readChallan = (file) => {
+	
+		const promise = new Promise((resolve, reject) => {
+			const fileReader = new FileReader();
+			fileReader.readAsArrayBuffer(file);
+			
+			fileReader.onload = (e) => {
+				const bufferArray = e.target.result;
+			
+				const wb = XLSX.read(bufferArray, { type: "buffer" });
+				const wsname = wb.SheetNames[2];
+				const ws = wb.Sheets[wsname];
+			
+				const data = XLSX.utils.sheet_to_json(ws);
+			
+				resolve(data);
+				};
+			
+				fileReader.onerror = (error) => {
+					reject(error);
+				};
+				});
+			
+				promise.then((d) => {
+				const data = d[props.policeStation - 1];
+				console.log(data);
+
+				const challanData={
+					overLoading: data.OVER_LOADING_TIPPER_TRUCKS, withoutHelmet: data.WITHOUT_HELMET_SEAT_BELT, drunken: data.DRUNKEN_DRIVING, covid19: data.WITHOUT_MASK_COVID19_CHALLAN, overspeed: data.OVERSPEED, others: data.OTHERS
+				} 
+				
+				setData(challanData)
+				});
+	 };
+
+	 const readInv = (file) => {
+		const promise = new Promise((resolve, reject) => {
+			const fileReader = new FileReader();
+			fileReader.readAsArrayBuffer(file);
+		
+			fileReader.onload = (e) => {
+				const bufferArray = e.target.result;
+		
+				const wb = XLSX.read(bufferArray, { type: "buffer" });
+				const wsname = wb.SheetNames[1];
+				const ws = wb.Sheets[wsname];
+		
+				const data = XLSX.utils.sheet_to_json(ws);
+		
+				resolve(data);
+			};
+		
+			fileReader.onerror = (error) => {
+				reject(error);
+			};
+			});
+		
+			promise.then((d) => {
+				console.log(d);
+				const data = d[1*props.policeStation + 1];
+				const data2 = d[1*props.policeStation + 15];
+			    //console.log(data);
+
+			 const ipcData={
+				underinvPend: data.__EMPTY_1, underinvDisp: data.__EMPTY_2, cancelledPend: data.__EMPTY_3, cancelledDisp: data.__EMPTY_4, over1yearPend: data.__EMPTY_5, over1yearDisp: data.__EMPTY_6, over6monthPend: data.__EMPTY_7, over6monthDisp: data.__EMPTY_8, over3monthPend: data.__EMPTY_9, over3monthDisp: data.__EMPTY_10, less3monthPend: data.__EMPTY_11, less3monthDisp: data.__EMPTY_12
+			 } 
+
+			 const localData={
+				underinvPend: data2.__EMPTY_1, underinvDisp: data2.__EMPTY_2, cancelledPend: data2.__EMPTY_3, cancelledDisp: data2.__EMPTY_4, over1yearPend: data2.__EMPTY_5, over1yearDisp: data2.__EMPTY_6, over6monthPend: data2.__EMPTY_7, over6monthDisp: data2.__EMPTY_8, over3monthPend: data2.__EMPTY_9, over3monthDisp: data2.__EMPTY_10, less3monthPend: data2.__EMPTY_11, less3monthDisp: data2.__EMPTY_12
+			 } 
+
+			 console.log(ipcData);
+			 console.log(localData);
+			
+			 setDataIPC(ipcData)
+			 setDatalocal(localData)
+			});
+	 };
 
     function onSubmitChallan() {
 
@@ -248,7 +365,8 @@ function PS(props) {
 			   <form> 
 				   <Grid container className={classes.root}>
 				   <Grid item xs = {2.5}>
-				   <div className="fw6 pt3">
+				   <div className="fw6 pt3"> 
+				   <div className = "pt3 pb1"></div>  
 				   <div className = "pt4 pb3">
 				   Under Investigation :
 				   </div>
@@ -274,12 +392,23 @@ function PS(props) {
 				   <Grid item xs={4.5}>
 				   <div >
 				   <p className="db fw6 lh-copy f4">UNDER IPC</p>
-				   <div className="pa2">
+
+				   <div class="row">
+                      <div class="column">
+					    <h4 >Pending </h4>
+					  </div>
+					  <div class="column">
+					    <h4 >Disposed </h4>
+					    </div>
+					</div>
+					
+				   <div className="pa1">
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   style={{ width: "175px" }}
 					   type='number'
 					   min='0'
+					   value = {ipc.underinvPend}
 					   placeholder='Pending'
 					   onChange = {e => {
 						const val = e.target.value;
@@ -295,6 +424,7 @@ function PS(props) {
 					   type='number'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value = {ipc.underinvDisp}
 					   min='0'
 					   onChange = {e => {
 						const val = e.target.value;
@@ -312,6 +442,7 @@ function PS(props) {
 					   type='number'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   value = {ipc.cancelledPend}
 					   min='0'
 					   onChange = {e => {
 						const val = e.target.value;
@@ -328,6 +459,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value = {ipc.cancelledDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -346,6 +478,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   value={ipc.over1yearPend}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -361,6 +494,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value={ipc.over1yearDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -379,6 +513,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   value={ipc.over6monthPend}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -394,6 +529,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value={ipc.over6monthDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -412,6 +548,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   value={ipc.over3monthPend}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -427,6 +564,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value={ipc.over3monthDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -445,6 +583,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   value={ipc.less3monthPend}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -460,6 +599,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value={ipc.less3monthDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDataIPC(prevState => {
@@ -477,12 +617,21 @@ function PS(props) {
 				   <Grid item xs={5}>
 				   <div>
 				   <p className="db fw6 lh-copy f4">UNDER LOCAL AND SPECIAL LAW</p>
-				   <div className="pa2">
+				   <div class="row" >
+                      <div class="column">
+					    <h4 >Pending </h4>
+					  </div>
+					  <div class="column">
+					    <h4 >Disposed </h4>
+					    </div>
+					</div>
+				   <div className="pa1">
 					 <input 
 					   className="pa2 input-reset ba hover-bg-black hover-white"
 					   type='number'
 					   min='0'
 					   style={{ width: "175px" }}
+					   value={local.underinvPend}
 					   placeholder='Pending'
 					   onChange = {e => {
 						const val = e.target.value;
@@ -498,6 +647,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value={local.underinvDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -516,6 +666,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   value={local.cancelledPend}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -531,6 +682,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value={local.cancelledDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -548,6 +700,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   value={local.over1yearPend}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -563,6 +716,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value={local.over1yearDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -580,6 +734,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   value={local.over6monthPend}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -595,6 +750,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value={local.over6monthDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -612,6 +768,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   value={local.over3monthPend}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -627,6 +784,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value={local.over3monthDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -645,6 +803,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Pending'
+					   value={local.less3monthPend}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -660,6 +819,7 @@ function PS(props) {
 					   min='0'
 					   style={{ width: "175px" }}
 					   placeholder='Disposed'
+					   value={local.less3monthDisp}
 					   onChange = {e => {
 						const val = e.target.value;
 						setDatalocal(prevState => {
@@ -671,7 +831,7 @@ function PS(props) {
 					</div>	
 				   </div>   
 				   </Grid> 
-				   <Grid xs={6}>
+				   <Grid xs={4}>
 				   <div className="pt3 pb3 fw6">
 				     Month and Year of the Investigation Data:
 					</div>
@@ -691,7 +851,17 @@ function PS(props) {
 							}}
 							/>  
 						</MuiPickersUtilsProvider>
-					</Grid>				
+					</Grid>	
+					<Grid xs={5}>
+						<input 
+							className='pt3'
+								type="file"
+								onChange={(e) => {
+								const file = e.target.files[0];
+								readInv(file);
+								}}
+							/>	
+				    </Grid>		
 			   </Grid>
 
 				  <Button variant="contained" color="secondary" onClick={onSubmitInvestigation}>
@@ -811,6 +981,15 @@ function PS(props) {
 						  }
 						  }
 						 /> 
+
+						<input 
+						  className='pt4'
+							type="file"
+							onChange={(e) => {
+							const file = e.target.files[0];
+							readChallan(file);
+							}}
+      					/>
 						</Grid>
 					   </Grid>
 		
@@ -827,7 +1006,7 @@ function PS(props) {
 						<TextField
 						  variant = "outlined"
 						  label = "ILLICIT LIQUOR(in Litres)"
-						  type = "number"
+						  type = "text"
 						  value = {recovery.illict}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
@@ -842,7 +1021,7 @@ function PS(props) {
 						  <TextField
 						  variant = "outlined"
 						  label = "POPPY HUSK(in Grams)"
-						  type = "number"
+						  type = "text"
 						  value = {recovery.poppy}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
@@ -867,14 +1046,22 @@ function PS(props) {
 						  }
 						  }
 						 /> 
-						 
+
+						<input 
+							className='pt1 pl3'
+								type="file"
+								onChange={(e) => {
+								const file = e.target.files[0];
+								readRecovery(file);
+								}}
+							/> 
 					 </Grid>
  
 					 <Grid item xs={3}>
 					   <TextField
 						  variant = "outlined"
 						  label = "LICIT LIQUOR(in Litres)"
-						  type = "number"
+						  type = "text"
 						  value = {recovery.licit}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
@@ -889,7 +1076,7 @@ function PS(props) {
 					   <TextField
 						  variant = "outlined"
 						  label = "HEROIN(in Gram)"
-						  type = "number"
+						  type = "text"
 						  value = {recovery.heroin}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
@@ -904,7 +1091,7 @@ function PS(props) {
 						 <TextField
 						  variant = "outlined"
 						  label = "INJECTIONS"
-						  type = "number"
+						  type = "text"
 						  value = {recovery.injections}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
@@ -921,7 +1108,7 @@ function PS(props) {
 					   <TextField
 						  variant = "outlined"
 						  label = "LAHAN(in Litres)"
-						  type = "number"
+						  type = "text"
 						  value = {recovery.lahan}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
@@ -936,7 +1123,7 @@ function PS(props) {
 					   <TextField
 						  variant = "outlined"
 						  label = "OPIUM(in Gram)"
-						  type = "number"
+						  type = "text"
 						  value = {recovery.opium}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
@@ -968,7 +1155,7 @@ function PS(props) {
 					   <TextField
 						  variant = "outlined"
 						  label = "GANJA(in Gram)"
-						  type = "number"
+						  type = "text"
 						  value = {recovery.ganja}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
@@ -983,7 +1170,7 @@ function PS(props) {
 					   <TextField
 						  variant = "outlined"
 						  label = "CHARAS(in Gram)"
-						  type = "number"
+						  type = "text"
 						  value = {recovery.charas}
 						  inputProps={{ min: "0"}}
 						  onChange = {e => {
@@ -1029,3 +1216,5 @@ function PS(props) {
 }
 
 export default PS;
+
+

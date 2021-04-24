@@ -126,7 +126,6 @@ function setData(data, type) {
     }
 
     else{
-      console.log(data);
         for(i=0; i<data.length; i++)
            result.push(data[i].monYear);
     }

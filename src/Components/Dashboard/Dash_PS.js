@@ -65,7 +65,7 @@ function Dashboard(props){
                         onChange= {date => onChangeDate(date)}  
                                         />  
                       </MuiPickersUtilsProvider>
-                      
+                      <h3 style={{paddingBottom:'10px'}}>Comparative analysis based on Progress Report</h3>
                         <div class="row">
                         <div class="column">
                               <Stacked Report = {report} flag = {1}/>
