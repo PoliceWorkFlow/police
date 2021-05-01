@@ -59,6 +59,7 @@ const Navigation = ({onRouteChange, route}) => {
 			</nav>	
 		 );
 	  }
+
 	  
 	  else if(route === 'stationReport'){
 		return(

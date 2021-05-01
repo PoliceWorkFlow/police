@@ -21,6 +21,12 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 function createData(name, illicit, licit, lahan, opium, poppy, heroin, charas, ganja, tablets, injections, others,t1,t2,t3) {
+  
+  if(t3 === 'Not Filled'){
+    illicit = '-'; licit = '-'; lahan = '-'; opium = '-'; poppy = '-'; heroin = '-';
+    charas = '-'; ganja = '-'; tablets = '-'; injections = '-'; others = '-';
+    return { name, illicit, licit, lahan, opium, poppy, heroin, charas, ganja, tablets, injections, others, t1, t2, t3};
+  }
   return { name, illicit, licit, lahan, opium, poppy, heroin, charas, ganja, tablets, injections, others, t1, t2, t3};
 }
 
@@ -45,8 +51,8 @@ export default function CustomizedTables(props) {
         createData('Sadar Rupnagar',  props.recovery[6].illicit, props.recovery[6].licit, props.recovery[6].lahan, props.recovery[6].opium, props.recovery[6].poppy, props.recovery[6].heroin, props.recovery[6].charas, props.recovery[6].ganja, props.recovery[6].tablets, props.recovery[6].injections, props.recovery[6].others, props.recoveryCheck[20].status, props.recoveryCheck[19].status, props.recoveryCheck[18].status ),
         createData('Sadar Morinda',  props.recovery[7].illicit, props.recovery[7].licit, props.recovery[7].lahan, props.recovery[7].opium, props.recovery[7].poppy, props.recovery[7].heroin, props.recovery[7].charas, props.recovery[7].ganja, props.recovery[7].tablets, props.recovery[7].injections, props.recovery[7].others, props.recoveryCheck[23].status, props.recoveryCheck[22].status, props.recoveryCheck[21].status),
         createData('Nurpurbedi',  props.recovery[8].illicit, props.recovery[8].licit, props.recovery[8].lahan, props.recovery[8].opium, props.recovery[8].poppy, props.recovery[8].heroin, props.recovery[8].charas, props.recovery[8].ganja, props.recovery[8].tablets, props.recovery[8].injections, props.recovery[8].others, props.recoveryCheck[26].status, props.recoveryCheck[25].status, props.recoveryCheck[24].status),
-        createData('Singh Bhagwantpur',   props.recovery[9].illicit, props.recovery[9].licit, props.recovery[9].lahan, props.recovery[9].opium, props.recovery[9].poppy, props.recovery[9].heroin, props.recovery[9].charas, props.recovery[9].ganja, props.recovery[9].tablets, props.recovery[9].injections, props.recovery[9].others, props.recoveryCheck[29].status, props.recoveryCheck[28].status, props.recoveryCheck[27].status)
-       // createData('Total',0,  0, 0,    107,     354,    200, ),
+        createData('Singh Bhagwantpur',   props.recovery[9].illicit, props.recovery[9].licit, props.recovery[9].lahan, props.recovery[9].opium, props.recovery[9].poppy, props.recovery[9].heroin, props.recovery[9].charas, props.recovery[9].ganja, props.recovery[9].tablets, props.recovery[9].injections, props.recovery[9].others, props.recoveryCheck[29].status, props.recoveryCheck[28].status, props.recoveryCheck[27].status),
+        createData('' , '', '', '', '', '', '', '', '', '', '', '', 'Send Reminder to All', 'Send Reminder to All', 'Send Reminder to All')
     ];  
   const classes = useStyles();
   
@@ -68,9 +74,9 @@ export default function CustomizedTables(props) {
             <StyledTableCell align="right" >Tablets</StyledTableCell>
             <StyledTableCell align="right" >Injections</StyledTableCell>
             <StyledTableCell align="right" >Others</StyledTableCell>
-            <StyledTableCell align="right" >{props.recoveryCheck[2].monYear}</StyledTableCell>
-            <StyledTableCell align="right" >{props.recoveryCheck[1].monYear}</StyledTableCell>
-            <StyledTableCell align="right" >{props.recoveryCheck[0].monYear}</StyledTableCell>
+            <StyledTableCell align="center" >{props.recoveryCheck[0].monYear}</StyledTableCell>
+            <StyledTableCell align="center" >{props.recoveryCheck[1].monYear}</StyledTableCell>
+            <StyledTableCell align="center" >{props.recoveryCheck[2].monYear}</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -79,41 +85,70 @@ export default function CustomizedTables(props) {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="right" >{row.illicit} L</StyledTableCell>
-              <StyledTableCell align="right" >{row.licit} L</StyledTableCell>
-              <StyledTableCell align="right" >{row.lahan} L</StyledTableCell>
-              <StyledTableCell align="right" >{row.opium} gm</StyledTableCell>
-              <StyledTableCell align="right" >{row.poppy} gm</StyledTableCell>
-              <StyledTableCell align="right" >{row.heroin} gm</StyledTableCell>
-              <StyledTableCell align="right" >{row.charas} gm</StyledTableCell>
-              <StyledTableCell align="right" >{row.ganja} gm</StyledTableCell>
+              <StyledTableCell align="right" >{row.illicit} </StyledTableCell>
+              <StyledTableCell align="right" >{row.licit} </StyledTableCell>
+              <StyledTableCell align="right" >{row.lahan} </StyledTableCell>
+              <StyledTableCell align="right" >{row.opium} </StyledTableCell>
+              <StyledTableCell align="right" >{row.poppy} </StyledTableCell>
+              <StyledTableCell align="right" >{row.heroin} </StyledTableCell>
+              <StyledTableCell align="right" >{row.charas} </StyledTableCell>
+              <StyledTableCell align="right" >{row.ganja} </StyledTableCell>
               <StyledTableCell align="right" >{row.tablets}</StyledTableCell>
               <StyledTableCell align="right" >{row.injections}</StyledTableCell>
               <StyledTableCell align="right" >{row.others}</StyledTableCell>
-              { row.t1 === 'Not Filled'
+ 
+              { row.t3 === 'Not Filled'
+                  ? 
+                    <StyledTableCell align="center" >
+                     <Tooltip title="Send Reminder" placement="left-start" interactive> 
+                       <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Challan' )} >Not Filled</Button> 
+                     </Tooltip>
+                    </StyledTableCell>
+                  :  row.t3 === 'Send Reminder to All'
+                   ?  
+                   <StyledTableCell align="center" >
+                     <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
+                       <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Challan' )} >{row.t3}</Button> 
+                     </Tooltip>
+                    </StyledTableCell>
+                  :
+                  <StyledTableCell align="center" >{row.t3}</StyledTableCell>
+                  }  
+
+                { row.t2 === 'Not Filled'
                   ? <StyledTableCell align="center" >
-                     <Tooltip title="Send Reminder" placement="left-start" interactive>
-                      <Button variant="contained" color="lightsecondary" style={{ fontSize: '9px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[2].monYear ,'Recovery')} >Not Filled</Button>
+                    <Tooltip title="Send Reminder" placement="left-start" interactive> 
+                     <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[1].monYear ,'Challan')} >Not Filled</Button>
                       </Tooltip>
                       </StyledTableCell>
-                  : <StyledTableCell align="center" >{row.t1}</StyledTableCell>
-                  }
-                 { row.t2 === 'Not Filled'
-                  ? <StyledTableCell align="center" >
-                     <Tooltip title="Send Reminder" placement="left-start" interactive>
-                        <Button variant="contained" color="lightsecondary" style={{ fontSize: '9px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[1].monYear ,'Recovery')} >Not Filled</Button>
-                      </Tooltip>
-                     </StyledTableCell>
-                  : <StyledTableCell align="center" >{row.t2}</StyledTableCell>
-                  }
-                  { row.t3 === 'Not Filled'
-                  ? <StyledTableCell align="center" >
-                     <Tooltip title="Send Reminder" placement="left-start" interactive>
-                       <Button variant="contained" color="lightsecondary" style={{ fontSize: '9px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Recovery')} >Not Filled</Button> 
-                     </Tooltip>
-                     </StyledTableCell>
-                  : <StyledTableCell align="center" >{row.t3}</StyledTableCell>
+                  : 
+                    row.t2 === 'Send Reminder to All'
+                  ?  
+                  <StyledTableCell align="center" >
+                    <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
+                      <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Challan' )} >{row.t2}</Button> 
+                    </Tooltip>
+                   </StyledTableCell>
+                 :
+                  <StyledTableCell align="center" >{row.t2}</StyledTableCell>
                   }  
+                
+                 { row.t1 === 'Not Filled'
+                  ? <StyledTableCell align="center" >
+                    <Tooltip title="Send Reminder" placement="left-start" interactive> 
+                    <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[2].monYear ,'Challan')} >Not Filled</Button> 
+                    </Tooltip> 
+                    </StyledTableCell> 
+                  :  row.t1 === 'Send Reminder to All'
+                  ?  
+                  <StyledTableCell align="center" >
+                    <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
+                      <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Challan' )} >{row.t1}</Button> 
+                    </Tooltip>
+                   </StyledTableCell>
+                 : 
+                  <StyledTableCell align="center" >{row.t1}</StyledTableCell>
+                }  
             </StyledTableRow>
           ))}
         </TableBody>

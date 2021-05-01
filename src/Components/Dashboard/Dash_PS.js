@@ -1,54 +1,50 @@
 import React, {useState} from 'react';
 import './dashboard.css';
-import {Card, CardContent } from "@material-ui/core";
-import Table from './Table';
-import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import {Paper, makeStyles} from "@material-ui/core";
 import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
-import Stacked from './stacked_graph';
 import ComparativeAnal from './comparativeAnal';
+import ComparativeAnalPR from './comparativeAnalPR';
 import 'tachyons';
+
+const useStyle = makeStyles(theme => ({
+	pageContent : {
+		margin: theme.spacing(3),
+		padding: theme.spacing(2)
+	}
+}))
+
 
 function Dashboard(props){
 
   const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
-  const [report, setReport] = useState(props.progressReport);
-  const [selectedDate, setSelectedDate] = useState(props.progressReport[0].monYear);
-  const months = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);  
-
-  function onChangeDate(date){
-    const monYear = months[0][date.getMonth()] + ' ' + date.getFullYear();
-    setSelectedDate(monYear);
-
-    console.log(monYear);
-
-    fetch('http://localhost:3000/extractReportDetails', {
-       method: 'post',
-       headers: {'Content-Type': 'application/json'},
-       body: JSON.stringify({
-             monYear: monYear
-         })
-    })
-   .then(response => response.json())
-   .then(data => { 
-         if(data === 'error')
-           alert('Kindly select the date again!!!!')
-         else{
-             var report = data; 
-             report.sort(function(a, b) {
-             return a.id - b.id;
-             });
-             setReport(report); 
-         }
-   })
-  }
+  //const months = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);  
+  const classes = useStyle();
 
     return(
-          <div >   
-             { report.length === 0
-                   ? <p></p>
-                    :   
-                    <div className="dash">
+          <div >     
+            <div className="dash">
+               <div className="dash_left">
+                  <div className='dash_header' > 
+                  <h1 className='center'>{policeStation[0][props.policeStation - 1]} Police Station</h1>
+                  </div>
+                  <Paper className={classes.pageContent}>
+                    < ComparativeAnal policeStation={props.policeStation} /*challan={props.challan} ipc={props.ipc} local={props.local}*/ />
+                 </Paper>
+                 <Paper className={classes.pageContent}>
+                    < ComparativeAnalPR policeStation={props.policeStation} />
+                 </Paper>
+                 </div> 
+               </div>  
+                 
+         </div>        
+        );
+       
+}
+
+export default Dashboard;
+
+/*
+ <div className="dash">
                     <div className="dash_left">
                       <div className='dash_header' > 
                       <h2 className='center'>{policeStation[0][props.policeStation - 1]} Police Station</h2>
@@ -65,6 +61,9 @@ function Dashboard(props){
                         onChange= {date => onChangeDate(date)}  
                                         />  
                       </MuiPickersUtilsProvider>
+                      <div>
+                        < ComparativeAnal policeStation={props.policeStation}/>
+                        </div>
                       <h3 style={{paddingBottom:'10px'}}>Comparative analysis based on Progress Report</h3>
                         <div class="row">
                         <div class="column">
@@ -74,9 +73,6 @@ function Dashboard(props){
                           <Stacked Report = {report} flag = {2} />
                         </div>
                         </div> 
-                        <div>
-                        < ComparativeAnal policeStation={props.policeStation}/>
-                        </div>
                        </div> 
                        <div style={{paddingTop:'45px'}}>
                         <Card className="dash_right">
@@ -88,10 +84,5 @@ function Dashboard(props){
                         </Card> 
                         </div>
                       </div>  
-                }   
-         </div>        
-        );
-       
-}
 
-export default Dashboard;
+*/

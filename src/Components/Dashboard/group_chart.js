@@ -154,8 +154,8 @@ class App extends React.Component {
     return (
       <Bar
         data={this.OnDataChanged}
-        width={'450px'}
-        height={'500px'}
+        width={'300px'}
+        height={'100px'}
         options={options}
        
       />

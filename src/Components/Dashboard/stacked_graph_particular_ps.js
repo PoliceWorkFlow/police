@@ -75,6 +75,7 @@ export default class StackedBarChart extends React.Component{
             legend: {
                 reversed: true
             },
+            
             plotOptions: {
                 bar: {
                   showInLegend: true,
@@ -119,7 +120,7 @@ export default class StackedBarChart extends React.Component{
                 <HighchartsReact
                     highcharts={Highcharts} 
                     options={configObj}
-                    containerProps={{ style: { height: "380px", width: "500px" } }}
+                    containerProps={{ style: { height: "400px", width: "900px" } }}
                  />  
              </div>
             )

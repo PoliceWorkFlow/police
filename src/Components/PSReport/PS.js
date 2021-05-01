@@ -20,10 +20,17 @@ const useStyle = makeStyles(theme => ({
 	}
 }))
 
+function currentMonth(){
+	const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	const monYear = months[new Date().getMonth()] + ' ' + new Date().getFullYear();
+	return monYear;
+ }
+
 function PS(props) {
 	
 	const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
 	const [challan, setData] = useState({ overLoading: '0', withoutHelmet: '0', drunken: '0', covid19: '0', overspeed: '0', others: '0', monYear: '' });
+	const [monthCurr] = useState(currentMonth());
     const [recovery, setDataRecovery] = useState({ illict: '0', licit: '0', lahan: '0', ganja: '0', poppy: '0', heroin: '0', opium: '0', charas: '0', tablets: '0', injections: '0', others: '0', monYear: '' });
 	const [ipc, setDataIPC] = useState({ underinvPend: '0', underinvDisp: '0', cancelledPend: '0', cancelledDisp: '0', over1yearPend: '0', over1yearDisp: '0', over6monthPend: '0', over6monthDisp: '0', over3monthPend: '0', over3monthDisp: '0', less3monthPend: '0', less3monthDisp: '0', monYear: ''});
 	const [local, setDatalocal] = useState({ underinvPend: '0', underinvDisp: '0', cancelledPend: '0', cancelledDisp: '0', over1yearPend: '0', over1yearDisp: '0', over6monthPend: '0', over6monthDisp: '0', over3monthPend: '0', over3monthDisp: '0', less3monthPend: '0', less3monthDisp: '0', monYear: ''});
@@ -151,8 +158,18 @@ function PS(props) {
 
 	 challan.monYear = months[0][selectedDate.getMonth()] + ' ' + selectedDate.getFullYear();
 
+	 console.log(monthCurr.split(' ')[1]);
+	 console.log(challan.monYear.split(' ')[1]);
+
+
      if(challan.overLoading<0 || challan.withoutHelmet<0 || challan.drunken<0 || challan.covid19<0 || challan.overspeed<0 || challan.others<0)
 	      alert("ERROR!!!!  Add only positive values"); 
+    
+	 else if(monthCurr.split(' ')[1] < challan.monYear.split(' ')[1])
+	     alert('You have entered wrong Year!!!!')
+   
+     else if(monthCurr.split(' ')[1] === challan.monYear.split(' ')[1] &&  months[0].indexOf(monthCurr.split(' ')[0]) < months[0].indexOf(challan.monYear.split(' ')[0]))
+	     alert('You have entered wrong month!!!!')
       
 		else{
 			fetch('http://localhost:3000/checkMonthYear', {
@@ -168,7 +185,7 @@ function PS(props) {
 			.then(data => {
 
 				if(data === 'Yes'){
-				   if(window.confirm("Report for this month already exist!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
+				   if(window.confirm("Report for this month ALREADY EXISTS!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
 					fetch('http://localhost:3000/addchallandetails', {
 						method: 'post',
 						headers: {'Content-Type': 'application/json'},
@@ -221,9 +238,15 @@ function PS(props) {
 			break;
 		   }
 	   }
-	  
-	  if(flag){
-		fetch('http://localhost:3000/checkMonthYear', {
+	
+        if(monthCurr.split(' ')[1] < recovery.monYear.split(' ')[1])
+	      alert('You have entered wrong Year!!!!')
+   
+        else if(monthCurr.split(' ')[1] === recovery.monYear.split(' ')[1] &&  months[0].indexOf(monthCurr.split(' ')[0]) < months[0].indexOf(recovery.monYear.split(' ')[0]))
+	      alert('You have entered wrong month!!!!')
+
+	    else if(flag){
+		 fetch('http://localhost:3000/checkMonthYear', {
 				method: 'post',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
@@ -235,7 +258,7 @@ function PS(props) {
 			.then(response => response.json())
 			.then(data => {
 				if(data === 'Yes'){
-                    if(window.confirm("Report for this month already exist!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
+                    if(window.confirm("Report for this month ALREADY EXISTS!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
 						console.log(recovery);
 						fetch('http://localhost:3000/addrecoverydetails', {
 							method: 'post',
@@ -290,8 +313,14 @@ function PS(props) {
 			  break;
 			 }
 		 }
-		
-		if(flag) {
+
+		if(monthCurr.split(' ')[1] < ipc.monYear.split(' ')[1])
+	      alert('You have entered wrong Year!!!!')
+   
+        else if(monthCurr.split(' ')[1] === ipc.monYear.split(' ')[1] &&  months[0].indexOf(monthCurr.split(' ')[0]) < months[0].indexOf(ipc.monYear.split(' ')[0]))
+	      alert('You have entered wrong month!!!!')
+
+		else if(flag) {
 			fetch('http://localhost:3000/checkMonthYear', {
 				method: 'post',
 				headers: {'Content-Type': 'application/json'},
@@ -305,7 +334,7 @@ function PS(props) {
 			.then(data => {
 				if(data === 'Yes'){
 
-					if(window.confirm("Report for this month already exist!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
+					if(window.confirm("Report for this month ALREADY EXISTS!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
 						fetch('http://localhost:3000/addinvestigationdetails', {
 							method: 'post',
 							headers: {'Content-Type': 'application/json'},
@@ -358,6 +387,17 @@ function PS(props) {
                 </div> 
 			
 			<h2> {props.caseType} </h2>
+			<div className='tr'>
+					<input 
+						type="file"
+						onChange={(e) => {
+							const file = e.target.files[0];
+							readRecovery(file);
+							readChallan(file);
+							readInv(file);
+						}}
+					/>
+			</div>
 			
 			{ props.caseType === 'Investigation'
 			   ?  
@@ -851,21 +891,11 @@ function PS(props) {
 							}}
 							/>  
 						</MuiPickersUtilsProvider>
-					</Grid>	
-					<Grid xs={5}>
-						<input 
-							className='pt3'
-								type="file"
-								onChange={(e) => {
-								const file = e.target.files[0];
-								readInv(file);
-								}}
-							/>	
-				    </Grid>		
+					</Grid>		
 			   </Grid>
 
 				  <Button variant="contained" color="secondary" onClick={onSubmitInvestigation}>
-					Submit
+					Submit Investigation Data
 				 </Button>	
 				 </form>			 
 			   </Paper>		
@@ -981,21 +1011,12 @@ function PS(props) {
 						  }
 						  }
 						 /> 
-
-						<input 
-						  className='pt4'
-							type="file"
-							onChange={(e) => {
-							const file = e.target.files[0];
-							readChallan(file);
-							}}
-      					/>
 						</Grid>
 					   </Grid>
 		
 				</form>
 				   <Button variant="contained" color="secondary" onClick = {onSubmitChallan}>
-					 Submit
+					 Submit Challan Data
 				   </Button>				
 				 </Paper>	
 				   : 
@@ -1045,16 +1066,7 @@ function PS(props) {
 							  });
 						  }
 						  }
-						 /> 
-
-						<input 
-							className='pt1 pl3'
-								type="file"
-								onChange={(e) => {
-								const file = e.target.files[0];
-								readRecovery(file);
-								}}
-							/> 
+						 />
 					 </Grid>
  
 					 <Grid item xs={3}>
@@ -1203,7 +1215,7 @@ function PS(props) {
 		
 				</form>
 				   <Button variant="contained" color="secondary" onClick = {onSubmitRecovery}>
-					 Submit
+					 Submit Recovery Data
 				   </Button>				
 				 </Paper>  
 				   )

@@ -81,7 +81,7 @@ export default class StackedBarChart extends React.Component{
                 <HighchartsReact
                     highcharts={Highcharts} 
                     options={configObj}
-                    containerProps={{ style: { height: "430px", width: "450px" } }}
+                    containerProps={{ style: { height: "400px", width: "700px" } }}
                  />  
              </div>
             )

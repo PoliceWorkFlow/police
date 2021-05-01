@@ -1,5 +1,5 @@
 import React from 'react';
-import {Avatar} from '@material-ui/core';
+import {Avatar, Link, Button} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import 'tachyons';
 
@@ -10,7 +10,7 @@ class Signin extends React.Component {
    		signinusername: '',
    		signinPass: '',
 	    avatarStyle: {backgroundColor:'#1bbd7e'},
-		paperStyle: { padding :10, height:'65vh',width:500, margin:"20px auto", backgroundColor: 'white'}   
+		paperStyle: { padding :10, height:'70vh',width:300, margin:"20px auto", backgroundColor: 'white'}   
    	}
    }
 
@@ -34,7 +34,6 @@ class Signin extends React.Component {
    	})
       .then(response => response.json())
       .then(data => {
-		  console.log(data);
       	if(data === 'unable to login')
 		  alert('Wrong Credentials');	
       	else{
@@ -50,7 +49,7 @@ class Signin extends React.Component {
 	 render(){
 
 	 return(
-	 <article style = {this.state.paperStyle} className="br3 ba shadow-2 b--black-10 mv4 w-100 w-50-m w-25-l mw5 center">
+	 <article style = {this.state.paperStyle} className="br3 ba center">
 		 <Avatar style={this.state.avatarStyle} className="center pa3 shadow-2"><LockOutlinedIcon/></Avatar>	
 	    <main className="pa3 black-80">
 	      <div className="measure">
@@ -78,15 +77,15 @@ class Signin extends React.Component {
 	            />
 	         </div>
 	        </fieldset>
-	      <div className="">
-	       <input 
-	         onClick = {this.onSubmitSignIn}
-	         className="b ph3 pv2 input-reset ba b--black bg-white pointer f6 dib" 
-	         type="submit" 
-	         value="Sign in" 
-	         />
-	      </div>
-		  
+			<Button variant="contained" color="secondary" onClick={this.onSubmitSignIn}>
+				Sign In
+			</Button>
+
+		  <div className='tl pt3'>
+		  <Link href="#" onClick = {() => this.props.onRouteChange('Forgot')} variant="body2">
+                Forgot password?
+              </Link>
+		  </div>
 	    </div>
 	  </main>
 	</article>  

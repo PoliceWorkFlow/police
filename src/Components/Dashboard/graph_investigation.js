@@ -77,8 +77,9 @@ class StackedChart extends React.Component{
     render(){
        return(
           <div>
+            <h3 style={{paddingBottom:'20px'}}>Comparative analysis based on Monthly Report</h3>
               <Grid container>
-			  <Grid item xs={9}>
+			  <Grid item xs={6}>
             <FormControl style={{minWidth: 100}}>  
                     <Select variant="outlined" className="dash_dropdown" onChange={this.onCaseTypeChange} value={this.state.case_chosen} >
                     { this.state.caseType.map((cases) => (
@@ -87,7 +88,7 @@ class StackedChart extends React.Component{
                     </Select>
              </FormControl>
              </Grid>
-             <Grid item xs={3} style={{paddingTop: '14px'}}>
+             <Grid item xs={6} className='tl pt2'>
              <MuiPickersUtilsProvider utils={DateFnsUtils} >
 						 <DatePicker 
 							variant="outlined"
@@ -106,10 +107,12 @@ class StackedChart extends React.Component{
              <div style = {{paddingTop: '20px'}}> 
              { 
                 this.state.flag === false
-                ?  <h3>Kindly Select Date </h3>
+                ?  <h3 className='center'>Kindly Select Date </h3>
                 :
                    this.state.case_chosen === 'Challan Cases' && this.state.challan.length !== 0
-                    ? <Stacked challan={this.state.challan} />
+                    ? <div className='center'>
+                      <Stacked challan={this.state.challan} />
+                      </div>
                     :  
                     this.state.ipc.length === 0 || this.state.local.length === 0 
                      ?  <p></p>

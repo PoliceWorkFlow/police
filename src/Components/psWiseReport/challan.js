@@ -21,8 +21,18 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, over, drunk, ospeed, helmet, mask, others, t1, t2, t3) {
-  return { name, over, drunk, ospeed, helmet, mask, others, t1, t2, t3};
+function createData(name, over, drunk, ospeed, helmet, mask, others, t1, t2, t3) { 
+    if(t3 === 'Not Filled'){
+      over = '-';
+      drunk = '-'; 
+      ospeed = '-';
+      helmet = '-';
+      mask = '-';
+      others = '-';
+      return {name, over, drunk, ospeed, helmet, mask, others, t1, t2, t3};
+
+   } 
+      return { name, over, drunk, ospeed, helmet, mask, others, t1, t2, t3};
 }
 
 
@@ -36,7 +46,7 @@ const useStyles = makeStyles({
 });
 
 export default function CustomizedTables(props) {
-  //console.log(props.challanCheck);
+ 
     const rows = [
         createData('Nangal', props.challan[0].overloading, props.challan[0].drunken, props.challan[0].overspeed, props.challan[0].withoutHelmet, props.challan[0].covid19, props.challan[0].others, props.challanCheck[2].status, props.challanCheck[1].status, props.challanCheck[0].status, props.challan[0].datemod),
         createData('City Morinda',  props.challan[1].overloading, props.challan[1].drunken, props.challan[1].overspeed, props.challan[1].withoutHelmet, props.challan[1].covid19, props.challan[1].others, props.challanCheck[5].status, props.challanCheck[4].status, props.challanCheck[3].status, props.challan[1].datemod),
@@ -47,8 +57,8 @@ export default function CustomizedTables(props) {
         createData('Sadar Rupnagar',  props.challan[6].overloading, props.challan[6].drunken, props.challan[6].overspeed, props.challan[6].withoutHelmet, props.challan[6].covid19, props.challan[6].others, props.challanCheck[20].status, props.challanCheck[19].status, props.challanCheck[18].status, props.challan[6].datemod ),
         createData('Sadar Morinda',  props.challan[7].overloading, props.challan[7].drunken, props.challan[7].overspeed, props.challan[7].withoutHelmet, props.challan[7].covid19, props.challan[7].others, props.challanCheck[23].status, props.challanCheck[22].status, props.challanCheck[21].status, props.challan[7].datemod  ),
         createData('Nurpurbedi',  props.challan[8].overloading, props.challan[8].drunken, props.challan[8].overspeed, props.challan[8].withoutHelmet, props.challan[8].covid19, props.challan[8].others, props.challanCheck[26].status, props.challanCheck[25].status, props.challanCheck[24].status, props.challan[8].datemod),
-        createData('Singh Bhagwantpur',   props.challan[9].overloading, props.challan[9].drunken, props.challan[9].overspeed, props.challan[9].withoutHelmet, props.challan[9].covid19, props.challan[9].others, props.challanCheck[29].status, props.challanCheck[28].status, props.challanCheck[27].status, props.challan[9].datemod)
-       // createData('Total',0,  0, 0,    107,     354,    200, ),
+        createData('Singh Bhagwantpur',   props.challan[9].overloading, props.challan[9].drunken, props.challan[9].overspeed, props.challan[9].withoutHelmet, props.challan[9].covid19, props.challan[9].others, props.challanCheck[29].status, props.challanCheck[28].status, props.challanCheck[27].status, props.challan[9].datemod),
+        createData('', '' , '', '', '', '', '', 'Send Reminder to All', 'Send Reminder to All', 'Send Reminder to All')
     ];  
   const classes = useStyles();
   
@@ -65,9 +75,9 @@ export default function CustomizedTables(props) {
             <StyledTableCell align="right" >Without Helmet</StyledTableCell>
             <StyledTableCell align="right" >Covid19</StyledTableCell>
             <StyledTableCell align="right" >Others</StyledTableCell>
-            <StyledTableCell align="right" >{props.challanCheck[2].monYear}</StyledTableCell>
-            <StyledTableCell align="right" >{props.challanCheck[1].monYear}</StyledTableCell>
-            <StyledTableCell align="right" >{props.challanCheck[0].monYear}</StyledTableCell>
+            <StyledTableCell align="center" >{props.challanCheck[0].monYear}</StyledTableCell>
+            <StyledTableCell align="center" >{props.challanCheck[1].monYear}</StyledTableCell>
+            <StyledTableCell align="center" >{props.challanCheck[2].monYear}</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -76,37 +86,66 @@ export default function CustomizedTables(props) {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="right" style={{width: 100}}>{row.over}</StyledTableCell>
-              <StyledTableCell align="right" >{row.drunk}</StyledTableCell>
-              <StyledTableCell align="right" >{row.ospeed}</StyledTableCell>
-              <StyledTableCell align="right" >{row.helmet}</StyledTableCell>
-              <StyledTableCell align="right" >{row.mask}</StyledTableCell>
-              <StyledTableCell align="right" >{row.others}</StyledTableCell>
-                { row.t1 === 'Not Filled'
-                  ? <StyledTableCell align="center" >
-                    <Tooltip title="Send Reminder" placement="left-start" interactive> 
-                    <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[2].monYear ,'Challan')} >Not Filled</Button> 
-                    </Tooltip> 
-                    </StyledTableCell> 
-                  : <StyledTableCell align="center" >{row.t1}</StyledTableCell>
-                  }
-                 { row.t2 === 'Not Filled'
-                  ? <StyledTableCell align="center" >
-                    <Tooltip title="Send Reminder" placement="left-start" interactive> 
-                     <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[1].monYear ,'Challan')} >Not Filled</Button>
-                      </Tooltip>
-                      </StyledTableCell>
-                  : <StyledTableCell align="center" >{row.t2}</StyledTableCell>
-                  }
-                  { row.t3 === 'Not Filled'
+               <StyledTableCell align="right" style={{width: 100}}>{row.over}</StyledTableCell>
+               <StyledTableCell align="right" >{row.drunk}</StyledTableCell>
+               <StyledTableCell align="right" >{row.ospeed}</StyledTableCell>
+               <StyledTableCell align="right" >{row.helmet}</StyledTableCell>
+               <StyledTableCell align="right" >{row.mask}</StyledTableCell>
+               <StyledTableCell align="right" >{row.others}</StyledTableCell>
+               
+               { row.t3 === 'Not Filled'
                   ? 
                     <StyledTableCell align="center" >
                      <Tooltip title="Send Reminder" placement="left-start" interactive> 
                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[0].monYear ,'Challan' )} >Not Filled</Button> 
                      </Tooltip>
                     </StyledTableCell>
-                  : <StyledTableCell align="center" >{row.t3}</StyledTableCell>
+                  :  row.t3 === 'Send Reminder to All'
+                   ?  
+                   <StyledTableCell align="center" >
+                     <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
+                       <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[0].monYear ,'Challan' )} >{row.t3}</Button> 
+                     </Tooltip>
+                    </StyledTableCell>
+                  :
+                  <StyledTableCell align="center" >{row.t3}</StyledTableCell>
                   }  
+
+                { row.t2 === 'Not Filled'
+                  ? <StyledTableCell align="center" >
+                    <Tooltip title="Send Reminder" placement="left-start" interactive> 
+                     <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[1].monYear ,'Challan')} >Not Filled</Button>
+                      </Tooltip>
+                      </StyledTableCell>
+                  : 
+                    row.t2 === 'Send Reminder to All'
+                  ?  
+                  <StyledTableCell align="center" >
+                    <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
+                      <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[0].monYear ,'Challan' )} >{row.t2}</Button> 
+                    </Tooltip>
+                   </StyledTableCell>
+                 :
+                  <StyledTableCell align="center" >{row.t2}</StyledTableCell>
+                  }  
+                
+                 { row.t1 === 'Not Filled'
+                  ? <StyledTableCell align="center" >
+                    <Tooltip title="Send Reminder" placement="left-start" interactive> 
+                    <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[2].monYear ,'Challan')} >Not Filled</Button> 
+                    </Tooltip> 
+                    </StyledTableCell> 
+                  :  row.t1 === 'Send Reminder to All'
+                  ?  
+                  <StyledTableCell align="center" >
+                    <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
+                      <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.challanCheck[0].monYear ,'Challan' )} >{row.t1}</Button> 
+                    </Tooltip>
+                   </StyledTableCell>
+                 : 
+                  <StyledTableCell align="center" >{row.t1}</StyledTableCell>
+                }  
+ 
             </StyledTableRow>
           ))}
         </TableBody>

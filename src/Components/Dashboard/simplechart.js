@@ -1,31 +1,34 @@
 import React, {Component} from 'react';
-import {Bar} from 'react-chartjs-2';
+import {Bar, Pie} from 'react-chartjs-2';
 import './dashboard.css';
-import { MenuItem, FormControl, Select} from "@material-ui/core";
+import 'chartjs-plugin-datalabels';
+import { MenuItem, FormControl, Select, Paper} from "@material-ui/core";
 
 
 class Chart extends Component{
   constructor(props){
     super(props);
     this.state = {
-            ndps: [2*this.props.Report[0].ndps/5, 2*this.props.Report[1].ndps/5, 2*this.props.Report[2].ndps/5, 2*this.props.Report[3].ndps/5, 2*this.props.Report[4].ndps/5, 2*this.props.Report[5].ndps/5, 2*this.props.Report[6].ndps/5, 2*this.props.Report[7].ndps/5, 2*this.props.Report[8].ndps/5,2*this.props.Report[9].ndps/5 ],
-            arm: [1*this.props.Report[0].arm, 1*this.props.Report[1].arm, 1*this.props.Report[2].arm, 1*this.props.Report[3].arm,1*this.props.Report[4].arm, 1*this.props.Report[5].arm, 1*this.props.Report[6].arm, 1*this.props.Report[7].arm, 1*this.props.Report[8].arm, 1*this.props.Report[9].arm],
-            excise: [this.props.Report[0].excise/5, this.props.Report[1].excise/5, this.props.Report[2].excise/5, this.props.Report[3].excise/5, this.props.Report[4].excise/5, this.props.Report[5].excise/5, this.props.Report[6].excise/5, this.props.Report[7].excise/5, this.props.Report[8].excise/5, this.props.Report[9].excise/5 ],
-            gambling: [this.props.Report[0].gambling/5, this.props.Report[1].gambling/5, this.props.Report[2].gambling/5, this.props.Report[3].gambling/5, this.props.Report[4].gambling/5, this.props.Report[5].gambling/5, this.props.Report[6].gambling/5, this.props.Report[7].gambling/5, this.props.Report[8].gambling/5, this.props.Report[9].gambling/5],
-            commercial: [2*this.props.Report[0].commercial, 2*this.props.Report[1].commercial, 2*this.props.Report[2].commercial, 2*this.props.Report[3].commercial, 2*this.props.Report[4].commercial, 2*this.props.Report[5].commercial,2*this.props.Report[6].commercial, 2*this.props.Report[7].commercial, 2*this.props.Report[8].commercial, 2*this.props.Report[9].commercial],
-            case_chosen: 'Cases Submitted in Court',
-            caseType: ['Cases Submitted in Court', 'Heinous Crime', 'Untraced cases of crime against property', 'Disposal of Complaints', 'Property Disposal', 'PO arrested', 'Untraced Cases put in court', 'Negligence in duty/Public dealing/image', 'Cleaniness of Police Station', 'Handling of Law and Order', 'Scores']
+            case_chosen1: 'Cases Submitted in Court',
+            case_chosen2: 'Negligence in duty/Public dealing/image',
+            caseType1: ['Cases Submitted in Court', 'Heinous Crime', 'Untraced cases of crime against property', 'Disposal of Complaints', 'Property Disposal', 'PO arrested', 'Untraced Cases put in court', 'Scores'],
+            caseType2: ['Negligence in duty/Public dealing/image', 'Cleaniness of Police Station', 'Handling of Law and Order', 'NDPS Act', 'Arm Act', 'Commercial Recovery', 'Excise Act', 'Gambling Act']
     }
   }
 
-  onCaseTypeChange = (event) => {
-    this.setState({case_chosen: event.target.value});
+  onCaseTypeChange1 = (event) => {
+    this.setState({case_chosen1: event.target.value});
     }
-  
-  BarGraphChanged = (report) => {
+
+  onCaseTypeChange2 = (event) => {
+      this.setState({case_chosen2: event.target.value});
+      }
+   
+
+  BarGraphChanged1 = (report) => {
        
-   const case_chosen = this.state.case_chosen;
-   console.log(report);
+   const case_chosen = this.state.case_chosen1;
+   //console.log(report);
    var data = [];
 
    if(case_chosen === 'Cases Submitted in Court'){
@@ -56,108 +59,300 @@ class Chart extends Component{
      const untrace_cases =  [report[0].untraceInCourt/5, report[1].untraceInCourt/5, report[2].untraceInCourt/5, report[3].untraceInCourt/5, report[4].untraceInCourt/5, report[5].untraceInCourt/5, report[6].untraceInCourt/5, report[7].untraceInCourt/5, report[8].untraceInCourt/5, report[9].untraceInCourt/5];
         data = untrace_cases
    }
-   else if(case_chosen === 'Negligence in duty/Public dealing/image') {
-     const feedback =[1*report[0].feedback, 1*report[1].feedback, 1*report[2].feedback, 1*report[3].feedback, 1*report[4].feedback, 1*report[5].feedback, 1*report[6].feedback, 1*report[7].feedback, 1*report[8].feedback, 1*report[9].feedback ];
-        data = feedback 
-   }
-   else if(case_chosen === 'Cleaniness of Police Station') {
-    const clean = [1*report[0].cleaniness, 1*report[1].cleaniness, 1*report[2].cleaniness, 1*report[3].cleaniness, 1*report[4].cleaniness, 1*report[5].cleaniness, 1*report[6].cleaniness, 1*report[7].cleaniness, 1*report[8].cleaniness, 1*report[9].cleaniness ];
-        data = clean
-   }
    else if(case_chosen === 'Scores'){    
-      const scores = [1*report[0].score, 1*report[1].score, 1*report[2].score, 1*report[3].score,1*report[4].score, 1*report[5].score, 1*report[6].score, 1*report[7].score, 1*report[8].score, 1*report[9].score];
-          data = scores
-   }
-   else  {                                         // Handling
-      const handling = [1*report[0].handling, 1*report[1].handling, 1*report[2].handling, 1*report[3].handling, 1*report[4].handling, 1*report[5].handling, 1*report[6].handling, 1*report[7].handling, 1*report[8].handling, 1*report[9].handling ];
-       data = handling
-
-   }
+    const scores = [1*report[0].score, 1*report[1].score, 1*report[2].score, 1*report[3].score,1*report[4].score, 1*report[5].score, 1*report[6].score, 1*report[7].score, 1*report[8].score, 1*report[9].score];
+        data = scores
+  }
 
    const chartData = {
     labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib',
       'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'
       ],
 
+      options: {
+        plugins: {
+          datalabels: {
+            color: 'white',
+            display: function(context) {
+              return context.dataset.data[context.dataIndex] > 15;
+            },
+            font: {
+              weight: 'bold'
+            },
+            formatter: Math.round
+          }
+        }
+      },  
+
     datasets:[
       {
         label: case_chosen,
         data: data,
-
         backgroundColor:[
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
-          'rgba(255, 206, 86, 0.6)',
-          'rgba(75, 192, 192, 0.6)',
-          'rgba(153, 102, 255, 0.6)',
-          'rgba(255, 159, 64, 0.6)',
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(255, 15, 86, 0.6)',
-          'rgba(255, 206, 236, 0.6)',
-          'rgba(135, 206, 86, 0.6)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(255, 15, 86, 0.5)',
+          'rgba(255, 206, 236, 0.5)',
+          'rgba(135, 206, 86, 0.5)',
         ],
         borderColor :[
-            'rgba(255, 255, 255, 1)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(255, 15, 86, 0.6)',
-            'rgba(255, 206, 236, 0.6)',
-            'rgba(135, 206, 86, 0.6)',
-        ]
+          'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 15, 86, 1)',
+            'rgba(255, 206, 236, 1)',
+            'rgba(135, 206, 86, 1)',
+        ],
+        borderWidth: 1,
        }
       ]
     }
 
     return chartData
   }  
+   
+  BarGraphChanged2 = (report) => {
+       
+    const case_chosen = this.state.case_chosen2;
+    //console.log(report);
+    var data = [];
+ 
+   if(case_chosen === 'NDPS Act')  {                                         
+     const ndps= [2*report[0].ndps/5, 2*report[1].ndps/5, 2*report[2].ndps/5, 2*report[3].ndps/5, 2*report[4].ndps/5, 2*report[5].ndps/5, 2*report[6].ndps/5, 2*report[7].ndps/5, 2*report[8].ndps/5,2*report[9].ndps/5 ];
+       data = ndps
+   }
+   else if(case_chosen === 'Arm Act')  {                                         
+    const arm = [1*report[0].arm, 1*report[1].arm, 1*report[2].arm, 1*report[3].arm,1*report[4].arm, 1*report[5].arm, 1*report[6].arm, 1*report[7].arm, 1*report[8].arm, 1*report[9].arm];
+        data = arm
+    }
+    else if(case_chosen === 'Commercial Recovery')  {                                         
+      const commercial = [2*report[0].commercial, 2*report[1].commercial, 2*report[2].commercial, 2*report[3].commercial, 2*report[4].commercial, 2*report[5].commercial,2*report[6].commercial, 2*report[7].commercial, 2*report[8].commercial, 2*report[9].commercial];
+      data = commercial
+    }
+    else if(case_chosen === 'Excise Act')  {                                        
+      const excise = [report[0].excise/5, report[1].excise/5, report[2].excise/5, report[3].excise/5, report[4].excise/5, report[5].excise/5, report[6].excise/5, report[7].excise/5, report[8].excise/5, report[9].excise/5 ];
+      data = excise
+    }
+    else if(case_chosen === 'Gambling Act')  {                                         
+      const gambling= [report[0].gambling/5, report[1].gambling/5, report[2].gambling/5, report[3].gambling/5, report[4].gambling/5, report[5].gambling/5, report[6].gambling/5, report[7].gambling/5, report[8].gambling/5, report[9].gambling/5];
+      data = gambling
+    }
+ 
+    const chartData = {
+     labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib',
+       'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'
+       ],
+ 
+     datasets:[
+       {
+         label: case_chosen,
+         data: data,
+ 
+         backgroundColor:[
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(255, 15, 86, 0.5)',
+          'rgba(255, 206, 236, 0.5)',
+          'rgba(135, 206, 86, 0.5)',
+        ],
+        borderColor :[
+          'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 15, 86, 1)',
+            'rgba(255, 206, 236, 1)',
+            'rgba(135, 206, 86, 1)',
+        ],
+        borderWidth: 1,
+        }
+       ]
+     }
+ 
+     return chartData
+   } 
+  
+  PieGraphChanged = (report) => {
+    const case_chosen = this.state.case_chosen2;
+    var data = [];
+    
+    if(case_chosen === 'Negligence in duty/Public dealing/image') {
+      const feedback =[1*report[0].feedback, 1*report[1].feedback, 1*report[2].feedback, 1*report[3].feedback, 1*report[4].feedback, 1*report[5].feedback, 1*report[6].feedback, 1*report[7].feedback, 1*report[8].feedback, 1*report[9].feedback ];
+         data = feedback 
+    }
+    else if(case_chosen === 'Cleaniness of Police Station') {
+     const clean = [1*report[0].cleaniness, 1*report[1].cleaniness, 1*report[2].cleaniness, 1*report[3].cleaniness, 1*report[4].cleaniness, 1*report[5].cleaniness, 1*report[6].cleaniness, 1*report[7].cleaniness, 1*report[8].cleaniness, 1*report[9].cleaniness ];
+         data = clean
+    }
+    else if(case_chosen === 'Handling of Law and Order')  {                                        
+       const handling = [1*report[0].handling, 1*report[1].handling, 1*report[2].handling, 1*report[3].handling, 1*report[4].handling, 1*report[5].handling, 1*report[6].handling, 1*report[7].handling, 1*report[8].handling, 1*report[9].handling ];
+        data = handling
+    }
 
- /* static defaultProps = {
-    displayTitle : true,
-    displayLegend: true,
-    legendPosition:'right',
-    heading : 'heading',
-  }*/
+    const chartData = {
+      labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib',
+        'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'
+        ],
+  
+      datasets:[
+        {
+          label: case_chosen,
+          data: data,
+  
+          backgroundColor:[
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+            'rgba(75, 192, 192, 0.5)',
+            'rgba(153, 102, 255, 0.5)',
+            'rgba(255, 159, 64, 0.5)',
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(255, 15, 86, 0.5)',
+            'rgba(255, 206, 236, 0.5)',
+            'rgba(135, 206, 86, 0.5)',
+          ],
+          borderColor :[
+            'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(255, 15, 86, 1)',
+              'rgba(255, 206, 236, 1)',
+              'rgba(135, 206, 86, 1)',
+          ],
+          borderWidth: 1,
+         }
+        ]
+      }
+  
+      return chartData
+
+  } 
 
    render(){
 
+    if(this.props.flag === 1){
     return (
       <div className="chart">
         <div className="bar">
           <FormControl className="dash_dropdown" style={{minWidth: 100}}>  
-                    <Select variant="outlined" onChange={this.onCaseTypeChange} value={this.state.case_chosen} >
-                     { this.state.caseType.map((cases) => (
+                    <Select variant="outlined" onChange={this.onCaseTypeChange1} value={this.state.case_chosen1} >
+                     { this.state.caseType1.map((cases) => (
                         <MenuItem value = {cases}> {cases} </MenuItem>
                         ))}
                     </Select>
            </FormControl>
-        <div style = {{paddingTop: '10px'}}>      
-         <Bar 
-          data={this.BarGraphChanged(this.props.Report)}
-          height = {325}
-          options={{
-            scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }
-              }]
-             },
-            title:{
-              display:this.props.date,
-              text: this.props.date,
-              fontSize:15
-            }
-          }}
-        />
+        <div style = {{paddingTop: '10px'}}>
+          <Paper>   
+          <Bar 
+            data={this.BarGraphChanged1(this.props.Report)}
+            height = {325}
+            options={{
+              scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+              },
+              title:{
+                display:this.props.date,
+                text: this.props.date,
+                fontSize:15
+              },
+              plugins: {
+                datalabels: {
+                  color: 'white',
+                  font: {
+                    weight: 'bold'
+                  },
+                  formatter: Math.round
+                }
+              }
+            }}
+          />
+         </Paper>  
          </div>
         </div>
       </div>
     )
+    }
+
+    else{
+      return (
+        <div className="chart">
+          <div className="bar">
+            <FormControl className="dash_dropdown" style={{minWidth: 100}}>  
+                      <Select variant="outlined" onChange={this.onCaseTypeChange2} value={this.state.case_chosen2} >
+                       { this.state.caseType2.map((cases) => (
+                          <MenuItem value = {cases}> {cases} </MenuItem>
+                          ))}
+                      </Select>
+             </FormControl>
+          <div style = {{paddingTop: '10px'}}>  
+          <Paper>
+          {  
+           this.state.case_chosen2 === 'Negligence in duty/Public dealing/image' || this.state.case_chosen2 === 'Cleaniness of Police Station' || this.state.case_chosen2 === 'Handling of Law and Order'
+           ?  
+            <Pie
+            data={this.PieGraphChanged(this.props.Report)}
+            height = {300}
+            options={{
+              title:{
+                display:this.props.date,
+                text: this.props.date,
+                fontSize:15
+              }
+            }}
+          />
+           :  
+            <Bar 
+              data={this.BarGraphChanged2(this.props.Report)}
+              height = {325}
+              options={{
+                scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero: true
+                      }
+                  }]
+                },
+                title:{
+                  display:this.props.date,
+                  text: this.props.date,
+                  fontSize:15
+                }
+              }}
+            />
+          }
+          </Paper>
+           </div>
+          </div>
+        </div>
+      )
+    }
   }
+
 }
 
 export default Chart;
@@ -180,19 +375,6 @@ export default Chart;
           }}
         />
 
-        <Pie
-          data={this.state.chartData}
-          options={{
-            title:{
-              display:this.props.displayTitle,
-              text:this.props.heading,
-              fontSize:25
-            },
-            legend:{
-              display:this.props.displayLegend,
-              position:this.props.legendPosition
-            }
-          }}
-        />
+       
 
   */

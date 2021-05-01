@@ -18,6 +18,8 @@ class comparativeAnal extends React.Component{
             case_chosen: 'Under Investigation',
             months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             selectedDate: handleDateChange(new Date()),
+            policeStation: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
+            ps_choosen: 'Nangal',
             ipc: [],
             local: [],
             challan: [],
@@ -47,16 +49,18 @@ class comparativeAnal extends React.Component{
     }
 
     onSubmit = () => {
-  
-        if(this.state.time_choosen === '')
-          alert('Kindly select date range');
 
-        else{
-          fetch('http://localhost:3000/extractDetailsPS', {
+        const index = this.state.policeStation.indexOf(this.state.ps_choosen) + 1;
+        console.log(index);
+          if(this.state.time_choosen === '')
+            alert('Kindly select date range');
+
+          else{
+            fetch('http://localhost:3000/extractDetailsPS', {
               method: 'post',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
-                  id: this.props.policeStation,
+                  id: index ,
                   monYear: this.state.selectedDate,
                   range: this.state.time_choosen
                 })
@@ -65,8 +69,8 @@ class comparativeAnal extends React.Component{
             .then(data => {
                 if(data === 'error')
                   alert('Kindly click submit button again')
-                else{  
-                  this.setState({flag: true});
+                else{ 
+                  this.setState({flag: true});   
                   this.setState({ipc: data.ipc});
                   this.setState({local: data.local});
                   this.setState({challan: data.challan});
@@ -76,16 +80,22 @@ class comparativeAnal extends React.Component{
                   this.setState({case_chosen: 'Challan Cases'});
                 }
             })
-          }   
+          }      
     }
 
     render(){
         return(
         <div >
-    
-           <h3 style={{padding:'10px'}}>Comparative analysis based on previous months data</h3> 
-            
+            <h3 style={{padding:'20px'}}>Comparative analysis of PS based on previous months data</h3> 
            <div style={{padding:'10px'}}>
+             <FormControl style={{minWidth: 100, paddingRight: '20px'}}>  
+                      <Select variant="outlined" className="dash_dropdown" onChange={this.onPSChange} value={this.state.ps_choosen} displayEmpty > 
+                      { this.state.policeStation.map((station) => (
+                          <MenuItem value = {station} > {station} </MenuItem>
+                          ))}
+                      </Select>
+                   </FormControl> 
+             
              <FormControl style={{minWidth: 100, paddingRight: '20px'}}>  
                     <Select variant="outlined" className="dash_dropdown" onChange={this.onTimeTypeChange} value={this.state.time_choosen} displayEmpty >  
                     { this.state.timeType.map((cases) => (
@@ -107,17 +117,17 @@ class comparativeAnal extends React.Component{
 							/>  
 			  </MuiPickersUtilsProvider> 
              </FormControl> 
-             <FormControl style={{paddingLeft: '20px', paddingTop: '5px'}}>
+             <FormControl style={{paddingLeft: '0px', paddingTop: '5px'}}>
                <Button variant="contained" color="secondary" style={{width:80, height: 40}} onClick={this.onSubmit}>
                  Go </Button>
             </FormControl>  
              </div>   
-             { 
-               this.state.flag === false
-                ? <p></p>
-               : 
-                <div>
-                <FormControl style={{minWidth: 100, padding: '15px'}}>  
+         {
+             this.state.flag === false
+             ? <p></p>
+             : 
+              <div>
+              <FormControl style={{minWidth: 100, padding: '15px'}}>  
                  <Select variant="outlined" className="dash_dropdown" onChange={this.onCaseTypeChange} value={this.state.case_chosen} >
                  { this.state.caseType.map((cases) => (
                     <MenuItem value = {cases} > {cases} </MenuItem>
@@ -129,11 +139,13 @@ class comparativeAnal extends React.Component{
                   ? <Stacked challan={this.state.challan} />
                   :  
                     this.state.ipc.length !==0 && this.state.local.length !== 0
-                    ? <GroupChart ipc={this.state.ipc} local={this.state.local} case_chosen={this.state.case_chosen}/>
+                    ? <GroupChart ipc={this.state.ipc} local={this.state.local} case_chosen={this.state.case_chosen} type={this.props.type} />
                     : <p></p>
                  }
                 </div>
-             }
+                  
+         }
+        
         </div>
      );
     }

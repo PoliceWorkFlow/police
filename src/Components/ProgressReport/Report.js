@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './Report.css';
-import { MenuItem, FormControl, Select, Grid, Button, Paper, TextField, makeStyles} from "@material-ui/core";
+import { Grid, Button, Paper, TextField, makeStyles, RadioGroup, FormControlLabel, Radio} from "@material-ui/core";
 import 'tachyons';
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import "date-fns";
@@ -29,7 +29,7 @@ function currentMonth(){
 
 function Report(props) {
 	
-	const [station_chosen, setStaion] = useState('');
+	const [station_chosen, setStaion] = useState('Nangal');
 	const [police_station] = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
 	const [selectedDate, setSelectedDate] = useState(new Date());
 	const [monthCurr] = useState(currentMonth());
@@ -174,31 +174,43 @@ function Report(props) {
 		<div className="dash_left">
 			<div className='dash_header'>
 				<h2>Progress Report</h2>
-
-				<FormControl className="dash_dropdown">  
-				<Select variant="outlined" value = {station_chosen} onChange={onStationChange} displayEmpty>
-				<MenuItem value="" disabled >Select PS</MenuItem>		
-				{ police_station.map((station) => (
-				   <MenuItem value = {station}> {station} </MenuItem>
-				  ))}
-				</Select>
-				</FormControl>
-			</div>
+			 </div>
+			 
+                <RadioGroup row onChange={onStationChange} value={station_chosen}>
+				  {  police_station.map((station) => (
+                       <FormControlLabel value= {station} name='graph' control = {<Radio/>} label={station} />
+				    ))
+				  }
+                </RadioGroup>
 			
-			{ station_chosen === ''
-			   ? <h2>Select Police Station</h2>
-			   :  
 			    <div>
-					<h2> {station_chosen} </h2>
-					<div className='tr'>
+					<div className='dash_header pt2'>
+					<h2 className='center'> {station_chosen} Police Station</h2>	
+
+					<MuiPickersUtilsProvider utils={DateFnsUtils} >
+								<DatePicker
+									variant="inline"
+									openTo="year"
+									views={["year", "month"]}
+									dateFormat="MM/yyyy"
+									showMonthYearPicker
+									label="Date of the Report"
+									helperText="Start from year selection"
+									value={selectedDate}
+									onChange= { e => {
+										setSelectedDate(e);
+									}}
+									/>  
+					</MuiPickersUtilsProvider>		
 					<input 
+					  className = 'tr pl4'
 						type="file"
 						onChange={(e) => {
 							const file = e.target.files[0];
 							readExcel(file);
 						}}
-							/>
-				    </div>
+					/>
+				   </div>
 			    <Paper className={classes.pageContent}>
 				  
 			      <form> 
@@ -420,21 +432,7 @@ function Report(props) {
 							  }
 						   }
 						/> 
-						<MuiPickersUtilsProvider utils={DateFnsUtils} >
-								<DatePicker
-									variant="inline"
-									openTo="year"
-									views={["year", "month"]}
-									dateFormat="MM/yyyy"
-									showMonthYearPicker
-									label="Month and Year of the Report"
-									helperText="Start from year selection"
-									value={selectedDate}
-									onChange= { e => {
-										setSelectedDate(e);
-									}}
-									/>  
-						</MuiPickersUtilsProvider>
+					
 					  </Grid>
 
 					  <Grid item xs={3}> 	
@@ -476,12 +474,10 @@ function Report(props) {
 				</form>
 					
 				  <Button variant="contained" color="secondary" onClick={onSubmit}>
-				    Submit
+				    Submit {station_chosen} Report
 			      </Button>				
 				</Paper>	
 			   </div>
-			}
-			
 		  </div>
 
 		</div>		
@@ -490,3 +486,11 @@ function Report(props) {
 
 export default Report;
 
+/*<FormControl className="dash_dropdown">  
+				<Select variant="outlined" value = {station_chosen} onChange={onStationChange} displayEmpty>
+				<MenuItem value="" disabled >Select PS</MenuItem>		
+				{ police_station.map((station) => (
+				   <MenuItem value = {station}> {station} </MenuItem>
+				  ))}
+				</Select>
+				</FormControl>*/
