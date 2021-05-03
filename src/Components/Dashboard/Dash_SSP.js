@@ -10,7 +10,8 @@ import 'tachyons';
 import Stacked from './stacked_graph'
 import StackedPS from './graph_investigation'
 import ComparativeAnal from './ps1';
-import Bar from './simplechart'
+import Bar from './simplechart';
+import Compare from './compare';
 
 const useStyle = makeStyles(theme => ({
 	pageContent : {
@@ -124,7 +125,7 @@ function Dashboard(props){
                 </div>
                 {
                   graph === 'pr'
-                  ?
+                  ?  
                      <div style={{paddingTop:'45px'}}>
                         <Card className="dash_right">
                         <CardContent>
@@ -138,12 +139,19 @@ function Dashboard(props){
                               <Table report = {report} flag = {2} />  
                         </CardContent>
                         </Card>
-                  </div> 
+                     </div> 
                   : <p></p>
                  }  
             </div> 
-            }  
-
+            } 
+            { graph === 'pr'
+               ? <div>
+                 <h3 className='pt4 pb2'>Detailed Comparison of two Police Stations</h3>
+                   <Compare /> 
+                  </div>
+                : <p></p>
+            }           
+    
           </div>                
         );
       
