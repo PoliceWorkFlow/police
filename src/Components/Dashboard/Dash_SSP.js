@@ -38,7 +38,7 @@ function Dashboard(props){
 
          console.log(monYear);
 
-         fetch('http://localhost:3000/extractReportDetails', {
+         fetch('http://localhost:3000/api/extractReportDetails', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -146,7 +146,7 @@ function Dashboard(props){
             } 
             { graph === 'pr'
                ? <div>
-                 <h3 className='pt4 pb2'>Detailed Comparison of two Police Stations</h3>
+                 <h2 className='pt4 pb2'>Detailed Comparison of two Police Stations</h2>
                    <Compare /> 
                   </div>
                 : <p></p>

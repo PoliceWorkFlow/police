@@ -72,7 +72,7 @@ function Report(props) {
 		 }
 		
 		 if(flag){
-			fetch('http://localhost:3000/checkMonthYear', {
+			fetch('http://localhost:3000/api/checkMonthYear', {
 				method: 'post',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
@@ -85,7 +85,7 @@ function Report(props) {
 			.then(data => {
 				if(data === 'Yes'){
 					if(window.confirm("Report for this month already exist!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
-                        fetch('http://localhost:3000/addProgressReport', {
+                        fetch('http://localhost:3000/api/addProgressReport', {
 						method: 'post',
 						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({
@@ -108,7 +108,7 @@ function Report(props) {
 					}
 			    } 
 				else{
-					fetch('http://localhost:3000/addProgressReport', {
+					fetch('http://localhost:3000/api/addProgressReport', {
 						method: 'post',
 						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({
@@ -169,6 +169,11 @@ function Report(props) {
 
 	const classes = useStyle();
 
+	const openInNewTab = (url) => {
+		const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+		if (newWindow) newWindow.opener = null
+	  }
+
 	return(
 		<div className="dash">
 		<div className="dash_left">
@@ -210,7 +215,10 @@ function Report(props) {
 							readExcel(file);
 						}}
 					/>
-				   </div>
+
+					<Button variant="contained" size='small' onClick={() => openInNewTab('https://docs.google.com/spreadsheets/d/1az-K-2Ut2rHAE1ipdFFcs4zbwst6uRJfBkh35sCnyYA/edit?usp=sharing')} > Sample File</Button>
+					</div>
+				  
 			    <Paper className={classes.pageContent}>
 				  
 			      <form> 

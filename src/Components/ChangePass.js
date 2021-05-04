@@ -63,7 +63,7 @@ class Signin extends React.Component {
        else{
            console.log(this.state.new_pass)
            console.log(this.state.confirm_pass)
-        fetch('http://localhost:3000/update_password', {
+        fetch('http://localhost:3000/api/update_password', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

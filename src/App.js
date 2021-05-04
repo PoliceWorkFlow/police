@@ -12,6 +12,7 @@ import DashboardStation from './Components/Dashboard/Dash_PS';
 import ProgressReport from './Components/ProgressReport/Report'
 import Navigation from './Components/Navigation';
 import PSReport from './Components/PSReport/PS';
+import Notice from './Components/Notice/Notice';
 import PSWiseReport from './Components/psWiseReport/psWiseReport';
 
 
@@ -282,8 +283,24 @@ class App extends Component {
               <PSWiseReport challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local} challanCheck={this.state.challanCheck} ipcCheck={this.state.ipcCheck} localCheck={this.state.localCheck} recoveryCheck={this.state.recoveryCheck} onMonthChange={this.onMonthChange}/>
             }
             </div>
-        
         );
+    }
+
+    else if(route === 'enotice'){
+      return (
+        <div className='App'>
+           <Grid container>
+            <Grid xs={4}>
+              <Logo />
+            </Grid>
+            <Grid xs={8}>
+            <Navigation onRouteChange={this.onRouteChange} route={this.state.route} />
+            </Grid>
+          </Grid>
+         <Notice />
+        </div>
+    
+    );
     }
    
   }

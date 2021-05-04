@@ -1,32 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
 import { Bar, Pie } from "react-chartjs-2";
-import { MenuItem, FormControl, Select, Paper, Grid } from "@material-ui/core";
+import { MenuItem, FormControl, Select, Paper, Grid, makeStyles } from "@material-ui/core";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      policeStation: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
-      caseType: ['Feedback', 'Cleaniness', 'Handling'],
-      case: 'Feedback'
-    }
-  };
+const useStyle = makeStyles(theme => ({
+	pageContent : {
+		margin: theme.spacing(2),
+		padding: theme.spacing(2)
+	}
+}))
 
-  onCaseTypeChange = (event) => {
-    this.setState({ case: event.target.value });
-  }
+function Graph(props) {
+     const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
+     const caseType= useState(['Feedback', 'Cleaniness', 'Handling']);
+     const [cases, setCase]= useState('Feedback');
+    
+     const classes = useStyle(); 
+     const onCaseTypeChange = (event) => {
+      setCase(event.target.value)
+     }
 
-  OnDataChanged = (report1, report2) => {
-    const name1 = this.state.policeStation[report1[0].id - 1];
-    const name2 = this.state.policeStation[report2[0].id - 1];
+  const OnDataChanged = (report1, report2) => {
+    const name1 = policeStation[0][report1[0].id - 1];
+    const name2 = policeStation[0][report2[0].id - 1];
 
-    var data1 = [(report1[0].caseincourt) / 10, report1[0].propDisp / 10, report1[0].propCrime / 10, 2 * report1[0].heniusCrime, 2 * report1[0].POarrested, report1[0].untraceInCourt / 5, report1[0].compDisp / 10, 2 * report1[0].ndps / 5, 1 * report1[0].arm, report1[0].excise / 5, report1[0].gambling / 5, 2 * report1[0].commercial];
-    var data2 = [(report2[0].caseincourt) / 10, report2[0].propDisp / 10, 2 * report2[0].heniusCrime, 2 * report2[0].POarrested, report2[0].propCrime / 10, report2[0].untraceInCourt / 5, report2[0].compDisp / 10, 2 * report2[0].ndps / 5, 1 * report2[0].arm, report2[0].excise / 5, report2[0].gambling / 5, 2 * report2[0].commercial];
+    var data1 = [(report1[0].caseincourt) / 10, report1[0].propDisp / 10, report1[0].propCrime / 10, 2 * report1[0].heniusCrime, 2 * report1[0].POarrested, report1[0].untraceInCourt / 5, report1[0].compDisp / 10];
+    var data2 = [(report2[0].caseincourt) / 10, report2[0].propDisp / 10, 2 * report2[0].heniusCrime, 2 * report2[0].POarrested, report2[0].propCrime / 10, report2[0].untraceInCourt / 5, report2[0].compDisp / 10];
 
     const data = {
-      labels: ['Cases Submitted in Court', 'Property Disposal', 'Untraced cases of crime against property', 'Heinous Crime', 'PO arrested', 'Untraced Cases put in court',
-        'Disposal of Complaints', 'NDPS Act', 'Arm Act', 'Excise Act', 'Gambling Act', 'Commercial Recovery'
-      ],
+      labels: ['Cases in Court', 'Property Disposal', 'Crime against property', 'Heinous Crime', 'PO arrested', 'Untraced Cases in court',
+        'Disposal of Complaints'],
       datasets: [
         {
           label: name1,
@@ -53,11 +55,47 @@ class App extends React.Component {
 
     return data;
   };
+  
+  const OnDataChanged2 = (report1, report2) => {
+    const name1 = policeStation[0][report1[0].id - 1];
+    const name2 = policeStation[0][report2[0].id - 1];
 
-  PieGraphChanged = (report1, report2) => {
-    const labels = [this.state.policeStation[report1[0].id - 1], this.state.policeStation[report2[0].id - 1]];
+    var data1 = [2 * report1[0].ndps / 5, 1 * report1[0].arm, report1[0].excise / 5, report1[0].gambling / 5, 2 * report1[0].commercial];
+    var data2 = [ 2 * report2[0].ndps / 5, 1 * report2[0].arm, report2[0].excise / 5, report2[0].gambling / 5, 2 * report2[0].commercial];
+    
+    const data = {
+      labels: ['NDPS Act', 'Arm Act', 'Excise Act', 'Gambling Act', 'Commercial Recovery'],
+      datasets: [
+        {
+          label: name1,
+          backgroundColor: 'rgba(255, 159, 64, 0.5)',
+          borderColor: "rgba(255, 159, 64, 1)",
+          borderWidth: 1,
+          //stack: 1,
+          hoverBackgroundColor: "rgba(255, 159, 64, 2.5)",
+          hoverBorderColor: "rgba(255, 159, 64, 4.5)",
+          data: data1
+        },
+        {
+          label: name2,
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 1,
+          //stack: 1,
+          hoverBackgroundColor: "rgba(255, 99, 132, 2.5)",
+          hoverBorderColor: "rgba(255, 99, 132, 4.5)",
+          data: data2
+        }
+      ]
+    }
 
-    const case_chosen = this.state.case;
+    return data;
+  };
+
+  const PieGraphChanged = (report1, report2) => {
+    const labels = [policeStation[0][report1[0].id - 1], policeStation[0][report2[0].id - 1]];
+
+    const case_chosen = cases;
     var data = [];
 
     if (case_chosen === 'Feedback') {
@@ -108,9 +146,35 @@ class App extends React.Component {
     return chartData
 
   }
+  
+  const PieGraphChanged1 = (report1, report2) => {
+    const labels = [policeStation[0][report1[0].id - 1], policeStation[0][report2[0].id - 1]];
+    var data = [1 * report1[0].score, 1 * report2[0].score];
 
-  render() {
-    const options = {
+    const chartData = {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Score',
+          data: data,
+          backgroundColor: [
+            'rgba(255, 15, 86, 0.5)',
+            'rgba(135, 206, 86, 0.5)',
+          ],
+          borderColor: [
+            'rgba(255, 15, 86, 1)',
+            'rgba(135, 206, 86, 1)',
+          ],
+          borderWidth: 1,
+        }
+      ]
+    }
+
+    return chartData
+
+  }
+
+  const options = {
       responsive: true,
       legend: {
         display: true
@@ -121,41 +185,68 @@ class App extends React.Component {
     return (
       <Grid container>
         <Grid item xs={8}>
-    
-        <Paper>
+        <Paper className={classes.pageContent}>
           <Bar
-            data={this.OnDataChanged(this.props.data1, this.props.data2)}
-            width={'300px'}
-            height={'150px'}
+            data={OnDataChanged(props.data1, props.data2)}
+            width={'220px'}
+            height={'100px'}
             options={options}
-          />
+             />
           </Paper>
+          <Paper className={classes.pageContent}>
+          <Bar
+              data={OnDataChanged2(props.data1, props.data2)}
+              width={'220px'}
+              height={'100px'}
+              options={{
+                title:{
+                display: 'Case Registered under Detection Work',
+                text: 'Case Registered under Detection Work',
+                fontSize:15
+                }
+              }}
+            />
+          </Paper>  
         </Grid>
          <Grid item xs={4}>
-          <Paper >
-          <FormControl className="dash_dropdown" style={{ padding: '10px' , minWidth: 100 }}>
-            <Select variant="outlined" onChange={this.onCaseTypeChange} value={this.state.case} >
-              {this.state.caseType.map((cases) => (
-                <MenuItem value={cases}> {cases} </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+         <Paper className={classes.pageContent}>
           <Pie
-            data={this.PieGraphChanged(this.props.data1, this.props.data2)}
-            height={240}
+            data={PieGraphChanged1(props.data1, props.data2)}
+            height={280}
             options={{
               title: {
-                display: this.state.case,
-                text: this.state.case,
+                display: 'Score',
+                text: 'Score',
                 fontSize: 15
               }
             }}
-          />
-          </Paper>
+           />
+          </Paper>  
+          <Paper className={classes.pageContent}>
+          <FormControl className="dash_dropdown" style={{ padding: '10px' , minWidth: 100 }}>
+            <Select variant="outlined" onChange={onCaseTypeChange} value={cases}>
+              { caseType[0].map((cases) => (
+                <MenuItem value={cases}> {cases} </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+          <Pie
+            data={PieGraphChanged(props.data1, props.data2)}
+            height={250}
+            options={{
+              title: {
+                display: cases,
+                text: cases,
+                fontSize: 15
+              }
+            }}
+           />
+            </Paper>  
+         
         </Grid>
+    
       </Grid>
     );
-  }
 }
 
-export default App;
+export default Graph;

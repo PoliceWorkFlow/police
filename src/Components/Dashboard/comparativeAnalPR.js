@@ -38,7 +38,7 @@ class comparativeAnal extends React.Component{
           alert('Kindly select date range');
 
         else{
-          fetch('http://localhost:3000/extractDetailsProgressReport', {
+          fetch('http://localhost:3000/api/extractDetailsProgressReport', {
               method: 'post',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({

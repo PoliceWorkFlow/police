@@ -1,6 +1,5 @@
 import React from 'react';
-import {Avatar, FormControl, Select, MenuItem, Button} from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import {FormControl, Select, MenuItem, Button} from '@material-ui/core';
 import 'tachyons';
 
 class Signin extends React.Component {
@@ -18,14 +17,13 @@ class Signin extends React.Component {
    	 this.setState({station_chosen: event.target.value});
    }
 
-
    onSubmit = () => {
        console.log(this.state.station_chosen);
 
        if(this.state.station_chosen === '')
          alert('Kindly Select a Police Station');
        else{
-        fetch('http://localhost:3000/forgot', {
+        fetch('http://localhost:3000/api/forgot', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

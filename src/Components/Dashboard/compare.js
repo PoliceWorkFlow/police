@@ -45,7 +45,7 @@ class App extends React.Component {
          alert('Kindly select 2 different Police Stations!!!!')
        else{
 
-        fetch('http://localhost:3000/compare', {
+        fetch('http://localhost:3000/api/compare', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -56,6 +56,7 @@ class App extends React.Component {
           })
           .then(response => response.json())
           .then(data => { 
+            console.log(data);
                  this.setState({data1: data.report1})
                  this.setState({data2: data.report2})
                  this.setState({flag: true})
