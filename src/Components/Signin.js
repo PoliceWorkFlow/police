@@ -23,8 +23,9 @@ class Signin extends React.Component {
    }
 
    onSubmitSignIn = () => {
+     const link = this.props.link;
 
-   	 fetch('http://localhost:3000/api/signin', {
+   	 fetch(link + '/api/signin', {
    		method: 'post',
    		headers: {'Content-Type': 'application/json'},
    		body: JSON.stringify({

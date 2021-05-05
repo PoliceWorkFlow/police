@@ -177,7 +177,7 @@ function PS(props) {
 	     alert('You have entered wrong month!!!!')
       
 		else{
-			fetch('http://localhost:3000/api/checkMonthYear', {
+			fetch(props.link + '/api/checkMonthYear', {
 				method: 'post',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
@@ -191,7 +191,7 @@ function PS(props) {
 
 				if(data === 'Yes'){
 				   if(window.confirm("Report for this month ALREADY EXISTS!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
-					fetch('http://localhost:3000/api/addchallandetails', {
+					fetch(props.link + '/api/addchallandetails', {
 						method: 'post',
 						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({
@@ -211,7 +211,7 @@ function PS(props) {
 				 }  
 				   
                 else{
-					fetch('http://localhost:3000/api/addchallandetails', {
+					fetch(props.link + '/api/addchallandetails', {
 						method: 'post',
 						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({
@@ -251,7 +251,7 @@ function PS(props) {
 	      alert('You have entered wrong month!!!!')
 
 	    else if(flag){
-		 fetch('http://localhost:3000/api/checkMonthYear', {
+		 fetch(props.link + '/api/checkMonthYear', {
 				method: 'post',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
@@ -265,7 +265,7 @@ function PS(props) {
 				if(data === 'Yes'){
                     if(window.confirm("Report for this month ALREADY EXISTS!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
 						console.log(recovery);
-						fetch('http://localhost:3000/api/addrecoverydetails', {
+						fetch(props.link + '/api/addrecoverydetails', {
 							method: 'post',
 							headers: {'Content-Type': 'application/json'},
 							body: JSON.stringify({
@@ -285,7 +285,7 @@ function PS(props) {
 				  }  
 				
 				else{   
-					fetch('http://localhost:3000/api/addrecoverydetails', {
+					fetch(props.link + '/api/addrecoverydetails', {
 						method: 'post',
 						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({
@@ -326,7 +326,7 @@ function PS(props) {
 	      alert('You have entered wrong month!!!!')
 
 		else if(flag) {
-			fetch('http://localhost:3000/api/checkMonthYear', {
+			fetch(props.link + '/api/checkMonthYear', {
 				method: 'post',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
@@ -340,7 +340,7 @@ function PS(props) {
 				if(data === 'Yes'){
 
 					if(window.confirm("Report for this month ALREADY EXISTS!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
-						fetch('http://localhost:3000/api/addinvestigationdetails', {
+						fetch(props.link + '/api/addinvestigationdetails', {
 							method: 'post',
 							headers: {'Content-Type': 'application/json'},
 							body: JSON.stringify({
@@ -362,7 +362,7 @@ function PS(props) {
 				}
 				else{
 
-				 fetch('http://localhost:3000/api/addinvestigationdetails', {
+				 fetch(props.link + '/api/addinvestigationdetails', {
 						method: 'post',
 						headers: {'Content-Type': 'application/json'},
 						body: JSON.stringify({
@@ -393,7 +393,10 @@ function PS(props) {
 			
 			<h2> {props.caseType} </h2>
 			<div className='tr'>
-					<input 
+			<Button variant="contained" size="small" onClick={() => openInNewTab('https://docs.google.com/spreadsheets/d/1QWCtqV_5I4QdVR4zdCOpFdWLYkw0tTqTwTEhWcrMStM/edit?usp=sharing')} > Sample File</Button>
+
+			<input 
+			   className='pl4'
 						type="file"
 						onChange={(e) => {
 							const file = e.target.files[0];
@@ -401,9 +404,7 @@ function PS(props) {
 							readChallan(file);
 							readInv(file);
 						}}
-					/>
-					<Button variant="contained" size="small" onClick={() => openInNewTab('https://docs.google.com/spreadsheets/d/1QWCtqV_5I4QdVR4zdCOpFdWLYkw0tTqTwTEhWcrMStM/edit?usp=sharing')} > Sample File</Button>
-					
+					/>		
 			</div>
 			
 			{ props.caseType === 'Investigation'

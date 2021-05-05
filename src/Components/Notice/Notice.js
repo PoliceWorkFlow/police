@@ -12,8 +12,9 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function Notice() {
+function Notice(props) {
     const [message, setMessage] = React.useState('');
+    const [subject, setSubject] = React.useState('');
     const [police_station] = React.useState([{ value: 1, label: 'Nangal' }, { value: 2, label: 'City Morinda' },
     { value: 3, label: 'Sri Anandpur Sahib' }, { value: 4, label: 'City Rupnagar' }, { value: 5, label: 'Kiratpur Sahib' },
     { value: 6, label: 'Sri Chamkaur Sahib' }, { value: 7, label: 'Sadar Rupnagar' }, { value: 8, label: 'Sadar Morinda' },
@@ -27,52 +28,87 @@ function Notice() {
         setChoosen(e.target.value);
     }
 
-    function handleChange(e){
-         setPS(e)
+    function handleChange(e) {
+        setPS(e)
     }
 
     function onSubmit() {
-        if(message === '')
-          alert('Message field is empty!!!\nKindly add it...')
-        else{
-            fetch('http://localhost:3000/api/notice', {
+
+        if(subject === '')
+          alert('Subject field is empty!!!\nKindly add it...')
+
+        else if (message === '')
+            alert('Message field is empty!!!\nKindly add it...')
+        
+            else {
+            fetch(props.link + '/api/notice', {
                 method: 'post',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     message: message,
+                    subject: subject,
                     type: 'all'
                 })
-              })
-            .then(data => {
-                console.log(data);
             })
-        }  
+                .then(response => response.json())
+                .then(data => {
+                    if (data === 'Email sent')
+                        alert('Notification Send!!!')
+                    else
+                        alert('Kindly send the notification again!!!')
+                })
+        }
     }
 
     function onSubmit2() {
-        if(message === '')
-           alert('Message field is empty!!!\nKindly add it...')
-        else if(ps_choosen.length === 0)
-          alert('Kindly select atleast 1 Police Station!!!')
-        else{
-            fetch('http://localhost:3000/api/notice', {
+        
+        if(subject === '')
+          alert('Subject field is empty!!!\nKindly add it...')
+
+        else if (message === '')
+            alert('Message field is empty!!!\nKindly add it...')
+
+        else if (ps_choosen.length === 0)
+            alert('Kindly select atleast 1 Police Station!!!')
+
+        else {
+            fetch(props.link + '/api/notice', {
                 method: 'post',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     message: message,
+                    subject: subject,
                     type: 'not all',
                     ps_choosen: ps_choosen
                 })
-              })
-            .then(data => {
-                console.log(data);
             })
-        }  
+                .then(response => response.json())
+                .then(data => {
+                    if (data === 'Email sent')
+                        alert('Notification Send!!!')
+                    else
+                        alert('Kindly send the notification again!!!')
+                })
+        }
     }
     return (
         <div>
             <h2>E-Notice Board</h2>
             <Paper className={classes.pageContent}>
+                <div className='pb3'>
+                    <TextField required
+                        variant="outlined"
+                        label="Subject"
+                        fullWidth='true'
+                        name="subject"
+                        type='text'
+                        value={subject}
+                        onChange={e => {
+                            const val = e.target.value;
+                            setSubject(val);
+                        }}
+                    />
+                </div>
                 <TextField required
                     variant="outlined"
                     label="Message"
@@ -103,13 +139,13 @@ function Notice() {
                     <div className='pt3'>
                         <h3 className='pb2'>Kindly Select Police Station</h3>
                         <Select
-                            style={{width: '20px'}}  
-                            value = {ps_choosen}
+                            style={{ width: '20px' }}
+                            value={ps_choosen}
                             onChange={handleChange}
                             isMulti
                             options={police_station}
                         />
-                        <Button variant="contained" color="secondary" onClick={onSubmit2} style={{marginTop: '20px' }} >
+                        <Button variant="contained" color="secondary" onClick={onSubmit2} style={{ marginTop: '20px' }} >
                             Send to these police station
 			        </Button>
                     </div>

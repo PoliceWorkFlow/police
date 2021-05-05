@@ -360,6 +360,15 @@ class Chart extends Component{
             <Line
             data={this.LineGraphChanged1(this.props.report)}
             height = {200}
+            options={{
+              scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+              }
+            }}
             />
           :
             <Bar

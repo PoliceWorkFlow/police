@@ -28,10 +28,10 @@ function Dashboard(props){
                   <h1 className='center'>{policeStation[0][props.policeStation - 1]} Police Station</h1>
                   </div>
                   <Paper className={classes.pageContent}>
-                    < ComparativeAnal policeStation={props.policeStation} /*challan={props.challan} ipc={props.ipc} local={props.local}*/ />
+                    < ComparativeAnal policeStation={props.policeStation} link={props.link} />
                  </Paper>
                  <Paper className={classes.pageContent}>
-                    < ComparativeAnalPR policeStation={props.policeStation} />
+                    < ComparativeAnalPR policeStation={props.policeStation} link={props.link} />
                  </Paper>
                  </div> 
                </div>  

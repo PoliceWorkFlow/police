@@ -13,6 +13,7 @@ import ProgressReport from './Components/ProgressReport/Report'
 import Navigation from './Components/Navigation';
 import PSReport from './Components/PSReport/PS';
 import Notice from './Components/Notice/Notice';
+import Profile from './Components/Profile/Profile';
 import PSWiseReport from './Components/psWiseReport/psWiseReport';
 
 
@@ -32,6 +33,8 @@ class App extends Component {
        ipcCheck: [],
       localCheck: [],
       recoveryCheck: [],
+     // link: 'http://localhost:3000',
+      link: 'http://172.26.1.62'
     }
   }
 
@@ -43,7 +46,7 @@ class App extends Component {
 
     else if(route === 'ssp' && data !== 0){
         this.setState({policeStation: data.id});
-
+        console.log(data.report);
         var report = data.report; 
         report.sort(function(a, b) {
           return a.id - b.id;
@@ -77,7 +80,7 @@ class App extends Component {
       const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       const monYear = months[new Date().getMonth()] + ' ' + new Date().getFullYear();
 
-       fetch('http://localhost:3000/extractDetails', {
+       fetch(this.state.link + '/api/extractDetails', {
 			 	 method: 'post',
 				 headers: {'Content-Type': 'application/json'},
 				 body: JSON.stringify({
@@ -183,11 +186,12 @@ class App extends Component {
    // console.log(currentLocation);
 
     if(currentLocation.includes('/change-password')){
+      console.log(currentLocation);
       return(
         <div className='App signin'>
           <Logo />
           <Router >
-          <Route path='/change-password/:slug' render={(props) => <ChangePass onRouteChange={this.onRouteChange} {...props}/>}/>
+          <Route path='/change-password/:slug' render={(props) => <ChangePass onRouteChange={this.onRouteChange} link={this.state.link} {...props}/>}/>
           </Router>
          </div>
       );
@@ -197,7 +201,7 @@ class App extends Component {
        return(
         <div className='App signin'>
           <Logo />
-           <SignIn onRouteChange={this.onRouteChange} />
+           <SignIn onRouteChange={this.onRouteChange} link={this.state.link}/>
            </div>
        );
     }
@@ -206,7 +210,7 @@ class App extends Component {
       return(
        <div className='App signin'>
         <Logo />
-        <Forgot onRouteChange={this.onRouteChange} />
+        <Forgot onRouteChange={this.onRouteChange} link={this.state.link} />
        </div>
       );
    }
@@ -223,7 +227,7 @@ class App extends Component {
             </Grid>
           </Grid>
            
-          <DashboardStation policeStation={this.state.policeStation} /*challan={this.state.challan} ipc={this.state.ipc} local={this.state.local} */ />
+          <DashboardStation policeStation={this.state.policeStation} link={this.state.link} />
           
            </div>
         );
@@ -242,7 +246,7 @@ class App extends Component {
           </Grid>
            { this.state.progressReport.length === 0
             ? <p></p>
-            : <DashboardSSP progressReport={this.state.progressReport} />
+            : <DashboardSSP progressReport={this.state.progressReport} link={this.state.link} />
            }
          </div>
         );
@@ -252,7 +256,7 @@ class App extends Component {
       return (
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route}  />  
-          <ProgressReport onProgressChanges={this.onProgressChanges}/>
+          <ProgressReport onProgressChanges={this.onProgressChanges} link={this.state.link}/>
          </div>
         );
     }
@@ -261,7 +265,7 @@ class App extends Component {
       return (
         <div className='App'>
          <Navigation onRouteChange={this.onRouteChange} route={this.state.route} /> 
-          <PSReport policeStation={this.state.policeStation} caseType={this.state.caseType} />
+          <PSReport policeStation={this.state.policeStation} caseType={this.state.caseType} link={this.state.link} />
          </div>
         );
     }
@@ -280,7 +284,7 @@ class App extends Component {
             {  this.state.challan.length === 0 || this.state.recovery.length === 0 || this.state.ipc.length === 0 || this.state.local.length === 0 
               ? <p></p>
                : 
-              <PSWiseReport challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local} challanCheck={this.state.challanCheck} ipcCheck={this.state.ipcCheck} localCheck={this.state.localCheck} recoveryCheck={this.state.recoveryCheck} onMonthChange={this.onMonthChange}/>
+              <PSWiseReport link={this.state.link} challan={this.state.challan} recovery={this.state.recovery} ipc={this.state.ipc} local={this.state.local} challanCheck={this.state.challanCheck} ipcCheck={this.state.ipcCheck} localCheck={this.state.localCheck} recoveryCheck={this.state.recoveryCheck} onMonthChange={this.onMonthChange}/>
             }
             </div>
         );
@@ -297,7 +301,24 @@ class App extends Component {
             <Navigation onRouteChange={this.onRouteChange} route={this.state.route} />
             </Grid>
           </Grid>
-         <Notice />
+         <Notice link={this.state.link}/>
+        </div>
+    
+    );
+    }
+
+    else if(route === 'profilePS' || route === 'profileSSP'){
+      return (
+        <div className='App'>
+           <Grid container>
+            <Grid xs={4}>
+              <Logo />
+            </Grid>
+            <Grid xs={8}>
+            <Navigation onRouteChange={this.onRouteChange} route={this.state.route} />
+            </Grid>
+          </Grid>
+         <Profile policeStation = {this.state.policeStation} link={this.state.link}/>
         </div>
     
     );

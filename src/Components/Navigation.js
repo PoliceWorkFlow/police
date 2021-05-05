@@ -22,7 +22,8 @@ const Navigation = ({onRouteChange, route}) => {
 	       <div className="flex-grow flex items-center pt2 pb3" style={{display: 'flex' , justifyContent: 'flex-end'}}>
 		   <p  onClick={() => onRouteChange('progressReport')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Progress Report</p>
 		   <p  onClick={() => onRouteChange('psWiseReport')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >PS Wise Report</p>
-		   <p  onClick={() => onRouteChange('enotice')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >E Notice</p>		    
+		   <p  onClick={() => onRouteChange('enotice')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >E Notice</p>	
+		   <p  onClick={() => onRouteChange('profileSSP')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Profile</p>   	    
 	       <p  onClick={() => onRouteChange('signin')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Sign Out</p>
 	       </div>
 		{/*   <h2  className='f3 tl pl4'>SSP OFFICE</h2> */}
@@ -40,17 +41,17 @@ const Navigation = ({onRouteChange, route}) => {
               <div class="dropdown-content">
                 <Link href='#' onClick={() => onRouteChange('stationReport', 'Investigation')}> Investigation </Link>
                 <Link  href='#' onClick={() => onRouteChange('stationReport', 'Recovery')}> Recovery </Link>
-				<Link  href='#' onClick={() => onRouteChange('stationReport', 'Challan')}> Challan </Link>
-				
+				<Link  href='#' onClick={() => onRouteChange('stationReport', 'Challan')}> Challan </Link>	
               </div>
-            </div>	    
+            </div>	 
+			<p  onClick={() => onRouteChange('profilePS')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Profile</p>   
 			<p  onClick={() => onRouteChange('signin')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Sign Out</p>
 			</div>
 			</nav>	
 		 );
 	  }
 	  
-	  else if(route === 'progressReport' || route === 'psWiseReport' || route === 'enotice'){
+	  else if(route === 'progressReport' || route === 'psWiseReport' || route === 'enotice' || route === 'profileSSP'){
 		return(
 			 <nav style={{display: 'flex' , justifyContent: 'flex-end'}}>
 			<div className="flex-grow flex items-center pt2 pb3">
@@ -62,7 +63,7 @@ const Navigation = ({onRouteChange, route}) => {
 	  }
 
 	  
-	  else if(route === 'stationReport'){
+	  else if(route === 'stationReport' || route === 'profilePS'){
 		return(
 			 <nav style={{display: 'flex' , justifyContent: 'flex-end'}}>
 			<div className="flex-grow flex items-center pt2 pb4">

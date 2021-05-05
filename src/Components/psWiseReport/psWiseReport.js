@@ -23,7 +23,7 @@ export default function CustomizedTables(props) {
    const onNotification = (ps, month, type) => {
       console.log(ps + ' ' + month + ' ' + type);
 
-      fetch('http://localhost:3000/api/sendNotification', {
+      fetch(props.link + '/api/sendNotification', {
 				method: 'post',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({
@@ -46,7 +46,7 @@ export default function CustomizedTables(props) {
      const monYear = months[0][date.getMonth()] + ' ' + date.getFullYear();
      setSelectedDate(monYear);
 
-     fetch('http://localhost:3000/api/extractDetails', {
+     fetch(props.link + '/api/extractDetails', {
 				method: 'post',
 				headers: {'Content-Type': 'application/json'},
 				body: JSON.stringify({

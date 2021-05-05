@@ -19,11 +19,11 @@ class Signin extends React.Component {
 
    onSubmit = () => {
        console.log(this.state.station_chosen);
-
+       const link = this.props.link;
        if(this.state.station_chosen === '')
          alert('Kindly Select a Police Station');
        else{
-        fetch('http://localhost:3000/api/forgot', {
+        fetch(link + '/api/forgot', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

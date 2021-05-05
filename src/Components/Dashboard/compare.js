@@ -45,7 +45,7 @@ class App extends React.Component {
          alert('Kindly select 2 different Police Stations!!!!')
        else{
 
-        fetch('http://localhost:3000/api/compare', {
+        fetch(this.props.link + '/api/compare', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

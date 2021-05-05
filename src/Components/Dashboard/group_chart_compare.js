@@ -147,7 +147,7 @@ function Graph(props) {
 
   }
   
-  const PieGraphChanged1 = (report1, report2) => {
+  const BarGraphChanged = (report1, report2) => {
     const labels = [policeStation[0][report1[0].id - 1], policeStation[0][report2[0].id - 1]];
     var data = [1 * report1[0].score, 1 * report2[0].score];
 
@@ -210,11 +210,18 @@ function Graph(props) {
         </Grid>
          <Grid item xs={4}>
          <Paper className={classes.pageContent}>
-          <Pie
-            data={PieGraphChanged1(props.data1, props.data2)}
+          <Bar
+            data={BarGraphChanged(props.data1, props.data2)}
             height={280}
             options={{
-              title: {
+              scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+              },
+            title: {
                 display: 'Score',
                 text: 'Score',
                 fontSize: 15

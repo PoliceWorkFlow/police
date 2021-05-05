@@ -36,9 +36,9 @@ function Dashboard(props){
          const monYear = months[0][date.getMonth()] + ' ' + date.getFullYear();
          setSelectedDate(monYear);
 
-         console.log(monYear);
-
-         fetch('http://localhost:3000/api/extractReportDetails', {
+        // console.log(monYear);
+        // console.log(props.link);
+         fetch(props.link + '/api/extractReportDetails', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -115,10 +115,10 @@ function Dashboard(props){
                    : 
                     <div>
                        <Paper className={classes.pageContent}>
-                         <StackedPS /> 
+                         <StackedPS link={props.link} /> 
                         </Paper>
                         <Paper className={classes.pageContent}>
-                         <ComparativeAnal  />
+                         <ComparativeAnal link={props.link}/>
                         </Paper>
                     </div> 
                    }
@@ -147,7 +147,7 @@ function Dashboard(props){
             { graph === 'pr'
                ? <div>
                  <h2 className='pt4 pb2'>Detailed Comparison of two Police Stations</h2>
-                   <Compare /> 
+                   <Compare link={props.link} /> 
                   </div>
                 : <p></p>
             }           
