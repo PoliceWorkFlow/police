@@ -38,9 +38,10 @@ class comparativeAnal extends React.Component{
           alert('Kindly select date range');
 
         else{
+          var token = sessionStorage.getItem('jwtToken');
           fetch(this.props.link + '/api/extractDetailsProgressReport', {
               method: 'post',
-              headers: {'Content-Type': 'application/json'},
+              headers: {'Content-Type': 'application/json',  'jwttoken': token},
               body: JSON.stringify({
                   id: this.props.policeStation,
                   monYear: this.state.selectedDate,
@@ -49,8 +50,9 @@ class comparativeAnal extends React.Component{
             })
             .then(response => response.json())
             .then(data => {
-                //console.log(data.report);
-                if(data === 'error')
+                if(data.auth === false)
+                  alert('Problem in Authorization!!!\nKindly do it again!!')
+                 else if(data === 'error')
                   alert('Kindly click submit button again')
                 else 
                   this.setState({report: data.report});

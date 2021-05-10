@@ -113,6 +113,8 @@ class Chart extends Component{
           'rgba(255, 15, 86, 0.5)',
           'rgba(255, 206, 236, 0.5)',
           'rgba(135, 206, 86, 0.5)',
+          'rgba(255, 206, 86, 1.5)',
+          'rgba(153, 102, 255, 1.5)',
         ],
         borderColor :[
           'rgba(255, 99, 132, 1)',
@@ -125,6 +127,8 @@ class Chart extends Component{
             'rgba(255, 15, 86, 1)',
             'rgba(255, 206, 236, 1)',
             'rgba(135, 206, 86, 1)',
+            'rgba(255, 206, 86, 4.5)',
+            'rgba(153, 102, 255, 4.5)',
         ],
         borderWidth: 1,
        }
@@ -250,6 +254,8 @@ class Chart extends Component{
           'rgba(255, 15, 86, 0.5)',
           'rgba(255, 206, 236, 0.5)',
           'rgba(135, 206, 86, 0.5)',
+          'rgba(255, 206, 86, 1.5)',
+          'rgba(153, 102, 255, 1.5)',
         ],
         borderColor :[
           'rgba(255, 99, 132, 1)',
@@ -262,6 +268,8 @@ class Chart extends Component{
             'rgba(255, 15, 86, 1)',
             'rgba(255, 206, 236, 1)',
             'rgba(135, 206, 86, 1)',
+            'rgba(255, 206, 86, 4.5)',
+            'rgba(153, 102, 255, 4.5)',
         ],
         borderWidth: 1,
         }
@@ -316,6 +324,8 @@ class Chart extends Component{
             'rgba(255, 15, 86, 0.5)',
             'rgba(255, 206, 236, 0.5)',
             'rgba(135, 206, 86, 0.5)',
+            'rgba(255, 206, 86, 1.5)',
+            'rgba(153, 102, 255, 1.5)',
           ],
           borderColor :[
               'rgba(255, 99, 132, 1)',
@@ -328,6 +338,8 @@ class Chart extends Component{
               'rgba(255, 15, 86, 1)',
               'rgba(255, 206, 236, 1)',
               'rgba(135, 206, 86, 1)',
+              'rgba(255, 206, 86, 4.5)',
+              'rgba(153, 102, 255, 4.5)',
           ],
           borderWidth: 1,
          }

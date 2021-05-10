@@ -37,16 +37,20 @@ class StackedChart extends React.Component{
           const monYear = this.state.months[date.getMonth()] + ' ' + date.getFullYear();
           this.setState({selectedDate: monYear})
 
-         // console.log(this.state.case_chosen);
+        var token = sessionStorage.getItem('jwtToken');
         fetch(this.props.link + '/api/extractDetails', {
 				method: 'post',
-				headers: {'Content-Type': 'application/json'},
+				headers: {'Content-Type': 'application/json', 'jwttoken': token},
 				body: JSON.stringify({
 					monYear: monYear
 			  	})
 		   	})
 		  	.then(response => response.json())
 		  	.then(data => { 
+          
+          if(data.auth === false)
+             alert('Problem in Authorization!!!\nKindly do it again!!')
+          else{    
            this.setState({flag: true});
 
            var challan = data.challan; 
@@ -71,6 +75,7 @@ class StackedChart extends React.Component{
                 this.setState({case_chosen: 'Under Investigation'});
             else
                 this.setState({case_chosen: 'Challan Cases'});
+          }
           })   
     }
 

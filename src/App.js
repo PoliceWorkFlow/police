@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
+import 'tachyons';
 import './App.css';
 import './Components/Signin.css'
 import SignIn from './Components/Signin';
@@ -14,6 +15,7 @@ import Navigation from './Components/Navigation';
 import PSReport from './Components/PSReport/PS';
 import Notice from './Components/Notice/Notice';
 import Profile from './Components/Profile/Profile';
+import Marks from './Components/Marks/Marks';
 import PSWiseReport from './Components/psWiseReport/psWiseReport';
 
 
@@ -33,8 +35,8 @@ class App extends Component {
        ipcCheck: [],
       localCheck: [],
       recoveryCheck: [],
-     // link: 'http://localhost:3000',
-      link: 'http://172.26.1.62'
+   //  link: 'http://localhost:3000',
+      link: 'http://103.118.50.49'
     }
   }
 
@@ -46,7 +48,7 @@ class App extends Component {
 
     else if(route === 'ssp' && data !== 0){
         this.setState({policeStation: data.id});
-        console.log(data.report);
+
         var report = data.report; 
         report.sort(function(a, b) {
           return a.id - b.id;
@@ -78,18 +80,29 @@ class App extends Component {
     
      else if(route === 'psWiseReport'){
       const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      const monYear = months[new Date().getMonth()] + ' ' + new Date().getFullYear();
+      var monYear = months[new Date().getMonth()] + ' ' + new Date().getFullYear();
+      var year = monYear.split(' ')[1];
+      var index = new Date().getMonth();
+      if(index === 0)
+         year = year - 1;
+      else
+        index = index - 1;
+  
+      monYear = months[index] + ' ' + year;
 
+      var token = sessionStorage.getItem('jwtToken');
        fetch(this.state.link + '/api/extractDetails', {
 			 	 method: 'post',
-				 headers: {'Content-Type': 'application/json'},
+				 headers: {'Content-Type': 'application/json', 'jwttoken': token},
 				 body: JSON.stringify({
 					 monYear: monYear
 			  	})
 		   	})
 		  	.then(response => response.json())
 		  	.then(data => { 
-         // console.log(data);
+          if(data.auth === false)
+            alert('Problem in Authorization!!!\nKindly do it again!!')
+            else
              this.onMonthChange(data);
           })
      }
@@ -200,7 +213,7 @@ class App extends Component {
     if(route === 'signin'){
        return(
         <div className='App signin'>
-          <Logo />
+          {/*<Logo />*/}
            <SignIn onRouteChange={this.onRouteChange} link={this.state.link}/>
            </div>
        );
@@ -208,8 +221,7 @@ class App extends Component {
 
   else if(route === 'Forgot'){
       return(
-       <div className='App signin'>
-        <Logo />
+       <div className='App signin pt6'>
         <Forgot onRouteChange={this.onRouteChange} link={this.state.link} />
        </div>
       );
@@ -323,7 +335,24 @@ class App extends Component {
     
     );
     }
-   
+
+    else if(route === 'marksCrit' || route === 'marksCritPS'){
+      return (
+        <div className='App'>
+           <Grid container>
+            <Grid xs={4}>
+              <Logo />
+            </Grid>
+            <Grid xs={8}>
+            <Navigation onRouteChange={this.onRouteChange} route={this.state.route} />
+            </Grid>
+          </Grid>
+          <Marks link={this.state.link}/>
+        </div>
+    
+    );
+    }
+    
   }
 }
  

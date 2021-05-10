@@ -17,34 +17,34 @@ class Signin extends React.Component {
 
   componentDidMount() {
     let slugparam = this.props.match.params.slug;
-    console.log(slugparam);
 
     let splitslug = slugparam.split('+++');
     let reqDate = splitslug[0];
     let emailName = splitslug[1].split('++');
-    let email = emailName[0];
+    let token = emailName[0];
     let station = emailName[1];
+    this.setState({ police_station: station });
     // console.log(reqDate);
-     console.log(email);
+     console.log(token);
     // console.log(station);
 
-    /*fetch(this.props.link + '/api/checkLink', {
+    fetch(this.props.link + '/api/checkLink', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         station: station,
-        pass: email
+        token: token
       })
       })
       .then(response => response.json())
       .then(data => {
-        if (data === 'failure') {
-          alert('Error!! The Link has been already used!!!')
+        console.log(data);
+        if (data !== 'success') {
+          alert('Error!! Kindly send the Link again!!!')
           this.props.history.push('/')
           this.props.onRouteChange('signin')
         }
-        else{*/
-          this.setState({ police_station: station });
+        else{
           let date1 = new Date(reqDate);
           let currentDate = new Date();
           let difference = currentDate - date1;
@@ -54,9 +54,9 @@ class Signin extends React.Component {
             this.props.history.push('/')
             this.props.onRouteChange('signin')
           }
-    //  
-     // })
-  }
+        }
+     })
+   }
 
   onPassChange1 = (event) => {
     this.setState({ new_pass: event.target.value });
@@ -80,11 +80,10 @@ class Signin extends React.Component {
       alert('Kindly check the confirm password!!!\nBoth password should match!!!')
 
     else {
-    //  console.log(this.state.new_pass)
-     // console.log(this.state.confirm_pass)
+
       fetch(link + '/api/update_password', {
         method: 'post',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({
           station: this.state.police_station,
           new_pass: this.state.new_pass
@@ -92,7 +91,7 @@ class Signin extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
-          if (data === 'success') {
+            if (data === 'success') {
             alert('Password changed Successfully!!!!')
             this.props.history.push('/')
             this.props.onRouteChange('signin')

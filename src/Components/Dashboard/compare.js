@@ -44,10 +44,10 @@ class App extends React.Component {
        if(this.state.ps_choosen1 === this.state.ps_choosen2)
          alert('Kindly select 2 different Police Stations!!!!')
        else{
-
+        var token = sessionStorage.getItem('jwtToken');
         fetch(this.props.link + '/api/compare', {
             method: 'post',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json', 'jwttoken': token},
             body: JSON.stringify({
                 ps1: this.state.ps_choosen1,
                 ps2: this.state.ps_choosen2,
@@ -56,10 +56,13 @@ class App extends React.Component {
           })
           .then(response => response.json())
           .then(data => { 
-            console.log(data);
+              if(data.auth === false)
+                   alert('Problem in Authorization!!!\nKindly do it again!!')
+              else{    
                  this.setState({data1: data.report1})
                  this.setState({data2: data.report2})
                  this.setState({flag: true})
+              }
           })
        }  
 

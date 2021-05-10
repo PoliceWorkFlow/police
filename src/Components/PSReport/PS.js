@@ -36,7 +36,7 @@ function PS(props) {
 	const [local, setDatalocal] = useState({ underinvPend: '0', underinvDisp: '0', cancelledPend: '0', cancelledDisp: '0', over1yearPend: '0', over1yearDisp: '0', over6monthPend: '0', over6monthDisp: '0', over3monthPend: '0', over3monthDisp: '0', less3monthPend: '0', less3monthDisp: '0', monYear: ''});
     const [selectedDate, setSelectedDate] = useState(new Date());
 	const months = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
-
+	var token = sessionStorage.getItem('jwtToken');
 	const classes = useStyle();
 
 	const openInNewTab = (url) => {
@@ -179,7 +179,7 @@ function PS(props) {
 		else{
 			fetch(props.link + '/api/checkMonthYear', {
 				method: 'post',
-				headers: {'Content-Type': 'application/json'},
+				headers: {'Content-Type': 'application/json', 'jwttoken': token },
 				body: JSON.stringify({
 					policeStation: props.policeStation,
 					monYear: challan.monYear,
@@ -188,12 +188,13 @@ function PS(props) {
 			})
 			.then(response => response.json())
 			.then(data => {
-
-				if(data === 'Yes'){
+				if(data.auth === false)
+				alert('Problem in Authorization!!!\nKindly do it again!!')
+				else if(data === 'Yes'){
 				   if(window.confirm("Report for this month ALREADY EXISTS!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
 					fetch(props.link + '/api/addchallandetails', {
 						method: 'post',
-						headers: {'Content-Type': 'application/json'},
+						headers: {'Content-Type': 'application/json', 'jwttoken': token },
 						body: JSON.stringify({
 							policeStation: props.policeStation,
 							challan: challan,
@@ -202,7 +203,9 @@ function PS(props) {
 					})
 					.then(response => response.json())
 					.then(data => {  
-						if(data === 'success')
+						if(data.auth === false)
+                              alert('Problem in Authorization!!!\nKindly do it again!!')
+						else if(data === 'success')
 						alert('Challan Detail Updated');	
 						else
 						alert('Unable to update the details. Kindly add it again') 
@@ -213,7 +216,7 @@ function PS(props) {
                 else{
 					fetch(props.link + '/api/addchallandetails', {
 						method: 'post',
-						headers: {'Content-Type': 'application/json'},
+						headers: {'Content-Type': 'application/json', 'jwttoken': token },
 						body: JSON.stringify({
 							policeStation: props.policeStation,
 							challan: challan,
@@ -222,7 +225,9 @@ function PS(props) {
 					})
 					.then(response => response.json())
 					.then(data => {
-						if(data === 'success')
+						if(data.auth === false)
+                              alert('Problem in Authorization!!!\nKindly do it again!!')
+						else if(data === 'success')
 						alert('Challan Details added');	
 						else
 						alert('Unable to add the details. Kindly add it again')
@@ -253,7 +258,7 @@ function PS(props) {
 	    else if(flag){
 		 fetch(props.link + '/api/checkMonthYear', {
 				method: 'post',
-				headers: {'Content-Type': 'application/json'},
+				headers: {'Content-Type': 'application/json', 'jwttoken': token },
 				body: JSON.stringify({
 					policeStation: props.policeStation,
 					monYear: recovery.monYear,
@@ -262,12 +267,14 @@ function PS(props) {
 			})
 			.then(response => response.json())
 			.then(data => {
-				if(data === 'Yes'){
+				if(data.auth === false)
+                        alert('Problem in Authorization!!!\nKindly do it again!!')
+				else if(data === 'Yes'){
                     if(window.confirm("Report for this month ALREADY EXISTS!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
-						console.log(recovery);
+						
 						fetch(props.link + '/api/addrecoverydetails', {
 							method: 'post',
-							headers: {'Content-Type': 'application/json'},
+							headers: {'Content-Type': 'application/json', 'jwttoken': token },
 							body: JSON.stringify({
 								policeStation: props.policeStation,
 								recovery: recovery,
@@ -275,8 +282,10 @@ function PS(props) {
 							})
 						})
 						.then(response => response.json())
-						.then(data => {  
-							if(data === 'success')
+						.then(data => {
+							if(data.auth === false)
+                              alert('Problem in Authorization!!!\nKindly do it again!!')  
+							else if(data === 'success')
 							alert('Recovery Details Updated');	
 							else
 							alert('Unable to update the details. Kindly add it again') 
@@ -287,7 +296,7 @@ function PS(props) {
 				else{   
 					fetch(props.link + '/api/addrecoverydetails', {
 						method: 'post',
-						headers: {'Content-Type': 'application/json'},
+						headers: {'Content-Type': 'application/json', 'jwttoken': token },
 						body: JSON.stringify({
 							policeStation: props.policeStation,
 							recovery: recovery,
@@ -296,7 +305,9 @@ function PS(props) {
 					})
 				.then(response => response.json())
 				.then(data => {
-					if(data === 'success')
+					if(data.auth === false)
+                              alert('Problem in Authorization!!!\nKindly do it again!!')
+					else if(data === 'success')
 					alert('Recovery Details added');	
 					else
 					alert('Unable to add the details. Kindly add it again')
@@ -328,7 +339,7 @@ function PS(props) {
 		else if(flag) {
 			fetch(props.link + '/api/checkMonthYear', {
 				method: 'post',
-				headers: {'Content-Type': 'application/json'},
+				headers: {'Content-Type': 'application/json', 'jwttoken': token },
 				body: JSON.stringify({
 					policeStation: props.policeStation,
 					monYear: ipc.monYear,
@@ -337,12 +348,14 @@ function PS(props) {
 			})
 			.then(response => response.json())
 			.then(data => {
-				if(data === 'Yes'){
+				if(data.auth === false)
+                              alert('Problem in Authorization!!!\nKindly do it again!!')
+				else if(data === 'Yes'){
 
 					if(window.confirm("Report for this month ALREADY EXISTS!!!\nClick 'OK' to update this month report, else click 'Cancel' ")){
 						fetch(props.link + '/api/addinvestigationdetails', {
 							method: 'post',
-							headers: {'Content-Type': 'application/json'},
+							headers: {'Content-Type': 'application/json', 'jwttoken': token },
 							body: JSON.stringify({
 								policeStation: props.policeStation,
 								ipc: ipc,
@@ -351,8 +364,10 @@ function PS(props) {
 							})
 						})
 						.then(response => response.json())
-						.then(data => {  
-							if(data === 'success')
+						.then(data => { 
+							if(data.auth === false)
+                              alert('Problem in Authorization!!!\nKindly do it again!!') 
+							else if(data === 'success')
 							alert('Investigation Details Updated');	
 							else
 							alert('Unable to update the details. Kindly add it again') 
@@ -364,7 +379,7 @@ function PS(props) {
 
 				 fetch(props.link + '/api/addinvestigationdetails', {
 						method: 'post',
-						headers: {'Content-Type': 'application/json'},
+						headers: {'Content-Type': 'application/json', 'jwttoken': token },
 						body: JSON.stringify({
 							policeStation: props.policeStation,
 							ipc: ipc,
@@ -374,7 +389,9 @@ function PS(props) {
 					})
 				.then(response => response.json())
 				.then(data => {
-					if(data === 'success')
+					if(data.auth === false)
+                              alert('Problem in Authorization!!!\nKindly do it again!!')
+					else if(data === 'success')
 					  alert('Investigation Details added');	
 					else
 					  alert(data);

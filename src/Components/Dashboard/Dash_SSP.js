@@ -36,18 +36,20 @@ function Dashboard(props){
          const monYear = months[0][date.getMonth()] + ' ' + date.getFullYear();
          setSelectedDate(monYear);
 
-        // console.log(monYear);
-        // console.log(props.link);
+         var token = sessionStorage.getItem('jwtToken');
+
          fetch(props.link + '/api/extractReportDetails', {
             method: 'post',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json', 'jwttoken': token },
             body: JSON.stringify({
                   monYear: monYear
               })
          })
         .then(response => response.json())
         .then(data => { 
-              if(data === 'error')
+              if(data.auth === false)
+                alert('Kindly Select the date again!!!!')
+             else if(data === 'error')
                 alert('Kindly select the date again!!!!')
               else{
                   var report = data; 

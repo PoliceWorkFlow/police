@@ -41,9 +41,10 @@ function Notice(props) {
             alert('Message field is empty!!!\nKindly add it...')
         
             else {
+             var token = sessionStorage.getItem('jwtToken');
             fetch(props.link + '/api/notice', {
                 method: 'post',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'jwttoken': token },
                 body: JSON.stringify({
                     message: message,
                     subject: subject,
@@ -52,7 +53,9 @@ function Notice(props) {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data === 'Email sent')
+                    if(data.auth === false)
+                       alert('Problem in Authorization!!!\nKindly do it again!!')
+                   else if (data === 'Email sent')
                         alert('Notification Send!!!')
                     else
                         alert('Kindly send the notification again!!!')
@@ -72,9 +75,10 @@ function Notice(props) {
             alert('Kindly select atleast 1 Police Station!!!')
 
         else {
+            var token = sessionStorage.getItem('jwtToken');
             fetch(props.link + '/api/notice', {
                 method: 'post',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'jwttoken': token},
                 body: JSON.stringify({
                     message: message,
                     subject: subject,
@@ -84,7 +88,11 @@ function Notice(props) {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data === 'Email sent')
+
+                    if(data.auth === false)
+                      alert('Problem in Authorization!!!\nKindly do it again!!')
+
+                    else if (data === 'Email sent')
                         alert('Notification Send!!!')
                     else
                         alert('Kindly send the notification again!!!')

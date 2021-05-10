@@ -101,14 +101,14 @@ export default function CustomizedTables(props) {
                   ? 
                     <StyledTableCell align="center" >
                      <Tooltip title="Send Reminder" placement="left-start" interactive> 
-                       <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Challan' )} >Not Filled</Button> 
+                       <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Recovery' )} >Not Filled</Button> 
                      </Tooltip>
                     </StyledTableCell>
                   :  row.t3 === 'Send Reminder to All'
                    ?  
                    <StyledTableCell align="center" >
                      <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
-                       <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Challan' )} >{row.t3}</Button> 
+                       <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotificationAll(0 ,'Recovery' )} >{row.t3}</Button> 
                      </Tooltip>
                     </StyledTableCell>
                   :
@@ -118,7 +118,7 @@ export default function CustomizedTables(props) {
                 { row.t2 === 'Not Filled'
                   ? <StyledTableCell align="center" >
                     <Tooltip title="Send Reminder" placement="left-start" interactive> 
-                     <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[1].monYear ,'Challan')} >Not Filled</Button>
+                     <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[1].monYear ,'Recovery')} >Not Filled</Button>
                       </Tooltip>
                       </StyledTableCell>
                   : 
@@ -126,7 +126,7 @@ export default function CustomizedTables(props) {
                   ?  
                   <StyledTableCell align="center" >
                     <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
-                      <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Challan' )} >{row.t2}</Button> 
+                      <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(1 ,'Recovery' )} >{row.t2}</Button> 
                     </Tooltip>
                    </StyledTableCell>
                  :
@@ -136,14 +136,14 @@ export default function CustomizedTables(props) {
                  { row.t1 === 'Not Filled'
                   ? <StyledTableCell align="center" >
                     <Tooltip title="Send Reminder" placement="left-start" interactive> 
-                    <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[2].monYear ,'Challan')} >Not Filled</Button> 
+                    <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[2].monYear ,'Recovery')} >Not Filled</Button> 
                     </Tooltip> 
                     </StyledTableCell> 
                   :  row.t1 === 'Send Reminder to All'
                   ?  
                   <StyledTableCell align="center" >
                     <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
-                      <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.recoveryCheck[0].monYear ,'Challan' )} >{row.t1}</Button> 
+                      <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(2 ,'Recovery' )} >{row.t1}</Button> 
                     </Tooltip>
                    </StyledTableCell>
                  : 

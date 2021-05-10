@@ -140,7 +140,7 @@ export default function CustomizedTables(props) {
               { row.t3 === 'Not Filled'
                   ? <StyledTableCell align="center" >
                       <Tooltip title="Send Reminder" placement="left-start" interactive>
-                       <Button variant="contained" color="lightsecondary" style={{ fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.localCheck[0].monYear ,'IPC Law')} >Not Filled</Button>
+                       <Button variant="contained" color="lightsecondary" style={{ fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.localCheck[0].monYear ,'Local and Special Law')} >Not Filled</Button>
                       </Tooltip>
                     </StyledTableCell>
                   : 
@@ -148,7 +148,7 @@ export default function CustomizedTables(props) {
                     ?  
                      <StyledTableCell align="center" >
                        <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
-                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.localCheck[0].monYear ,'Challan' )} >{row.t3}</Button> 
+                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotificationAll(0 ,'Local and Special Law' )} >{row.t3}</Button> 
                       </Tooltip>
                      </StyledTableCell>
                      :
@@ -158,14 +158,14 @@ export default function CustomizedTables(props) {
                 { row.t2 === 'Not Filled'
                   ? <StyledTableCell align="center" > 
                     <Tooltip title="Send Reminder" placement="left-start" interactive>
-                    <Button variant="contained" color="lightsecondary" style={{ fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.localCheck[1].monYear ,'IPC Law')} >Not Filled</Button> 
+                    <Button variant="contained" color="lightsecondary" style={{ fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.localCheck[1].monYear ,'Local and Special Law')} >Not Filled</Button> 
                     </Tooltip>
                     </StyledTableCell>
                   :  row.t2 === 'Send Reminder to All'
                     ?  
                     <StyledTableCell align="center" >
                       <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
-                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.localCheck[0].monYear ,'Challan' )} >{row.t2}</Button> 
+                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotificationAll(1 ,'Local and Special Law')} >{row.t2}</Button> 
                       </Tooltip>
                     </StyledTableCell>
                   :
@@ -176,7 +176,7 @@ export default function CustomizedTables(props) {
               { row.t1 === 'Not Filled'
                   ? <StyledTableCell align="center" >
                       <Tooltip title="Send Reminder" placement="left-start" interactive>
-                      <Button variant="contained" color="lightsecondary" style={{ fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.localCheck[2].monYear ,'IPC Law')} >Not Filled</Button>
+                      <Button variant="contained" color="lightsecondary" style={{ fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.localCheck[2].monYear ,'Local and Special Law')} >Not Filled</Button>
                       </Tooltip>
                       </StyledTableCell>
                   : 
@@ -184,7 +184,7 @@ export default function CustomizedTables(props) {
                     ?  
                     <StyledTableCell align="center" >
                       <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
-                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.localCheck[0].monYear ,'Challan' )} >{row.t1}</Button> 
+                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotificationAll(2, 'Local and Special Law')} >{row.t1}</Button> 
                       </Tooltip>
                       </StyledTableCell>
                     :

@@ -9,7 +9,7 @@ class Signin extends React.Component {
         police_station : ['SSP Office','Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
         station_chosen: '',
 	    avatarStyle: {backgroundColor:'#1bbd7e'},
-		paperStyle: { padding :10, height:'50vh',width:300, margin:"20px auto", backgroundColor: 'white'}   
+		paperStyle: { padding :10, height:'29%',width:300, margin:"20px auto", backgroundColor: 'white'}   
    	}
    }
 
@@ -18,7 +18,6 @@ class Signin extends React.Component {
    }
 
    onSubmit = () => {
-       console.log(this.state.station_chosen);
        const link = this.props.link;
        if(this.state.station_chosen === '')
          alert('Kindly Select a Police Station');
@@ -32,7 +31,7 @@ class Signin extends React.Component {
         })
        .then(response => response.json())
        .then(data => {
-          if(data === 'Email sent'){
+           if(data === 'Email sent'){
             alert('Link has been send to the official Email ID of the station!!!')
             this.props.onRouteChange('signin')
           }

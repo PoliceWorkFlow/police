@@ -1,12 +1,10 @@
 .signin {
-  background-image: url("./Background.jpeg");
-  min-width:100%;
+  background-image: url("./Background2.jpeg");
   min-height: 100%;
   width: 100%;
   height: auto;
   position: fixed;
   top: 0;
   left: 0;
-
-  background-size: cover;
+  background-size: 100% 100%;
  }

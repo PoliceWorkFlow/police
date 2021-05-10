@@ -148,7 +148,7 @@ export default function CustomizedTables(props) {
                     ?  
                      <StyledTableCell align="center" >
                        <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
-                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.ipcCheck[0].monYear ,'Challan' )} >{row.t3}</Button> 
+                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotificationAll(0,'IPC Law')} >{row.t3}</Button> 
                       </Tooltip>
                      </StyledTableCell>
                      :
@@ -165,7 +165,7 @@ export default function CustomizedTables(props) {
                     ?  
                     <StyledTableCell align="center" >
                       <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
-                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.ipcCheck[0].monYear ,'Challan' )} >{row.t2}</Button> 
+                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotificationAll(1,'IPC Law' )} >{row.t2}</Button> 
                       </Tooltip>
                     </StyledTableCell>
                   :
@@ -184,7 +184,7 @@ export default function CustomizedTables(props) {
                     ?  
                     <StyledTableCell align="center" >
                       <Tooltip title="Send Reminder to All" placement="left-start" interactive> 
-                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotification(row.name, props.ipcCheck[0].monYear ,'Challan' )} >{row.t1}</Button> 
+                        <Button variant="contained" color="lightsecondary" style={{fontSize: '10px'}} onClick = {() => props.onNotificationAll(2 ,'IPC Law' )} >{row.t1}</Button> 
                       </Tooltip>
                       </StyledTableCell>
                     :

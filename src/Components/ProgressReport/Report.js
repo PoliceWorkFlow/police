@@ -61,6 +61,7 @@ function Report(props) {
 	function onSubmit() {
 		const index = police_station.indexOf(station_chosen) + 1;
 		var flag = true;
+		var token = sessionStorage.getItem('jwtToken');
 		progress.monYear = months[0][selectedDate.getMonth()] + ' ' + selectedDate.getFullYear();
 
 		for (var ind in progress) {
@@ -70,11 +71,17 @@ function Report(props) {
 				break;
 			}
 		}
+       
+		 if(monthCurr.split(' ')[1] < progress.monYear.split(' ')[1])
+	     alert('You have entered wrong Year!!!!')
+   
+         else if(monthCurr.split(' ')[1] === progress.monYear.split(' ')[1] &&  months[0].indexOf(monthCurr.split(' ')[0]) < months[0].indexOf(progress.monYear.split(' ')[0]))
+	     alert('You have entered wrong month!!!!')
 
-		if (flag) {
+		else if (flag) {
 			fetch(props.link + '/api/checkMonthYear', {
 				method: 'post',
-				headers: { 'Content-Type': 'application/json' },
+				headers: { 'Content-Type': 'application/json', 'jwttoken': token  },
 				body: JSON.stringify({
 					policeStation: index,
 					monYear: progress.monYear,
@@ -83,11 +90,13 @@ function Report(props) {
 			})
 				.then(response => response.json())
 				.then(data => {
-					if (data === 'Yes') {
+					if(data.auth === false)
+                              alert('Problem in Authorization!!!\nKindly do it again!!')
+					else if (data === 'Yes') {
 						if (window.confirm("Report for this month already exist!!!\nClick 'OK' to update this month report, else click 'Cancel' ")) {
 							fetch(props.link + '/api/addProgressReport', {
 								method: 'post',
-								headers: { 'Content-Type': 'application/json' },
+								headers: { 'Content-Type': 'application/json', 'jwttoken': token  },
 								body: JSON.stringify({
 									policeStation: index,
 									report: progress,
@@ -96,7 +105,9 @@ function Report(props) {
 							})
 								.then(response => response.json())
 								.then(data => {
-									if (data.id) {
+									if(data.auth === false)
+                                     alert('Problem in Authorization!!!\nKindly do it again!!')
+									else if (data.id) {
 										if (monthCurr === progress.monYear) {
 											props.onProgressChanges(data);
 											alert('Progress Report updated successfully');
@@ -110,7 +121,7 @@ function Report(props) {
 					else {
 						fetch(props.link + '/api/addProgressReport', {
 							method: 'post',
-							headers: { 'Content-Type': 'application/json' },
+							headers: { 'Content-Type': 'application/json', 'jwttoken': token  },
 							body: JSON.stringify({
 								policeStation: index,
 								report: progress,
@@ -119,7 +130,9 @@ function Report(props) {
 						})
 							.then(response => response.json())
 							.then(data => {
-								if (data.id) {
+								if(data.auth === false)
+                                  alert('Problem in Authorization!!!\nKindly do it again!!')
+								else if (data.id) {
 									if (monthCurr === progress.monYear) {
 										props.onProgressChanges(data);
 										alert('Progress Report added successfully');

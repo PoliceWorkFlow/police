@@ -18,12 +18,18 @@ const Navigation = ({onRouteChange, route}) => {
 
     else if(route === 'ssp'){
        return(
-     	   <nav >
-	       <div className="flex-grow flex items-center pt2 pb3" style={{display: 'flex' , justifyContent: 'flex-end'}}>
+     	   <nav style={{display: 'flex' , justifyContent: 'flex-end'}}>
+	       <div className="flex-grow flex items-center pt2 pb3" >
 		   <p  onClick={() => onRouteChange('progressReport')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Progress Report</p>
 		   <p  onClick={() => onRouteChange('psWiseReport')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >PS Wise Report</p>
-		   <p  onClick={() => onRouteChange('enotice')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >E Notice</p>	
-		   <p  onClick={() => onRouteChange('profileSSP')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Profile</p>   	    
+		   <div  class="dropdown" >
+              <p className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >More</p>
+              <div class="dropdown-content">
+			  <Link href=''  onClick={(e) => {e.preventDefault(); onRouteChange('enotice')}}  >E Notice </Link>
+		      <Link href=''  onClick={(e) => {e.preventDefault(); onRouteChange('marksCrit')}} >Marks Criteria </Link>  
+		      <Link href=''  onClick={(e) => {e.preventDefault(); onRouteChange('profileSSP')}} >Profile </Link>  	    
+              </div>
+            </div>
 	       <p  onClick={() => onRouteChange('signin')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Sign Out</p>
 	       </div>
 		{/*   <h2  className='f3 tl pl4'>SSP OFFICE</h2> */}
@@ -39,11 +45,12 @@ const Navigation = ({onRouteChange, route}) => {
 			<div  class="dropdown" >
               <p className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Monthly Report</p>
               <div class="dropdown-content">
-                <Link href='#' onClick={() => onRouteChange('stationReport', 'Investigation')}> Investigation </Link>
-                <Link  href='#' onClick={() => onRouteChange('stationReport', 'Recovery')}> Recovery </Link>
-				<Link  href='#' onClick={() => onRouteChange('stationReport', 'Challan')}> Challan </Link>	
+                <Link href='' onClick={(e) => {e.preventDefault(); onRouteChange('stationReport', 'Investigation')}}> Investigation </Link>
+                <Link  href='' onClick={(e) => {e.preventDefault(); onRouteChange('stationReport', 'Recovery')}}> Recovery </Link>
+				<Link  href='' onClick={(e) => {e.preventDefault(); onRouteChange('stationReport', 'Challan')}}> Challan </Link>	
               </div>
             </div>	 
+			<p  onClick={() => onRouteChange('marksCritPS')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Marks Criteria</p>  
 			<p  onClick={() => onRouteChange('profilePS')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Profile</p>   
 			<p  onClick={() => onRouteChange('signin')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Sign Out</p>
 			</div>
@@ -51,7 +58,7 @@ const Navigation = ({onRouteChange, route}) => {
 		 );
 	  }
 	  
-	  else if(route === 'progressReport' || route === 'psWiseReport' || route === 'enotice' || route === 'profileSSP'){
+	  else if(route === 'progressReport' || route === 'psWiseReport' || route === 'enotice' || route === 'profileSSP' || route === 'marksCrit'){
 		return(
 			 <nav style={{display: 'flex' , justifyContent: 'flex-end'}}>
 			<div className="flex-grow flex items-center pt2 pb3">
@@ -63,7 +70,7 @@ const Navigation = ({onRouteChange, route}) => {
 	  }
 
 	  
-	  else if(route === 'stationReport' || route === 'profilePS'){
+	  else if(route === 'stationReport' || route === 'profilePS' || route === 'marksCritPS'){
 		return(
 			 <nav style={{display: 'flex' , justifyContent: 'flex-end'}}>
 			<div className="flex-grow flex items-center pt2 pb4">
@@ -71,9 +78,9 @@ const Navigation = ({onRouteChange, route}) => {
 			<div  class="dropdown" >
               <p className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Monthly Report</p>
               <div class="dropdown-content">
-                <Link href='#' onClick={() => onRouteChange('stationReport', 'Investigation')}> Investigation </Link>
-                <Link  href='#' onClick={() => onRouteChange('stationReport', 'Recovery')}> Recovery </Link>
-				<Link  href='#' onClick={() => onRouteChange('stationReport', 'Challan')}> Challan </Link>
+                <Link href='' onClick={(e) => {e.preventDefault(); onRouteChange('stationReport', 'Investigation')}}> Investigation </Link>
+                <Link  href='' onClick={(e) => {e.preventDefault(); onRouteChange('stationReport', 'Recovery')}}> Recovery </Link>
+				<Link  href='' onClick={(e) => {e.preventDefault(); onRouteChange('stationReport', 'Challan')}}> Challan </Link>
               </div>
             </div>	    
 			<p  onClick={() => onRouteChange('signin')} className='f5 grow dib white bg-black mr1 mr4-ns pv2 ph2 br-pill pointer' >Sign Out</p>
