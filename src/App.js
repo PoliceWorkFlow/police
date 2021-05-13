@@ -15,6 +15,7 @@ import Navigation from './Components/Navigation';
 import PSReport from './Components/PSReport/PS';
 import Notice from './Components/Notice/Notice';
 import Profile from './Components/Profile/Profile';
+import Footer from './Components/Footer/Footer';
 import Marks from './Components/Marks/Marks';
 import PSWiseReport from './Components/psWiseReport/psWiseReport';
 
@@ -35,8 +36,8 @@ class App extends Component {
        ipcCheck: [],
       localCheck: [],
       recoveryCheck: [],
-   //  link: 'http://localhost:3000',
-      link: 'http://103.118.50.49'
+     link: 'http://localhost:3000',
+   //   link: 'http://103.118.50.49'
     }
   }
 
@@ -215,6 +216,7 @@ class App extends Component {
         <div className='App signin'>
           {/*<Logo />*/}
            <SignIn onRouteChange={this.onRouteChange} link={this.state.link}/>
+           {/*<Footer />*/}
            </div>
        );
     }

@@ -24,10 +24,8 @@ class Signin extends React.Component {
     let token = emailName[0];
     let station = emailName[1];
     this.setState({ police_station: station });
-    // console.log(reqDate);
-     console.log(token);
-    // console.log(station);
-
+    console.log(token);
+    
     fetch(this.props.link + '/api/checkLink', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },

@@ -35,13 +35,12 @@ function createData(name, over, drunk, ospeed, helmet, mask, others, t1, t2, t3)
       return { name, over, drunk, ospeed, helmet, mask, others, t1, t2, t3};
 }
 
-
 const useStyles = makeStyles({
   root: {
     width: '100%',
   },
   container: {
-    maxHeight: 440,
+    height: '100%'
   },
 });
 
