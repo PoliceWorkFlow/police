@@ -5,22 +5,18 @@ import DateFnsUtils from "@date-io/date-fns";
 import Group from './group_chart_compare';
 import './stylo.css';
 
-function handleDateChange(date){
-    const months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const monYear = months[date.getMonth()] + ' ' + date.getFullYear();
-    return monYear;
-}
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      policeStation: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
-      ps_choosen1: 'Nangal',
-      ps_choosen2: 'City Morinda',
-      selectedDate: handleDateChange(new Date()),
-      data1: [],
-      data2: [],
+      //policeStation: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
+       policeStation:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
+      ps_choosen1: 'PS1',
+      ps_choosen2: 'PS2',
+      selectedDate: this.props.report[0].monYear,
+      data1: [this.props.report[0]],
+      data2: [this.props.report[1]],
       flag: false,
       months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
       }
@@ -36,7 +32,16 @@ class App extends React.Component {
 
     handleDateChange = (date) => {        
         const monYear = this.state.months[date.getMonth()] + ' ' + date.getFullYear();
-        this.setState({selectedDate: monYear})
+        const monthCurr = this.state.months[new Date().getMonth()] + ' ' + new Date().getFullYear();
+  
+         if(monthCurr.split(' ')[1] < monYear.split(' ')[1])
+	           alert('You have entered wrong Year!!!!')
+   
+         else if(monthCurr.split(' ')[1] === monYear.split(' ')[1] &&  this.state.months.indexOf(monthCurr.split(' ')[0]) < this.state.months.indexOf(monYear.split(' ')[0]))
+	          alert('You have entered wrong month!!!!')
+
+         else   
+          this.setState({selectedDate: monYear})
     }
 
     onSubmit = () => {
@@ -144,14 +149,10 @@ class App extends React.Component {
                  Go </Button>
         </FormControl>
         </div>
-        <div style = {{paddingTop: '20px'}}>     
-        {
-          this.state.flag === false
-          ? <p></p>
-          :  
-           <Group data1={this.state.data1} data2={this.state.data2} /> 
-        }
-      
+        <div>     
+       
+      <Group data1={this.state.data1} data2={this.state.data2} /> 
+       
         </div>  
        </div> 
     );

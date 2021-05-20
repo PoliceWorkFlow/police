@@ -5,32 +5,7 @@ import './stylo.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      underInvPend:[this.props.ipc[0].underInvPend, this.props.ipc[1].underInvPend, this.props.ipc[2].underInvPend, this.props.ipc[3].underInvPend, this.props.ipc[4].underInvPend, this.props.ipc[5].underInvPend, this.props.ipc[6].underInvPend, this.props.ipc[7].underInvPend, this.props.ipc[8].underInvPend, this.props.ipc[9].underInvPend],
-      underInvDisp:[this.props.ipc[0].underInvDisp, this.props.ipc[1].underInvDisp, this.props.ipc[2].underInvDisp, this.props.ipc[3].underInvDisp, this.props.ipc[4].underInvDisp, this.props.ipc[5].underInvDisp, this.props.ipc[6].underInvDisp, this.props.ipc[7].underInvDisp, this.props.ipc[8].underInvDisp, this.props.ipc[9].underInvDisp],
-      cancelledPend: [this.props.ipc[0].cancelledPend, this.props.ipc[1].cancelledPend, this.props.ipc[2].cancelledPend, this.props.ipc[3].cancelledPend, this.props.ipc[4].cancelledPend, this.props.ipc[5].cancelledPend, this.props.ipc[6].cancelledPend, this.props.ipc[7].cancelledPend, this.props.ipc[8].cancelledPend, this.props.ipc[9].cancelledPend],
-      cancelledDisp: [this.props.ipc[0].cancelledDisp, this.props.ipc[1].cancelledDisp, this.props.ipc[2].cancelledDisp, this.props.ipc[3].cancelledDisp, this.props.ipc[4].cancelledDisp, this.props.ipc[5].cancelledDisp, this.props.ipc[6].cancelledDisp, this.props.ipc[7].cancelledDisp, this.props.ipc[8].cancelledDisp, this.props.ipc[9].cancelledDisp],
-      underInv1YrPend: [this.props.ipc[0].underInv1YrPend, this.props.ipc[1].underInv1YrPend, this.props.ipc[2].underInv1YrPend, this.props.ipc[3].underInv1YrPend, this.props.ipc[4].underInv1YrPend, this.props.ipc[5].underInv1YrPend, this.props.ipc[6].underInv1YrPend, this.props.ipc[7].underInv1YrPend, this.props.ipc[8].underInv1YrPend, this.props.ipc[9].underInv1YrPend],
-      underInv1YrDisp: [this.props.ipc[0].underInv1YrDisp, this.props.ipc[1].underInv1YrDisp, this.props.ipc[2].underInv1YrDisp, this.props.ipc[3].underInv1YrDisp, this.props.ipc[4].underInv1YrDisp, this.props.ipc[5].underInv1YrDisp, this.props.ipc[6].underInv1YrDisp, this.props.ipc[7].underInv1YrDisp, this.props.ipc[8].underInv1YrDisp, this.props.ipc[9].underInv1YrDisp],
-      underInv6monPend: [this.props.ipc[0].underInv6monPend, this.props.ipc[1].underInv6monPend, this.props.ipc[2].underInv6monPend, this.props.ipc[3].underInv6monPend, this.props.ipc[4].underInv6monPend, this.props.ipc[5].underInv6monPend, this.props.ipc[6].underInv6monPend, this.props.ipc[7].underInv6monPend, this.props.ipc[8].underInv6monPend, this.props.ipc[9].underInv6monPend],
-      underInv6monDisp: [this.props.ipc[0].underInv6monDisp, this.props.ipc[1].underInv6monDisp, this.props.ipc[2].underInv6monDisp, this.props.ipc[3].underInv6monDisp, this.props.ipc[4].underInv6monDisp, this.props.ipc[5].underInv6monDisp, this.props.ipc[6].underInv6monDisp, this.props.ipc[7].underInv6monDisp, this.props.ipc[8].underInv6monDisp, this.props.ipc[9].underInv6monDisp],
-      underInvo3monPend: [this.props.ipc[0].underInvo3monPend, this.props.ipc[1].underInvo3monPend, this.props.ipc[2].underInvo3monPend, this.props.ipc[3].underInvo3monPend, this.props.ipc[4].underInvo3monPend, this.props.ipc[5].underInvo3monPend, this.props.ipc[6].underInvo3monPend, this.props.ipc[7].underInvo3monPend, this.props.ipc[8].underInvo3monPend, this.props.ipc[9].underInvo3monPend],
-      underInvo3monDisp: [this.props.ipc[0].underInvo3monDisp, this.props.ipc[1].underInvo3monDisp, this.props.ipc[2].underInvo3monDisp, this.props.ipc[3].underInvo3monDisp, this.props.ipc[4].underInvo3monDisp, this.props.ipc[5].underInvo3monDisp, this.props.ipc[6].underInvo3monDisp, this.props.ipc[7].underInvo3monDisp, this.props.ipc[8].underInvo3monDisp, this.props.ipc[9].underInvo3monDisp],
-      underInvl3monPend: [this.props.ipc[0].underInvl3monPend, this.props.ipc[1].underInvl3monPend, this.props.ipc[2].underInvl3monPend, this.props.ipc[3].underInvl3monPend, this.props.ipc[4].underInvl3monPend, this.props.ipc[5].underInvl3monPend, this.props.ipc[6].underInvl3monPend, this.props.ipc[7].underInvl3monPend, this.props.ipc[8].underInvl3monPend, this.props.ipc[9].underInvl3monPend],
-      underInvl3monDisp: [this.props.ipc[0].underInvl3monDisp, this.props.ipc[1].underInvl3monDisp, this.props.ipc[2].underInvl3monDisp, this.props.ipc[3].underInvl3monDisp, this.props.ipc[4].underInvl3monDisp, this.props.ipc[5].underInvl3monDisp, this.props.ipc[6].underInvl3monDisp, this.props.ipc[7].underInvl3monDisp, this.props.ipc[8].underInvl3monDisp, this.props.ipc[9].underInvl3monDisp],
-      underInvPendL:[this.props.local[0].underInvPend, this.props.local[1].underInvPend, this.props.local[2].underInvPend, this.props.local[3].underInvPend, this.props.local[4].underInvPend, this.props.local[5].underInvPend, this.props.local[6].underInvPend, this.props.local[7].underInvPend, this.props.local[8].underInvPend, this.props.local[9].underInvPend],
-      underInvDispL:[this.props.local[0].underInvDisp, this.props.local[1].underInvDisp, this.props.local[2].underInvDisp, this.props.local[3].underInvDisp, this.props.local[4].underInvDisp, this.props.local[5].underInvDisp, this.props.local[6].underInvDisp, this.props.local[7].underInvDisp, this.props.local[8].underInvDisp, this.props.local[9].underInvDisp],
-      cancelledPendL: [this.props.local[0].cancelledPend, this.props.local[1].cancelledPend, this.props.local[2].cancelledPend, this.props.local[3].cancelledPend, this.props.local[4].cancelledPend, this.props.local[5].cancelledPend, this.props.local[6].cancelledPend, this.props.local[7].cancelledPend, this.props.local[8].cancelledPend, this.props.local[9].cancelledPend],
-      cancelledDispL: [this.props.local[0].cancelledDisp, this.props.local[1].cancelledDisp, this.props.local[2].cancelledDisp, this.props.local[3].cancelledDisp, this.props.local[4].cancelledDisp, this.props.local[5].cancelledDisp, this.props.local[6].cancelledDisp, this.props.local[7].cancelledDisp, this.props.local[8].cancelledDisp, this.props.local[9].cancelledDisp],
-      underInv1YrPendL: [this.props.local[0].underInv1YrPend, this.props.local[1].underInv1YrPend, this.props.local[2].underInv1YrPend, this.props.local[3].underInv1YrPend, this.props.local[4].underInv1YrPend, this.props.local[5].underInv1YrPend, this.props.local[6].underInv1YrPend, this.props.local[7].underInv1YrPend, this.props.local[8].underInv1YrPend, this.props.local[9].underInv1YrPend],
-      underInv1YrDispL: [this.props.local[0].underInv1YrDisp, this.props.local[1].underInv1YrDisp, this.props.local[2].underInv1YrDisp, this.props.local[3].underInv1YrDisp, this.props.local[4].underInv1YrDisp, this.props.local[5].underInv1YrDisp, this.props.local[6].underInv1YrDisp, this.props.local[7].underInv1YrDisp, this.props.local[8].underInv1YrDisp, this.props.local[9].underInv1YrDisp],
-      underInv6monPendL: [this.props.local[0].underInv6monPend, this.props.local[1].underInv6monPend, this.props.local[2].underInv6monPend, this.props.local[3].underInv6monPend, this.props.local[4].underInv6monPend, this.props.local[5].underInv6monPend, this.props.local[6].underInv6monPend, this.props.local[7].underInv6monPend, this.props.local[8].underInv6monPend, this.props.local[9].underInv6monPend],
-      underInv6monDispL: [this.props.local[0].underInv6monDisp, this.props.local[1].underInv6monDisp, this.props.local[2].underInv6monDisp, this.props.local[3].underInv6monDisp, this.props.local[4].underInv6monDisp, this.props.local[5].underInv6monDisp, this.props.local[6].underInv6monDisp, this.props.local[7].underInv6monDisp, this.props.local[8].underInv6monDisp, this.props.local[9].underInv6monDisp],
-      underInvo3monPendL: [this.props.local[0].underInvo3monPend, this.props.local[1].underInvo3monPend, this.props.local[2].underInvo3monPend, this.props.local[3].underInvo3monPend, this.props.local[4].underInvo3monPend, this.props.local[5].underInvo3monPend, this.props.local[6].underInvo3monPend, this.props.local[7].underInvo3monPend, this.props.local[8].underInvo3monPend, this.props.local[9].underInvo3monPend],
-      underInvo3monDispL: [this.props.local[0].underInvo3monDisp, this.props.local[1].underInvo3monDisp, this.props.local[2].underInvo3monDisp, this.props.local[3].underInvo3monDisp, this.props.local[4].underInvo3monDisp, this.props.local[5].underInvo3monDisp, this.props.local[6].underInvo3monDisp, this.props.local[7].underInvo3monDisp, this.props.local[8].underInvo3monDisp, this.props.local[9].underInvo3monDisp],
-      underInvl3monPendL: [this.props.local[0].underInvl3monPend, this.props.local[1].underInvl3monPend, this.props.local[2].underInvl3monPend, this.props.local[3].underInvl3monPend, this.props.local[4].underInvl3monPend, this.props.local[5].underInvl3monPend, this.props.local[6].underInvl3monPend, this.props.local[7].underInvl3monPend, this.props.local[8].underInvl3monPend, this.props.local[9].underInvl3monPend],
-      underInvl3monDispL: [this.props.local[0].underInvl3monDisp, this.props.local[1].underInvl3monDisp, this.props.local[2].underInvl3monDisp, this.props.local[3].underInvl3monDisp, this.props.local[4].underInvl3monDisp, this.props.local[5].underInvl3monDisp, this.props.local[6].underInvl3monDisp, this.props.local[7].underInvl3monDisp, this.props.local[8].underInvl3monDisp, this.props.local[9].underInvl3monDisp]
-      }
+    this.state = { }
     };
       
     OnDataChanged = () => {
@@ -41,51 +16,59 @@ class App extends React.Component {
       var dataDispLocal = [];
 
       if(type === 'Under Investigation'){
-          dataDisp = this.state.underInvDisp;
-          dataPend = this.state.underInvPend;
-          dataDispLocal = this.state.underInvDispL;
-          dataPendLocal = this.state.underInvPendL;
+          dataDisp = [this.props.ipc[0].underInvDisp, this.props.ipc[1].underInvDisp, this.props.ipc[2].underInvDisp, this.props.ipc[3].underInvDisp, this.props.ipc[4].underInvDisp, this.props.ipc[5].underInvDisp, this.props.ipc[6].underInvDisp, this.props.ipc[7].underInvDisp, this.props.ipc[8].underInvDisp, this.props.ipc[9].underInvDisp];
+          dataPend = [this.props.ipc[0].underInvPend, this.props.ipc[1].underInvPend, this.props.ipc[2].underInvPend, this.props.ipc[3].underInvPend, this.props.ipc[4].underInvPend, this.props.ipc[5].underInvPend, this.props.ipc[6].underInvPend, this.props.ipc[7].underInvPend, this.props.ipc[8].underInvPend, this.props.ipc[9].underInvPend];
+          dataPendLocal = [this.props.local[0].underInvPend, this.props.local[1].underInvPend, this.props.local[2].underInvPend, this.props.local[3].underInvPend, this.props.local[4].underInvPend, this.props.local[5].underInvPend, this.props.local[6].underInvPend, this.props.local[7].underInvPend, this.props.local[8].underInvPend, this.props.local[9].underInvPend];
+          dataDispLocal = [this.props.local[0].underInvDisp, this.props.local[1].underInvDisp, this.props.local[2].underInvDisp, this.props.local[3].underInvDisp, this.props.local[4].underInvDisp, this.props.local[5].underInvDisp, this.props.local[6].underInvDisp, this.props.local[7].underInvDisp, this.props.local[8].underInvDisp, this.props.local[9].underInvDisp];
+           
         //  console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
       }
       else if(type === 'Cancellation/Untraced'){
-        dataDisp = this.state.cancelledDisp;
-        dataPend = this.state.cancelledPend;
-        dataDispLocal = this.state.cancelledDispL;
-        dataPendLocal = this.state.cancelledPendL;
+        dataPend =  [this.props.ipc[0].cancelledPend, this.props.ipc[1].cancelledPend, this.props.ipc[2].cancelledPend, this.props.ipc[3].cancelledPend, this.props.ipc[4].cancelledPend, this.props.ipc[5].cancelledPend, this.props.ipc[6].cancelledPend, this.props.ipc[7].cancelledPend, this.props.ipc[8].cancelledPend, this.props.ipc[9].cancelledPend];
+        dataDisp =  [this.props.ipc[0].cancelledDisp, this.props.ipc[1].cancelledDisp, this.props.ipc[2].cancelledDisp, this.props.ipc[3].cancelledDisp, this.props.ipc[4].cancelledDisp, this.props.ipc[5].cancelledDisp, this.props.ipc[6].cancelledDisp, this.props.ipc[7].cancelledDisp, this.props.ipc[8].cancelledDisp, this.props.ipc[9].cancelledDisp]; 
+        dataPendLocal = [this.props.local[0].cancelledPend, this.props.local[1].cancelledPend, this.props.local[2].cancelledPend, this.props.local[3].cancelledPend, this.props.local[4].cancelledPend, this.props.local[5].cancelledPend, this.props.local[6].cancelledPend, this.props.local[7].cancelledPend, this.props.local[8].cancelledPend, this.props.local[9].cancelledPend];
+        dataDispLocal = [this.props.local[0].cancelledDisp, this.props.local[1].cancelledDisp, this.props.local[2].cancelledDisp, this.props.local[3].cancelledDisp, this.props.local[4].cancelledDisp, this.props.local[5].cancelledDisp, this.props.local[6].cancelledDisp, this.props.local[7].cancelledDisp, this.props.local[8].cancelledDisp, this.props.local[9].cancelledDisp];
+         
        // console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
         }
       else if(type === 'Under Investigation Over 1 Year'){
-          dataDisp = this.state.underInv1YrDisp;
-          dataPend = this.state.underInv1YrPend;
-          dataDispLocal = this.state.underInv1YrDispL;
-          dataPendLocal = this.state.underInv1YrPendL; 
+          dataPend = [this.props.ipc[0].underInv1YrPend, this.props.ipc[1].underInv1YrPend, this.props.ipc[2].underInv1YrPend, this.props.ipc[3].underInv1YrPend, this.props.ipc[4].underInv1YrPend, this.props.ipc[5].underInv1YrPend, this.props.ipc[6].underInv1YrPend, this.props.ipc[7].underInv1YrPend, this.props.ipc[8].underInv1YrPend, this.props.ipc[9].underInv1YrPend];
+          dataDisp = [this.props.ipc[0].underInv1YrDisp, this.props.ipc[1].underInv1YrDisp, this.props.ipc[2].underInv1YrDisp, this.props.ipc[3].underInv1YrDisp, this.props.ipc[4].underInv1YrDisp, this.props.ipc[5].underInv1YrDisp, this.props.ipc[6].underInv1YrDisp, this.props.ipc[7].underInv1YrDisp, this.props.ipc[8].underInv1YrDisp, this.props.ipc[9].underInv1YrDisp];
+          dataPendLocal = [this.props.local[0].underInv1YrPend, this.props.local[1].underInv1YrPend, this.props.local[2].underInv1YrPend, this.props.local[3].underInv1YrPend, this.props.local[4].underInv1YrPend, this.props.local[5].underInv1YrPend, this.props.local[6].underInv1YrPend, this.props.local[7].underInv1YrPend, this.props.local[8].underInv1YrPend, this.props.local[9].underInv1YrPend];
+          dataDispLocal = [this.props.local[0].underInv1YrDisp, this.props.local[1].underInv1YrDisp, this.props.local[2].underInv1YrDisp, this.props.local[3].underInv1YrDisp, this.props.local[4].underInv1YrDisp, this.props.local[5].underInv1YrDisp, this.props.local[6].underInv1YrDisp, this.props.local[7].underInv1YrDisp, this.props.local[8].underInv1YrDisp, this.props.local[9].underInv1YrDisp];
+          
       }
       else if(type === 'Under Investigation Over 6 Month'){
-        dataDisp = this.state.underInv6monDisp;
-        dataPend = this.state.underInv6monPend;
-        dataDispLocal = this.state.underInv6monDispL;
-        dataPendLocal = this.state.underInv6monPendL;
+        dataPend = [this.props.ipc[0].underInv6monPend, this.props.ipc[1].underInv6monPend, this.props.ipc[2].underInv6monPend, this.props.ipc[3].underInv6monPend, this.props.ipc[4].underInv6monPend, this.props.ipc[5].underInv6monPend, this.props.ipc[6].underInv6monPend, this.props.ipc[7].underInv6monPend, this.props.ipc[8].underInv6monPend, this.props.ipc[9].underInv6monPend];
+        dataDisp =  [this.props.ipc[0].underInv6monDisp, this.props.ipc[1].underInv6monDisp, this.props.ipc[2].underInv6monDisp, this.props.ipc[3].underInv6monDisp, this.props.ipc[4].underInv6monDisp, this.props.ipc[5].underInv6monDisp, this.props.ipc[6].underInv6monDisp, this.props.ipc[7].underInv6monDisp, this.props.ipc[8].underInv6monDisp, this.props.ipc[9].underInv6monDisp];
+
+        dataPendLocal = [this.props.ipc[0].underInv6monPend, this.props.ipc[1].underInv6monPend, this.props.ipc[2].underInv6monPend, this.props.ipc[3].underInv6monPend, this.props.ipc[4].underInv6monPend, this.props.ipc[5].underInv6monPend, this.props.ipc[6].underInv6monPend, this.props.ipc[7].underInv6monPend, this.props.ipc[8].underInv6monPend, this.props.ipc[9].underInv6monPend];
+        dataDispLocal = [this.props.ipc[0].underInv6monDisp, this.props.ipc[1].underInv6monDisp, this.props.ipc[2].underInv6monDisp, this.props.ipc[3].underInv6monDisp, this.props.ipc[4].underInv6monDisp, this.props.ipc[5].underInv6monDisp, this.props.ipc[6].underInv6monDisp, this.props.ipc[7].underInv6monDisp, this.props.ipc[8].underInv6monDisp, this.props.ipc[9].underInv6monDisp];
+       
         //console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
       }
       else if(type === 'Under Investigation Over 3 Month'){
-        dataDisp = this.state.underInvo3monDisp;
-        dataPend = this.state.underInvo3monPend;
-        dataDispLocal = this.state.underInvo3monDispL;
-        dataPendLocal = this.state.underInvo3monPendL;
+        dataPend = [this.props.ipc[0].underInvo3monPend, this.props.ipc[1].underInvo3monPend, this.props.ipc[2].underInvo3monPend, this.props.ipc[3].underInvo3monPend, this.props.ipc[4].underInvo3monPend, this.props.ipc[5].underInvo3monPend, this.props.ipc[6].underInvo3monPend, this.props.ipc[7].underInvo3monPend, this.props.ipc[8].underInvo3monPend, this.props.ipc[9].underInvo3monPend];
+        dataDisp =  [this.props.ipc[0].underInvo3monDisp, this.props.ipc[1].underInvo3monDisp, this.props.ipc[2].underInvo3monDisp, this.props.ipc[3].underInvo3monDisp, this.props.ipc[4].underInvo3monDisp, this.props.ipc[5].underInvo3monDisp, this.props.ipc[6].underInvo3monDisp, this.props.ipc[7].underInvo3monDisp, this.props.ipc[8].underInvo3monDisp, this.props.ipc[9].underInvo3monDisp];
+  
+        dataPendLocal = [this.props.local[0].underInvo3monPend, this.props.local[1].underInvo3monPend, this.props.local[2].underInvo3monPend, this.props.local[3].underInvo3monPend, this.props.local[4].underInvo3monPend, this.props.local[5].underInvo3monPend, this.props.local[6].underInvo3monPend, this.props.local[7].underInvo3monPend, this.props.local[8].underInvo3monPend, this.props.local[9].underInvo3monPend];
+        dataDispLocal = [this.props.local[0].underInvo3monDisp, this.props.local[1].underInvo3monDisp, this.props.local[2].underInvo3monDisp, this.props.local[3].underInvo3monDisp, this.props.local[4].underInvo3monDisp, this.props.local[5].underInvo3monDisp, this.props.local[6].underInvo3monDisp, this.props.local[7].underInvo3monDisp, this.props.local[8].underInvo3monDisp, this.props.local[9].underInvo3monDisp];
+       
         //console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
       }
       else if(type === 'Under Investigation less than 3 month'){
-        dataDisp = this.state.underInvl3monDisp;
-        dataPend = this.state.underInvl3monPend;
-        dataDispLocal = this.state.underInvl3monDispL;
-        dataPendLocal = this.state.underInvl3monPendL;
+        dataPend = [this.props.ipc[0].underInvl3monPend, this.props.ipc[1].underInvl3monPend, this.props.ipc[2].underInvl3monPend, this.props.ipc[3].underInvl3monPend, this.props.ipc[4].underInvl3monPend, this.props.ipc[5].underInvl3monPend, this.props.ipc[6].underInvl3monPend, this.props.ipc[7].underInvl3monPend, this.props.ipc[8].underInvl3monPend, this.props.ipc[9].underInvl3monPend];
+        dataDisp =  [this.props.ipc[0].underInvl3monDisp, this.props.ipc[1].underInvl3monDisp, this.props.ipc[2].underInvl3monDisp, this.props.ipc[3].underInvl3monDisp, this.props.ipc[4].underInvl3monDisp, this.props.ipc[5].underInvl3monDisp, this.props.ipc[6].underInvl3monDisp, this.props.ipc[7].underInvl3monDisp, this.props.ipc[8].underInvl3monDisp, this.props.ipc[9].underInvl3monDisp];
+      
+        dataPendLocal = [this.props.local[0].underInvl3monPend, this.props.local[1].underInvl3monPend, this.props.local[2].underInvl3monPend, this.props.local[3].underInvl3monPend, this.props.local[4].underInvl3monPend, this.props.local[5].underInvl3monPend, this.props.local[6].underInvl3monPend, this.props.local[7].underInvl3monPend, this.props.local[8].underInvl3monPend, this.props.local[9].underInvl3monPend];
+        dataDispLocal = [this.props.local[0].underInvl3monDisp, this.props.local[1].underInvl3monDisp, this.props.local[2].underInvl3monDisp, this.props.local[3].underInvl3monDisp, this.props.local[4].underInvl3monDisp, this.props.local[5].underInvl3monDisp, this.props.local[6].underInvl3monDisp, this.props.local[7].underInvl3monDisp, this.props.local[8].underInvl3monDisp, this.props.local[9].underInvl3monDisp];
+      
         //console.log(dataDisp, dataPend, dataDispLocal, dataPendLocal);
       }
      
       const data = {
-        labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib',
-        'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'
-        ],
+        //labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib','Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
+        labels:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'], 
         datasets: [
           { 
             label: 'Under IPC Law Pending',
@@ -135,7 +118,9 @@ class App extends React.Component {
       return data;
     };
 
+  
   render() {
+
     const options = {
       responsive: true,
       legend: {
@@ -154,8 +139,8 @@ class App extends React.Component {
     return (
       <Bar
         data={this.OnDataChanged}
-        width={'300px'}
-        height={'100px'}
+         width={'300px'}
+         height={'280px'}
         options={options}
        
       />

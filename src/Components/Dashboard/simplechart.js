@@ -65,10 +65,8 @@ class Chart extends Component{
   }
 
    const chartData = {
-    labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib',
-      'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'
-      ],
-
+    //labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
+     labels: ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
       options: {
         plugins: {
           datalabels: {
@@ -148,10 +146,8 @@ class Chart extends Component{
     }
  
     const chartData = {
-     labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib',
-       'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'
-       ],
- 
+    // labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
+    labels:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
      datasets:[
        {
          label: case_chosen,
@@ -207,10 +203,8 @@ class Chart extends Component{
     }
 
     const chartData = {
-      labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib',
-        'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'
-        ],
-  
+      //labels: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib','Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
+      labels:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
       datasets:[
         {
           label: case_chosen,

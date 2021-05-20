@@ -33,8 +33,9 @@ const useStyles = makeStyles({
 });
 
 export default function SimpleCard(props) {
-    const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
-    const [info, setInfo] = useState([]);
+   // const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
+   const policeStation = useState( ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']);
+   const [info, setInfo] = useState([]);
     const [flag1, setFlag1] = useState(false);
     const [flag2, setFlag2] = useState(false);
     const [flag3, setFlag3] = useState(false);

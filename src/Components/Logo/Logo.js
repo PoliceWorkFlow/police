@@ -6,7 +6,7 @@ import './Logo.css'
 const Logo = () => {
 	return(
        <div className='ml3 mt0'>
-	      <Tilt options={{ max : 35 }} style={{ height: 100, width: 125 }} >
+	      <Tilt options={{ max : 35 }} style={{ height: 50, width: 125 }} >
 	        <div className="Tilt-inner pa3">
 	         <img style={{paddingTop: '0px'}} src={logo} alt=''/>
 	        </div>

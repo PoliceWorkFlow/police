@@ -15,10 +15,15 @@ const useStyles = makeStyles(theme => ({
 function Notice(props) {
     const [message, setMessage] = React.useState('');
     const [subject, setSubject] = React.useState('');
-    const [police_station] = React.useState([{ value: 1, label: 'Nangal' }, { value: 2, label: 'City Morinda' },
-    { value: 3, label: 'Sri Anandpur Sahib' }, { value: 4, label: 'City Rupnagar' }, { value: 5, label: 'Kiratpur Sahib' },
-    { value: 6, label: 'Sri Chamkaur Sahib' }, { value: 7, label: 'Sadar Rupnagar' }, { value: 8, label: 'Sadar Morinda' },
-    { value: 9, label: 'Nurpurbedi' }, { value: 10, label: 'Singh Bhagwantpur' }]);
+    // const [police_station] = React.useState([{ value: 1, label: 'Nangal' }, { value: 2, label: 'City Morinda' },
+    // { value: 3, label: 'Sri Anandpur Sahib' }, { value: 4, label: 'City Rupnagar' }, { value: 5, label: 'Kiratpur Sahib' },
+    // { value: 6, label: 'Sri Chamkaur Sahib' }, { value: 7, label: 'Sadar Rupnagar' }, { value: 8, label: 'Sadar Morinda' },
+    // { value: 9, label: 'Nurpurbedi' }, { value: 10, label: 'Singh Bhagwantpur' }]);
+
+    const [police_station] = React.useState([{ value: 1, label: 'PS1' }, { value: 2, label: 'PS2' },
+    { value: 3, label: 'PS3' }, { value: 4, label: 'PS4' }, { value: 5, label: 'PS5' },
+    { value: 6, label: 'PS6' }, { value: 7, label: 'PS7' }, { value: 8, label: 'PS8' },
+    { value: 9, label: 'PS9' }, { value: 10, label: 'PS10' }]);
 
     const [choosen, setChoosen] = React.useState('all');
     const [ps_choosen, setPS] = React.useState([]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItem, FormControl, Select, Button} from "@material-ui/core";
+import { MenuItem, FormControl, Select, Button, RadioGroup, FormControlLabel, Radio} from "@material-ui/core";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import Stacked from './stacked_graph_particular_ps';
@@ -7,7 +7,16 @@ import GroupChart from './group_chart_particular_ps';
 
 function handleDateChange(date){
     const months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const monYear = months[date.getMonth()] + ' ' + date.getFullYear();
+    var monYear = months[new Date().getMonth()] + ' ' + new Date().getFullYear();
+    var year = monYear.split(' ')[1];
+    var index = new Date().getMonth();
+
+    if(index === 0)
+       year = year - 1;
+    else
+      index = index - 1;
+
+    monYear = months[index] + ' ' + year;
     return monYear;
 }
 
@@ -18,8 +27,9 @@ class comparativeAnal extends React.Component{
             case_chosen: 'Under Investigation',
             months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             selectedDate: handleDateChange(new Date()),
-            policeStation: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
-            ps_choosen: 'Nangal',
+            //policeStation: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
+            policeStation: ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
+            ps_choosen: 'PS1',
             ipc: [],
             local: [],
             challan: [],
@@ -45,7 +55,16 @@ class comparativeAnal extends React.Component{
 
     handleDateChange = (date) => {          
         const monYear = this.state.months[date.getMonth()] + ' ' + date.getFullYear();
-        this.setState({selectedDate: monYear})
+        const monthCurr = this.state.months[new Date().getMonth()] + ' ' + new Date().getFullYear();
+  
+        if(monthCurr.split(' ')[1] < monYear.split(' ')[1])
+            alert('You have entered wrong Year!!!!')
+  
+        else if(monthCurr.split(' ')[1] === monYear.split(' ')[1] &&  this.state.months.indexOf(monthCurr.split(' ')[0]) < this.state.months.indexOf(monYear.split(' ')[0]))
+           alert('You have entered wrong month!!!!')
+
+        else   
+         this.setState({selectedDate: monYear})
     }
 
     onSubmit = () => {
@@ -132,13 +151,17 @@ class comparativeAnal extends React.Component{
              ? <p></p>
              : 
               <div>
-              <FormControl style={{minWidth: 100, padding: '15px'}}>  
-                 <Select variant="outlined" className="dash_dropdown" onChange={this.onCaseTypeChange} value={this.state.case_chosen} >
-                 { this.state.caseType.map((cases) => (
-                    <MenuItem value = {cases} > {cases} </MenuItem>
-                    ))}
-                 </Select>
-                </FormControl>
+                <div className='pb2'>
+                <RadioGroup row onChange={this.onCaseTypeChange} value={this.state.case_chosen}>
+                    <FormControlLabel value= "Under Investigation" name='type' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Under Investigation</span>}/>
+                    <FormControlLabel value= "Under Investigation Over 1 Year" name='type' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Under Investigation Over 1 Year</span>}/>
+                    <FormControlLabel value= "Under Investigation Over 6 Month" name='type' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Under Investigation Over 6 Month</span>}/>
+                    <FormControlLabel value= "Cancellation/Untraced" name='type' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Cancellation/Untraced</span>}/>
+                    <FormControlLabel value= "Under Investigation Over 3 Month" name='type' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Under Investigation Over 3 Month</span>}/>
+                    <FormControlLabel value= "Under Investigation less than 3 month" name='type' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Under Investigation less than 3 month</span>}/>
+                    <FormControlLabel value= "Challan Cases" name='type' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Challan Cases</span>}/>
+                </RadioGroup>
+                </div>
                  
                 { this.state.case_chosen === 'Challan Cases' && this.state.challan.length !== 0
                   ? <Stacked challan={this.state.challan} />

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Bar, Pie } from "react-chartjs-2";
-import { MenuItem, FormControl, Select, Paper, Grid, makeStyles } from "@material-ui/core";
+import { MenuItem, FormControl, Select, Paper, Grid, makeStyles, RadioGroup, FormControlLabel, Radio} from "@material-ui/core";
+import { useStyles } from "@material-ui/pickers/views/Calendar/SlideTransition";
 
 const useStyle = makeStyles(theme => ({
 	pageContent : {
@@ -10,9 +11,11 @@ const useStyle = makeStyles(theme => ({
 }))
 
 function Graph(props) {
-     const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
-     const caseType= useState(['Feedback', 'Cleaniness', 'Handling']);
+     //const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
+     const policeStation = useState(['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'])
      const [cases, setCase]= useState('Feedback');
+
+     console.log(props.data1);
     
      const classes = useStyle(); 
      const onCaseTypeChange = (event) => {
@@ -230,13 +233,13 @@ function Graph(props) {
            />
           </Paper>  
           <Paper className={classes.pageContent}>
-          <FormControl className="dash_dropdown" style={{ padding: '10px' , minWidth: 100 }}>
-            <Select variant="outlined" onChange={onCaseTypeChange} value={cases}>
-              { caseType[0].map((cases) => (
-                <MenuItem value={cases}> {cases} </MenuItem>
-                ))}
-            </Select>
-          </FormControl>
+            <div >
+          <RadioGroup row onChange={onCaseTypeChange} value={cases}>
+              <FormControlLabel value= "Feedback" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Feedback</span>}/> 
+              <FormControlLabel value= "Handling" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Handling</span>}/>
+               <FormControlLabel value= "Cleaniness" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Cleaniness</span>}/>
+            </RadioGroup>
+            </div>
           <Pie
             data={PieGraphChanged(props.data1, props.data2)}
             height={250}

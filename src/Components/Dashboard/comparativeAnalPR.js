@@ -5,9 +5,18 @@ import DateFnsUtils from "@date-io/date-fns";
 import Line from './simpleLineGraph';
 
 function handleDateChange(date){
-    const months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const monYear = months[date.getMonth()] + ' ' + date.getFullYear();
-    return monYear;
+  const months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var monYear = months[new Date().getMonth()] + ' ' + new Date().getFullYear();
+  var year = monYear.split(' ')[1];
+  var index = new Date().getMonth();
+
+  if(index === 0)
+     year = year - 1;
+  else
+    index = index - 1;
+
+   monYear = months[index] + ' ' + year;
+  return monYear;
 }
 
 class comparativeAnal extends React.Component{
@@ -22,11 +31,40 @@ class comparativeAnal extends React.Component{
             time_choosen: 'Last 3 Months Data'
          }
     }
-
+   
+    componentDidMount() { 
+   
+      var token = sessionStorage.getItem('jwtToken');
+      fetch(this.props.link + '/api/extractDetailsProgressReport', {
+          method: 'post',
+          headers: {'Content-Type': 'application/json',  'jwttoken': token},
+          body: JSON.stringify({
+              id: this.props.policeStation,
+              monYear: this.state.selectedDate,
+              range: this.state.time_choosen
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data === 'error')
+              alert('Kindly click submit button again')
+            else 
+              this.setState({report: data.report});
+        })
+    }
 
     handleDateChange = (date) => {          
         const monYear = this.state.months[date.getMonth()] + ' ' + date.getFullYear();
-        this.setState({selectedDate: monYear})
+        const monthCurr = this.state.months[new Date().getMonth()] + ' ' + new Date().getFullYear();
+  
+        if(monthCurr.split(' ')[1] < monYear.split(' ')[1])
+            alert('You have entered wrong Year!!!!')
+  
+        else if(monthCurr.split(' ')[1] === monYear.split(' ')[1] &&  this.state.months.indexOf(monthCurr.split(' ')[0]) < this.state.months.indexOf(monYear.split(' ')[0]))
+           alert('You have entered wrong month!!!!')
+
+        else   
+         this.setState({selectedDate: monYear})
     }
 
     onTimeTypeChange = (e) => {

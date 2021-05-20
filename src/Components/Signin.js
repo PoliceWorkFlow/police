@@ -26,7 +26,8 @@ class Signin extends React.Component {
 		e.preventDefault();
 		this.props.onRouteChange('Forgot')
 	}
-
+    
+	
 	onSubmitSignIn = (e) => {
 		//e.preventDefault();
 		const link = this.props.link;
@@ -60,6 +61,12 @@ class Signin extends React.Component {
 		}
 	}
 
+	something=(e)=> {
+        if (e.keyCode === 13) {
+            this.onSubmitSignIn()
+        }
+    }
+
 	render() {
 
 		return (
@@ -79,6 +86,7 @@ class Signin extends React.Component {
 									id="email-address"
 									required
 									onChange={this.onUsernameChange}
+									onKeyDown={(e) => this.something(e) }
 								/>
 							</div>
 							<div className="mv3">
@@ -89,6 +97,7 @@ class Signin extends React.Component {
 									name="password"
 									id="password"
 									onChange={this.onPassChange}
+									onKeyDown={(e) => this.something(e) }
 								/>
 							</div>
 						</fieldset>

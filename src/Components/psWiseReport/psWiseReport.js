@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import 'tachyons';
-import { MenuItem, FormControl, Select, Grid } from "@material-ui/core";
+import { Grid, Radio, RadioGroup, FormControlLabel } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import "date-fns";
@@ -8,7 +8,7 @@ import Challan from './challan';
 import IPC from './ipc';
 import Local from './local';
 import Recovery from './recovery';
-import { setDate } from 'date-fns';
+import 'tachyons';
 
 function date(months){
    var monYear = months[new Date().getMonth()] + ' ' + new Date().getFullYear();
@@ -26,14 +26,14 @@ function date(months){
 }
 
 export default function CustomizedTables(props) {
-   const [case_chosen, setStaion] = useState('Under IPC Law');
-   const [caseType] = useState(['Under IPC Law', 'Under Local & Special Law', 'Recovery', 'Challan']);
+   const [case_chosen, setStaion] = useState('ipc');
    const months = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
    const [selectedDate, setSelectedDate] = useState(date(months[0]));
 
-   const onCaseTypeChange = (event) => {
-      setStaion(event.target.value);
-   }
+   const handleChange = e =>{
+      const type = e.target.value;
+      setStaion(type);
+    }
 
    const onNotification = (ps, month, type) => {
       //console.log(ps + ' ' + month + ' ' + type);
@@ -204,20 +204,20 @@ export default function CustomizedTables(props) {
 
    return (
       <div>
-         <Grid container >
-            <Grid item xs={7}>
-               <h2 class="pt2">POLICE STATION WISE REPORT </h2>
-            </Grid>
-            <Grid item xs={3}>
-               <FormControl className="dash_dropdown" style={{ minWidth: 100 }} class="tr pb2 pr5" >
-                  <Select variant="outlined" onChange={onCaseTypeChange} value={case_chosen} >
-                     {caseType.map((cases) => (
-                        <MenuItem value={cases} > {cases} </MenuItem>
-                     ))}
-                  </Select>
-               </FormControl>
-            </Grid>
-            <Grid item xs={2} style={{ padding: '14px' }}>
+         
+           <h2 class="pb2">POLICE STATION WISE REPORT </h2>
+           
+           <Grid container >
+            <div style={{marginLeft: '20%'}}>
+            <RadioGroup row onChange={handleChange} value={case_chosen}>
+                    <FormControlLabel value= "ipc" name='graph' control = {<Radio/>} label="Under IPC Law"/>
+                    <FormControlLabel value= "local" name='graph' control = {<Radio/>} label="Under Local & Special Law"/>
+                    <FormControlLabel value= "rec" name='graph' control = {<Radio/>} label="Recovery"/>
+                    <FormControlLabel value= "chal" name='graph' control = {<Radio/>} label="Challan"/>
+                </RadioGroup>
+            </div>
+       
+            <div style={{ marginLeft:'13%'}}>
                <MuiPickersUtilsProvider utils={DateFnsUtils} >
                   <DatePicker
                      variant="outlined"
@@ -230,17 +230,27 @@ export default function CustomizedTables(props) {
                      onChange={date => handleDateChange(date)}
                   />
                </MuiPickersUtilsProvider>
-            </Grid>
+               </div>
          </Grid>
 
-         { case_chosen === 'Challan'
+         { case_chosen === 'chal'
             ? <Challan challan={props.challan} challanCheck={props.challanCheck} onNotification={onNotification} onNotificationAll={onNotificationAll} />
-            : case_chosen === 'Under IPC Law'
+            : case_chosen === 'ipc'
                ? <IPC ipc={props.ipc} ipcCheck={props.ipcCheck} onNotification={onNotification} onNotificationAll={onNotificationAll} />
-               : case_chosen === 'Under Local & Special Law'
+               : case_chosen === 'local'
                   ? <Local local={props.local} localCheck={props.localCheck} onNotification={onNotification} onNotificationAll={onNotificationAll} />
                   : <Recovery recovery={props.recovery} recoveryCheck={props.recoveryCheck} onNotification={onNotification} onNotificationAll={onNotificationAll} />
          }
       </div>
    );
 }
+
+    /* <Grid item xs={3}>
+               <FormControl className="dash_dropdown" style={{ minWidth: 100 }} class="tr pb2 pr5" >
+                  <Select variant="outlined" onChange={onCaseTypeChange} value={case_chosen} >
+                     {caseType.map((cases) => (
+                        <MenuItem value={cases} > {cases} </MenuItem>
+                     ))}
+                  </Select>
+               </FormControl>
+                     </Grid>*/ 

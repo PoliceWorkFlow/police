@@ -15,8 +15,9 @@ import Compare from './compare';
 
 const useStyle = makeStyles(theme => ({
 	pageContent : {
-		margin: theme.spacing(3),
-		padding: theme.spacing(2)
+		marginTop: theme.spacing(3),
+            marginBottom: theme.spacing(3),
+		padding: theme.spacing(1)
 	}
 }))
 
@@ -33,9 +34,18 @@ function Dashboard(props){
     }
 
      function onChangeDate(date){
-         const monYear = months[0][date.getMonth()] + ' ' + date.getFullYear();
-         setSelectedDate(monYear);
 
+	   const monthCurr = months[0][new Date().getMonth()] + ' ' + new Date().getFullYear();
+         const monYear = months[0][date.getMonth()] + ' ' + date.getFullYear();
+        
+         if(monthCurr.split(' ')[1] < monYear.split(' ')[1])
+	     alert('You have entered wrong Year!!!!')
+   
+         else if(monthCurr.split(' ')[1] === monYear.split(' ')[1] &&  months[0].indexOf(monthCurr.split(' ')[0]) < months[0].indexOf(monYear.split(' ')[0]))
+	     alert('You have entered wrong month!!!!')
+         
+        else{   
+           setSelectedDate(monYear);
          var token = sessionStorage.getItem('jwtToken');
 
          fetch(props.link + '/api/extractReportDetails', {
@@ -59,6 +69,7 @@ function Dashboard(props){
                   setReport(report);
               }
         })
+      }
      }
 
      return(
@@ -69,18 +80,19 @@ function Dashboard(props){
                <div className="dash">
                <div className="dash_left"> 
                <div className='dash_header'> 
-                <h2 className='center'>SSP OFFICE</h2>
+                <h1 className='center pl6' style={{ color: '#E7040F', fontWeight: '700'}}>Police Stations Performance Review Portal</h1>
                 </div>
                 <RadioGroup row onChange={handleChange} value={graph}>
-                <h3 className='pt2 pr3 pl5' >Comparative analysis based on </h3>
-                    <FormControlLabel value= "pr" name='graph' control = {<Radio/>} label="Progress Report"/>
-                    <FormControlLabel value= "mr" name='graph' control = {<Radio/>} label="Monthly Report"/>
+                <h3 className='pt2 pr3' >Comparative analysis based on </h3>
+                    <FormControlLabel value= "pr" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Progress Report (Summary)</span>}/>
+                  {/* <FormControlLabel value= "pr2" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Progress Report (Detailed)</span>}/> */}
+                    <FormControlLabel value= "mr" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Monthly Report</span>}/>
                 </RadioGroup>
                
                  { 
                     graph === 'pr'
                    ?    <div>
-                         <div className='tr pb2'>
+                         <div className='tr pt2 pb2'>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                               <DatePicker
                                     variant="outlined"
@@ -115,6 +127,11 @@ function Dashboard(props){
                         </div>
                         </div> 
                    : 
+                   graph === 'pr2'
+                   ?
+                       <div>
+                        </div>
+                    :     
                     <div>
                        <Paper className={classes.pageContent}>
                          <StackedPS link={props.link} /> 
@@ -128,7 +145,7 @@ function Dashboard(props){
                 {
                   graph === 'pr'
                   ?  
-                     <div style={{paddingTop:'45px'}}>
+                     <div style={{paddingTop:'100px'}}>
                         <Card className="dash_right">
                         <CardContent>
                         <h3 >Rank</h3> 
@@ -149,7 +166,7 @@ function Dashboard(props){
             { graph === 'pr'
                ? <div>
                  <h2 className='pt4 pb2'>Detailed Comparison of two Police Stations</h2>
-                   <Compare link={props.link} /> 
+                   <Compare link={props.link} report = {report} /> 
                   </div>
                 : <p></p>
             }           

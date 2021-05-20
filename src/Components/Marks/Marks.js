@@ -50,7 +50,7 @@ export default function BasicTable() {
   return (
     <div>
       <div className={classes.heading}>
-         <h1 class="font-weight-bold"> Marks Criteria </h1>
+         <h1 class="font-weight-bold" style={{paddingTop: '15px'}}> Marks Criteria </h1>
       </div>
       <Grid container>
         

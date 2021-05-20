@@ -36,8 +36,8 @@ class App extends Component {
        ipcCheck: [],
       localCheck: [],
       recoveryCheck: [],
-    // link: 'http://localhost:3000',
-      link: 'http://103.118.50.49'
+     link: 'http://localhost:3000',
+   //   link: 'http://103.118.50.49'
     }
   }
 

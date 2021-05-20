@@ -10,44 +10,6 @@ export default class StackedBarChart extends React.Component{
          }
       }
     
-    highchartsCallback(chart) {
-        const legendArea = document.querySelector('.legendArea');
-
-        console.log(chart.series);
-
-        chart.series.forEach((item, index)=>{
-            const myButton = document.createElement('button');
-            myButton.textContent = item.name;
-            myButton.style.backgroundColor = item.color;
-            myButton.style.height = '25px';
-            myButton.style.width = '100px';
-            myButton.style.border = 'none';
-
-            if (index > 0) {
-                myButton.style.marginLeft = '16px';
-            }
-
-            if (index === 1) {
-                myButton.style.color = 'white';
-            }
-            
-            myButton.addEventListener('click', ()=>{
-                item.setVisible(!item.visible);
-                switch (myButton.style.opacity) {
-                    case '':
-                        return myButton.style.opacity = '0.3';
-                    case '0.3':
-                        return myButton.style.opacity = '1';
-                    case '1':
-                        return myButton.style.opacity = '0.3';
-                    default:
-                        break;
-                }
-            });
-
-            legendArea.appendChild(myButton);
-        })
-    }
 
     ConfigObj = (report) => {
        
@@ -58,16 +20,18 @@ export default class StackedBarChart extends React.Component{
         const untrace_prop = [report[0].propCrime/10, report[1].propCrime/10, report[2].propCrime/10, report[3].propCrime/10, report[4].propCrime/10, report[5].propCrime/10, report[6].propCrime/10, report[7].propCrime/10, report[8].propCrime/10, report[9].propCrime/10 ];
         const  untrace_cases = [report[0].untraceInCourt/5, report[1].untraceInCourt/5, report[2].untraceInCourt/5, report[3].untraceInCourt/5, report[4].untraceInCourt/5, report[5].untraceInCourt/5, report[6].untraceInCourt/5, report[7].untraceInCourt/5, report[8].untraceInCourt/5, report[9].untraceInCourt/5];
         const disp_comp = [report[0].compDisp/10, report[1].compDisp/10, report[2].compDisp/10, report[3].compDisp/10, report[4].compDisp/10, report[5].compDisp/10, report[6].compDisp/10, report[7].compDisp/10, report[8].compDisp/10, report[9].compDisp/10 ];
-        
+   
         const configObj = {
             chart: {
                 type: 'bar'
             },
+    
             title: {
                 text: ''
             },
             xAxis: {
-                categories: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']
+                //categories: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']
+                categories:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']
             },
             yAxis: {
                 min: 0,
@@ -76,7 +40,7 @@ export default class StackedBarChart extends React.Component{
                 }
             },
             legend: {
-                reversed: true
+                reversed: true,
             },
             plotOptions: {
                 bar: {
@@ -119,12 +83,15 @@ export default class StackedBarChart extends React.Component{
                     data: cases_in_court
                 },  
                
-             ]
+             ],
+            
         }
-
+       
         return configObj
+    
     }
 
+   
     ConfigObj1 = (report) => {
 
          const clean = [1*report[0].cleaniness, 1*report[1].cleaniness, 1*report[2].cleaniness, 1*report[3].cleaniness, 1*report[4].cleaniness, 1*report[5].cleaniness, 1*report[6].cleaniness, 1*report[7].cleaniness, 1*report[8].cleaniness, 1*report[9].cleaniness ];
@@ -144,7 +111,8 @@ export default class StackedBarChart extends React.Component{
                 text: ''
             },
             xAxis: {
-                categories: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']
+               // categories: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']
+               categories:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']
             },
             yAxis: {
                 min: 0,
@@ -170,7 +138,8 @@ export default class StackedBarChart extends React.Component{
 
                 {
                     name: 'Gambling',
-                    data: gambling
+                    data: gambling,
+        
                 },
                 {
                     name: 'Excise',
@@ -206,6 +175,19 @@ export default class StackedBarChart extends React.Component{
         return configObj1
     }
 
+   /* hideAtrributes = () => {
+        let i = 0;
+
+        while (i < configObj1.series.length) {
+          if (configObj1.series[i].visible === false) {
+            configObj1.series[i].select();
+            configObj1.series[i].show();
+            i++;
+            return;
+          }
+        }
+    }
+*/
 
     render(){
         if(this.props.flag === 1){
@@ -214,8 +196,9 @@ export default class StackedBarChart extends React.Component{
                  <HighchartsReact
                             highcharts={Highcharts} 
                             options={this.ConfigObj(this.props.Report)}
+                            
                             containerProps={{ style: { height: "430px", width: "450px" }}}
-                            //callback={this.highchartsCallback}
+                            //callback={this.highchartsCallback}   
                    />
                   </div> 
             )
@@ -228,7 +211,8 @@ export default class StackedBarChart extends React.Component{
                     highcharts={Highcharts} 
                     options={this.ConfigObj1(this.props.Report)}  
                     containerProps={{ style: { height: "430px", width: "450px" } }}
-                    //callback={this.highchartsCallback}
+        
+                    callback={this.highchartsCallback}
                  />
                     
                 </div>
