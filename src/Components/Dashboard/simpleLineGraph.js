@@ -31,8 +31,10 @@ class Chart extends Component{
    var data = [];
    const labels = [];
 
-   for(let i = 0; i<report.length; i++)
-      labels.push(report[i].monYear)
+   for(let i = 0; i<report.length; i++){
+      var d = report[i].monYear.split(' ')[0].slice(0,3) + ' ' + report[i].monYear.split(' ')[1];
+      labels.push(d);
+   }
 
    if(case_chosen === 'Cases Submitted in Court'){
       const cases_in_court= [];
@@ -143,8 +145,10 @@ class Chart extends Component{
     var data = [];
     const labels = [];
 
-    for(let i = 0; i<report.length; i++)
-      labels.push(report[i].monYear)
+    for(let i = 0; i<report.length; i++){
+      var d = report[i].monYear.split(' ')[0].slice(0,3) + ' ' + report[i].monYear.split(' ')[1];
+      labels.push(d);
+    }
 
     if(case_chosen === 'Scores'){    
       const scores = [];
@@ -184,8 +188,10 @@ class Chart extends Component{
     var data = [];
     const labels = [];
 
-   for(let i = 0; i<report.length; i++)
-      labels.push(report[i].monYear)
+   for(let i = 0; i<report.length; i++){
+      var d = report[i].monYear.split(' ')[0].slice(0,3) + ' ' + report[i].monYear.split(' ')[1];
+      labels.push(d);
+   }
  
     if(case_chosen === 'Negligence in duty/Public dealing/image') {
       const feedback = [];
@@ -284,8 +290,10 @@ class Chart extends Component{
     var data = [];
     const labels = [];
 
-   for(let i = 0; i<report.length; i++)
-      labels.push(report[i].monYear)
+   for(let i = 0; i<report.length; i++){
+      var d = report[i].monYear.split(' ')[0].slice(0,3) + ' ' + report[i].monYear.split(' ')[1];
+      labels.push(d);
+   }
  
     if(case_chosen === 'Negligence in duty/Public dealing/image') {
       const feedback = [];

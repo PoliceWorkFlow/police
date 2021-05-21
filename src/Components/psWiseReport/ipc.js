@@ -6,9 +6,10 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
+    fontSize: 13,
   },
   body: {
-    fontSize: 14,
+    fontSize: 13,
   },
 }))(TableCell);
 
@@ -43,7 +44,7 @@ const useStyles = makeStyles({
 });
 
 export default function CustomizedTables(props) {
-   /* const rows = [
+    const rows = [
         createData('Nangal', props.ipc[0].underInvPend , props.ipc[0].underInvDisp, props.ipc[0].cancelledPend, props.ipc[0].cancelledDisp, props.ipc[0].underInv1YrPend, props.ipc[0].underInv1YrDisp, props.ipc[0].underInv6monPend, props.ipc[0].underInv6monDisp, props.ipc[0].underInvo3monPend, props.ipc[0].underInvo3monDisp, props.ipc[0].underInvl3monPend, props.ipc[0].underInvl3monDisp, props.ipcCheck[2].status, props.ipcCheck[1].status, props.ipcCheck[0].status),
         createData('City Morinda', props.ipc[1].underInvPend , props.ipc[1].underInvDisp, props.ipc[1].cancelledPend, props.ipc[1].cancelledDisp, props.ipc[1].underInv1YrPend, props.ipc[1].underInv1YrDisp, props.ipc[1].underInv6monPend, props.ipc[1].underInv6monDisp, props.ipc[1].underInvo3monPend, props.ipc[1].underInvo3monDisp, props.ipc[1].underInvl3monPend, props.ipc[1].underInvl3monDisp, props.ipcCheck[5].status, props.ipcCheck[4].status, props.ipcCheck[3].status),
         createData('Sri Anandpur Sahib', props.ipc[2].underInvPend , props.ipc[2].underInvDisp, props.ipc[2].cancelledPend, props.ipc[2].cancelledDisp, props.ipc[2].underInv1YrPend, props.ipc[2].underInv1YrDisp, props.ipc[2].underInv6monPend, props.ipc[2].underInv6monDisp, props.ipc[2].underInvo3monPend, props.ipc[2].underInvo3monDisp, props.ipc[2].underInvl3monPend, props.ipc[2].underInvl3monDisp, props.ipcCheck[8].status, props.ipcCheck[7].status, props.ipcCheck[6].status),
@@ -56,9 +57,9 @@ export default function CustomizedTables(props) {
         createData('Singh Bhagwantpur', props.ipc[9].underInvPend , props.ipc[9].underInvDisp, props.ipc[9].cancelledPend, props.ipc[9].cancelledDisp, props.ipc[9].underInv1YrPend, props.ipc[9].underInv1YrDisp, props.ipc[9].underInv6monPend, props.ipc[9].underInv6monDisp, props.ipc[9].underInvo3monPend, props.ipc[9].underInvo3monDisp, props.ipc[9].underInvl3monPend, props.ipc[9].underInvl3monDisp, props.ipcCheck[29].status, props.ipcCheck[28].status, props.ipcCheck[27].status),
         createData('', '' , '', '', '', '', '', '', '', '', '', '', '', 'Send Reminder to All', 'Send Reminder to All', 'Send Reminder to All')
        // createData('Total',1117,  92,     737,    12,     245,    18, 348,    31, 274,    27, 262,    50),
-      ];  */
+      ];  
 
-      const rows = [
+     /* const rows = [
         createData('PS1', props.ipc[0].underInvPend , props.ipc[0].underInvDisp, props.ipc[0].cancelledPend, props.ipc[0].cancelledDisp, props.ipc[0].underInv1YrPend, props.ipc[0].underInv1YrDisp, props.ipc[0].underInv6monPend, props.ipc[0].underInv6monDisp, props.ipc[0].underInvo3monPend, props.ipc[0].underInvo3monDisp, props.ipc[0].underInvl3monPend, props.ipc[0].underInvl3monDisp, props.ipcCheck[2].status, props.ipcCheck[1].status, props.ipcCheck[0].status),
         createData('PS2', props.ipc[1].underInvPend , props.ipc[1].underInvDisp, props.ipc[1].cancelledPend, props.ipc[1].cancelledDisp, props.ipc[1].underInv1YrPend, props.ipc[1].underInv1YrDisp, props.ipc[1].underInv6monPend, props.ipc[1].underInv6monDisp, props.ipc[1].underInvo3monPend, props.ipc[1].underInvo3monDisp, props.ipc[1].underInvl3monPend, props.ipc[1].underInvl3monDisp, props.ipcCheck[5].status, props.ipcCheck[4].status, props.ipcCheck[3].status),
         createData('PS3', props.ipc[2].underInvPend , props.ipc[2].underInvDisp, props.ipc[2].cancelledPend, props.ipc[2].cancelledDisp, props.ipc[2].underInv1YrPend, props.ipc[2].underInv1YrDisp, props.ipc[2].underInv6monPend, props.ipc[2].underInv6monDisp, props.ipc[2].underInvo3monPend, props.ipc[2].underInvo3monDisp, props.ipc[2].underInvl3monPend, props.ipc[2].underInvl3monDisp, props.ipcCheck[8].status, props.ipcCheck[7].status, props.ipcCheck[6].status),
@@ -71,7 +72,7 @@ export default function CustomizedTables(props) {
         createData('PS10', props.ipc[9].underInvPend , props.ipc[9].underInvDisp, props.ipc[9].cancelledPend, props.ipc[9].cancelledDisp, props.ipc[9].underInv1YrPend, props.ipc[9].underInv1YrDisp, props.ipc[9].underInv6monPend, props.ipc[9].underInv6monDisp, props.ipc[9].underInvo3monPend, props.ipc[9].underInvo3monDisp, props.ipc[9].underInvl3monPend, props.ipc[9].underInvl3monDisp, props.ipcCheck[29].status, props.ipcCheck[28].status, props.ipcCheck[27].status),
         createData('', '' , '', '', '', '', '', '', '', '', '', '', '', 'Send Reminder to All', 'Send Reminder to All', 'Send Reminder to All')
        // createData('Total',1117,  92,     737,    12,     245,    18, 348,    31, 274,    27, 262,    50),
-      ];
+      ];*/
   const classes = useStyles();
 
   return (

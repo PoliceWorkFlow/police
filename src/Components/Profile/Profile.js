@@ -33,8 +33,8 @@ const useStyles = makeStyles({
 });
 
 export default function SimpleCard(props) {
-   // const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
-   const policeStation = useState( ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']);
+    const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
+   //const policeStation = useState( ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']);
    const [info, setInfo] = useState([]);
     const [flag1, setFlag1] = useState(false);
     const [flag2, setFlag2] = useState(false);
@@ -68,6 +68,24 @@ export default function SimpleCard(props) {
     useEffect(() => {
         setValues();
     }, []);
+
+    const somethingEmail=(e)=> {
+        if (e.keyCode === 13) {
+            onClickEmail();
+        }
+    }
+
+    const somethingUser=(e)=> {
+        if (e.keyCode === 13) {
+            onClickUsername();
+        }
+    }
+
+    const somethingPass=(e)=> {
+        if (e.keyCode === 13) {
+            onClickPassword();
+        }
+    }
 
     function onClickEmail() {
         if (!flag2)
@@ -254,6 +272,7 @@ export default function SimpleCard(props) {
                                                     type='text'
                                                     value={username}
                                                     required
+                                                    onKeyDown={(e) => somethingUser(e) }
                                                     onChange={e => {
                                                         const val = e.target.value;
                                                         setUsername(val)
@@ -267,6 +286,7 @@ export default function SimpleCard(props) {
                                                     label="Password"
                                                     type='password'
                                                     value={passuser}
+                                                    onKeyDown={(e) => somethingUser(e) }
                                                     required
                                                     onChange={e => {
                                                         const val = e.target.value;
@@ -306,6 +326,7 @@ export default function SimpleCard(props) {
                                                     type='text'
                                                     value={email}
                                                     required
+                                                    onKeyDown={(e) => somethingEmail(e) }
                                                     onChange={e => {
                                                         const val = e.target.value;
                                                         setEmail(val)
@@ -319,6 +340,7 @@ export default function SimpleCard(props) {
                                                     label="Password"
                                                     type='password'
                                                     value={passemail}
+                                                    onKeyDown={(e) => somethingEmail(e) }
                                                     required
                                                     onChange={e => {
                                                         const val = e.target.value;
@@ -359,6 +381,7 @@ export default function SimpleCard(props) {
                                                     type='password'
                                                     value={changePass.pass}
                                                     required
+                                                    onKeyDown={(e) => somethingPass(e) }
                                                     onChange={e => {
                                                         const val = e.target.value;
                                                         setChangePass(prevState => {
@@ -374,6 +397,7 @@ export default function SimpleCard(props) {
                                                     label="New Password"
                                                     type='password'
                                                     value={changePass.new_pass}
+                                                    onKeyDown={(e) => somethingPass(e) }
                                                     required
                                                     onChange={e => {
                                                         const val = e.target.value;
@@ -390,6 +414,7 @@ export default function SimpleCard(props) {
                                                     label="Confirm Password"
                                                     type='password'
                                                     value={changePass.conf_pass}
+                                                    onKeyDown={(e) => somethingPass(e) }
                                                     required
                                                     onChange={e => {
                                                         const val = e.target.value;

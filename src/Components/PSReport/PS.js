@@ -28,8 +28,8 @@ function currentMonth(){
 
 function PS(props) {
 	
-	//const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
-	const policeStation = useState( ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']);
+	const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
+	//const policeStation = useState( ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']);
 	const [challan, setData] = useState({ overLoading: '0', withoutHelmet: '0', drunken: '0', covid19: '0', overspeed: '0', others: '0', monYear: '' });
 	const [monthCurr] = useState(currentMonth());
     const [recovery, setDataRecovery] = useState({ illict: '0', licit: '0', lahan: '0', ganja: '0', poppy: '0', heroin: '0', opium: '0', charas: '0', tablets: '0', injections: '0', others: '0', monYear: '' });
@@ -1052,7 +1052,7 @@ function PS(props) {
 					 <Grid item xs={3}>
 						<TextField
 						  variant = "outlined"
-						  label = "ILLICIT LIQUOR(in Litres)"
+						  label = "ILLICIT LIQUOR(in ml)"
 						  type = "text"
 						  value = {recovery.illict}
 						  inputProps={{ min: "0"}}
@@ -1098,7 +1098,7 @@ function PS(props) {
 					 <Grid item xs={3}>
 					   <TextField
 						  variant = "outlined"
-						  label = "LICIT LIQUOR(in Litres)"
+						  label = "LICIT LIQUOR(in ml)"
 						  type = "text"
 						  value = {recovery.licit}
 						  inputProps={{ min: "0"}}

@@ -46,15 +46,18 @@ class Signin extends React.Component {
 			})
 				.then(response => response.json())
 				.then(data => {
-
 					if (data === 'unable to login')
 						alert('Wrong Credentials');
+
+				   else if(data.id === 12)
+				       alert('Wrong Credentials');	
+					   
 					else {
 						sessionStorage.setItem('jwtToken', data.token);
 						var ind = data.id;
 						if (ind > 0 && ind < 11)
 							this.props.onRouteChange('station', data);
-						else
+						else 
 							this.props.onRouteChange('ssp', data);
 					}
 				})

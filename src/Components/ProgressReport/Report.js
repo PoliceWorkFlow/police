@@ -29,9 +29,9 @@ function currentMonth() {
 
 function Report(props) {
 
-	const [station_chosen, setStaion] = useState('PS1');
-	//const [police_station] = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
-	const [police_station] = useState(['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']);
+	const [station_chosen, setStaion] = useState('Nangal');
+	const [police_station] = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
+	//const [police_station] = useState(['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']);
 	const [selectedDate, setSelectedDate] = useState(new Date());
 	const [monthCurr] = useState(currentMonth());
 	const months = useState(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);

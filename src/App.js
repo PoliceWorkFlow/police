@@ -36,8 +36,8 @@ class App extends Component {
        ipcCheck: [],
       localCheck: [],
       recoveryCheck: [],
-     link: 'http://localhost:3000',
-   //   link: 'http://103.118.50.49'
+     //link: 'http://localhost:3000',
+     link: 'http://103.118.50.49'
     }
   }
 
@@ -202,8 +202,7 @@ class App extends Component {
     if(currentLocation.includes('/change-password')){
       console.log(currentLocation);
       return(
-        <div className='App signin'>
-          <Logo />
+        <div className='App signin pt6'>
           <Router >
           <Route path='/change-password/:slug' render={(props) => <ChangePass onRouteChange={this.onRouteChange} link={this.state.link} {...props}/>}/>
           </Router>

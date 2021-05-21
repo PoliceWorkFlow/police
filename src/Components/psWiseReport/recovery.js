@@ -6,9 +6,10 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
+    fontSize: 13,
   },
   body: {
-    fontSize: 14,
+    fontSize: 13,
   },
 }))(TableCell);
 
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
 });
 
 export default function CustomizedTables(props) {
-   /* const rows = [
+    const rows = [
         createData('Nangal', props.recovery[0].illicit, props.recovery[0].licit, props.recovery[0].lahan, props.recovery[0].opium, props.recovery[0].poppy, props.recovery[0].heroin, props.recovery[0].charas, props.recovery[0].ganja, props.recovery[0].tablets, props.recovery[0].injections, props.recovery[0].others, props.recoveryCheck[2].status, props.recoveryCheck[1].status, props.recoveryCheck[0].status),
         createData('City Morinda',  props.recovery[1].illicit, props.recovery[1].licit, props.recovery[1].lahan, props.recovery[1].opium, props.recovery[1].poppy, props.recovery[1].heroin, props.recovery[1].charas, props.recovery[1].ganja, props.recovery[1].tablets, props.recovery[1].injections, props.recovery[1].others, props.recoveryCheck[5].status, props.recoveryCheck[4].status, props.recoveryCheck[3].status),
         createData('Sri Anandpur Sahib', props.recovery[2].illicit, props.recovery[2].licit, props.recovery[2].lahan, props.recovery[2].opium, props.recovery[2].poppy, props.recovery[2].heroin, props.recovery[2].charas, props.recovery[2].ganja, props.recovery[2].tablets, props.recovery[2].injections, props.recovery[2].others, props.recoveryCheck[8].status, props.recoveryCheck[7].status, props.recoveryCheck[6].status),
@@ -53,9 +54,9 @@ export default function CustomizedTables(props) {
         createData('Nurpurbedi',  props.recovery[8].illicit, props.recovery[8].licit, props.recovery[8].lahan, props.recovery[8].opium, props.recovery[8].poppy, props.recovery[8].heroin, props.recovery[8].charas, props.recovery[8].ganja, props.recovery[8].tablets, props.recovery[8].injections, props.recovery[8].others, props.recoveryCheck[26].status, props.recoveryCheck[25].status, props.recoveryCheck[24].status),
         createData('Singh Bhagwantpur',   props.recovery[9].illicit, props.recovery[9].licit, props.recovery[9].lahan, props.recovery[9].opium, props.recovery[9].poppy, props.recovery[9].heroin, props.recovery[9].charas, props.recovery[9].ganja, props.recovery[9].tablets, props.recovery[9].injections, props.recovery[9].others, props.recoveryCheck[29].status, props.recoveryCheck[28].status, props.recoveryCheck[27].status),
         createData('' , '', '', '', '', '', '', '', '', '', '', '', 'Send Reminder to All', 'Send Reminder to All', 'Send Reminder to All')
-    ];  */
+    ];  
 
-    const rows = [
+   /* const rows = [
       createData('PS1', props.recovery[0].illicit, props.recovery[0].licit, props.recovery[0].lahan, props.recovery[0].opium, props.recovery[0].poppy, props.recovery[0].heroin, props.recovery[0].charas, props.recovery[0].ganja, props.recovery[0].tablets, props.recovery[0].injections, props.recovery[0].others, props.recoveryCheck[2].status, props.recoveryCheck[1].status, props.recoveryCheck[0].status),
       createData('PS2',  props.recovery[1].illicit, props.recovery[1].licit, props.recovery[1].lahan, props.recovery[1].opium, props.recovery[1].poppy, props.recovery[1].heroin, props.recovery[1].charas, props.recovery[1].ganja, props.recovery[1].tablets, props.recovery[1].injections, props.recovery[1].others, props.recoveryCheck[5].status, props.recoveryCheck[4].status, props.recoveryCheck[3].status),
       createData('PS3', props.recovery[2].illicit, props.recovery[2].licit, props.recovery[2].lahan, props.recovery[2].opium, props.recovery[2].poppy, props.recovery[2].heroin, props.recovery[2].charas, props.recovery[2].ganja, props.recovery[2].tablets, props.recovery[2].injections, props.recovery[2].others, props.recoveryCheck[8].status, props.recoveryCheck[7].status, props.recoveryCheck[6].status),
@@ -67,7 +68,7 @@ export default function CustomizedTables(props) {
       createData('PS9',  props.recovery[8].illicit, props.recovery[8].licit, props.recovery[8].lahan, props.recovery[8].opium, props.recovery[8].poppy, props.recovery[8].heroin, props.recovery[8].charas, props.recovery[8].ganja, props.recovery[8].tablets, props.recovery[8].injections, props.recovery[8].others, props.recoveryCheck[26].status, props.recoveryCheck[25].status, props.recoveryCheck[24].status),
       createData('PS10',   props.recovery[9].illicit, props.recovery[9].licit, props.recovery[9].lahan, props.recovery[9].opium, props.recovery[9].poppy, props.recovery[9].heroin, props.recovery[9].charas, props.recovery[9].ganja, props.recovery[9].tablets, props.recovery[9].injections, props.recovery[9].others, props.recoveryCheck[29].status, props.recoveryCheck[28].status, props.recoveryCheck[27].status),
       createData('' , '', '', '', '', '', '', '', '', '', '', '', 'Send Reminder to All', 'Send Reminder to All', 'Send Reminder to All')
-  ];
+  ]; */
 
   const classes = useStyles();
   
@@ -78,14 +79,14 @@ export default function CustomizedTables(props) {
         <TableHead>
           <TableRow >
             <StyledTableCell>Name of PS</StyledTableCell>
-            <StyledTableCell align="right" >Illicit Liquor</StyledTableCell>
-            <StyledTableCell align="right" >Licit Liquor</StyledTableCell>
-            <StyledTableCell align="right" >Lahan</StyledTableCell>
-            <StyledTableCell align="right" >Opium</StyledTableCell>
-            <StyledTableCell align="right" >Poppy Husk</StyledTableCell>
-            <StyledTableCell align="right" >Heroin</StyledTableCell>
-            <StyledTableCell align="right" >Charas</StyledTableCell>
-            <StyledTableCell align="right" >Ganja</StyledTableCell>
+            <StyledTableCell align="right" >Illicit Liquor (ml)</StyledTableCell>
+            <StyledTableCell align="right" >Licit Liquor (ml)</StyledTableCell>
+            <StyledTableCell align="right" >Lahan (Litre)</StyledTableCell>
+            <StyledTableCell align="right" >Opium (Gram)</StyledTableCell>
+            <StyledTableCell align="right" >Poppy Husk (Gram)</StyledTableCell>
+            <StyledTableCell align="right" >Heroin (Gram)</StyledTableCell>
+            <StyledTableCell align="right" >Charas (Gram)</StyledTableCell>
+            <StyledTableCell align="right" >Ganja (Gram)</StyledTableCell>
             <StyledTableCell align="right" >Tablets</StyledTableCell>
             <StyledTableCell align="right" >Injections</StyledTableCell>
             <StyledTableCell align="right" >Others</StyledTableCell>

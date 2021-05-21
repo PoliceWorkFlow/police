@@ -12,6 +12,7 @@ import StackedPS from './graph_investigation'
 import ComparativeAnal from './ps1';
 import Bar from './simplechart';
 import Compare from './compare';
+import Table2 from './table2';
 
 const useStyle = makeStyles(theme => ({
 	pageContent : {
@@ -83,9 +84,9 @@ function Dashboard(props){
                 <h1 className='center pl6' style={{ color: '#E7040F', fontWeight: '700'}}>Police Stations Performance Review Portal</h1>
                 </div>
                 <RadioGroup row onChange={handleChange} value={graph}>
-                <h3 className='pt2 pr3' >Comparative analysis based on </h3>
+                <h3 className='pl4 pt2 pr4' >Comparative analysis based on </h3>
                     <FormControlLabel value= "pr" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Progress Report (Summary)</span>}/>
-                  {/* <FormControlLabel value= "pr2" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Progress Report (Detailed)</span>}/> */}
+                   <FormControlLabel value= "pr2" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Progress Report (Detailed)</span>}/> 
                     <FormControlLabel value= "mr" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Monthly Report</span>}/>
                 </RadioGroup>
                
@@ -128,9 +129,39 @@ function Dashboard(props){
                         </div> 
                    : 
                    graph === 'pr2'
-                   ?
-                       <div>
+                   ?   
+                   <div>
+                   <div className='center pt2 pb2'>
+                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                         <DatePicker
+                               variant="outlined"
+                               openTo="year"
+                               views={["year", "month"]}
+                               dateFormat="MM/yyyy"
+                               label="Select Month"
+                         
+                               value={selectedDate}
+                               onChange= {date => onChangeDate(date)}  
+                               />  
+                         </MuiPickersUtilsProvider> 
+                   </div>
+                       <div class="row">
+                        <div class="column">
+
+                         <div style={{paddingBottom: '20px'}}>     
+                        <Stacked Report={report} flag = {1} />
                         </div>
+
+                        <div style={{paddingTop: '30px'}}> 
+                        <Stacked Report = {report} flag = {2} />
+                        </div>
+
+                        </div>
+                        <div class="column" >
+                            <Table2 report={report}/>
+                        </div>
+                        </div>
+                       </div>
                     :     
                     <div>
                        <Paper className={classes.pageContent}>
@@ -145,16 +176,16 @@ function Dashboard(props){
                 {
                   graph === 'pr'
                   ?  
-                     <div style={{paddingTop:'100px'}}>
+                     <div style={{paddingTop:'120px'}}>
                         <Card className="dash_right">
                         <CardContent>
-                        <h3 >Rank</h3> 
+                        <h3 className="pt2">Rank</h3> 
                         <h5 className="pt1 tr" style={{color: '#777777'}}> {selectedDate}</h5>
 
                         <Table report = {report} flag = {1} />
-                        <h3 className="pt4"> Progress Report</h3>
+                        <h3 className="pt5"> Progress Report</h3>
                         <h4 className="pt1"> Last Updated On</h4>
-                        <h5 className="pt1 tr" style={{color: '#777777'}}> {selectedDate}</h5>
+                        <h5 className="pt3 tr" style={{color: '#777777'}}> {selectedDate}</h5>
                               <Table report = {report} flag = {2} />  
                         </CardContent>
                         </Card>
@@ -163,7 +194,7 @@ function Dashboard(props){
                  }  
             </div> 
             } 
-            { graph === 'pr'
+            { graph === 'pr' || graph === 'pr2'
                ? <div>
                  <h2 className='pt4 pb2'>Detailed Comparison of two Police Stations</h2>
                    <Compare link={props.link} report = {report} /> 

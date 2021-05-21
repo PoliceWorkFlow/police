@@ -42,13 +42,37 @@ export default class StackedBarChart extends React.Component{
               showInLegend: true,
             },
             series: {
-                stacking: 'normal'
+                stacking: 'normal',
+                events: {
+                    legendItemClick: function (e) {
+                
+                        if(e.target.userOptions.name === 'DeSelect All Properties') {
+                               console.log(this.visible);
+                               if(this.visible){
+                                for (let i = 0; i < 7; i++) {
+                                   if(this.index !== i) 
+                                     this.chart.series[i].hide();
+                                }
+                            }
+                            else{
+                                for (let i = 0; i < 7; i++) {
+                                    if(this.index !== i) 
+                                      this.chart.series[i].show();
+                                 }
+                            }                                    
+                           }
+
+                    }} 
             }
         },
         credits : {
             enabled: false
         },
         series: [
+            { 
+                name: 'DeSelect All Properties',
+                      
+            },
             {
                 name: 'Others',
                 data: others

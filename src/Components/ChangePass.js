@@ -11,7 +11,7 @@ class Signin extends React.Component {
       new_pass: '',
       confirm_pass: '',
       avatarStyle: { backgroundColor: '#1bbd7e' },
-      paperStyle: { padding: 10, height: '65vh', width: 300, margin: "20px auto", backgroundColor: 'white' }
+      paperStyle: { padding: 10, height: '32%', width: 300, margin: "20px auto", backgroundColor: 'white' }
     }
   }
 
@@ -104,7 +104,7 @@ class Signin extends React.Component {
   render() {
 
     return (
-      <article style={this.state.paperStyle}  >
+      <article style={this.state.paperStyle} >
         <div className='pt3 pb1 w5'>
           <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
             <legend className="f3 fw6 ph0 mh0">Reset Password</legend>

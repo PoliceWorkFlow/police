@@ -11,11 +11,9 @@ const useStyle = makeStyles(theme => ({
 }))
 
 function Graph(props) {
-     //const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
-     const policeStation = useState(['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'])
+     const policeStation = useState(['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']);
+   // const policeStation = useState(['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'])
      const [cases, setCase]= useState('Feedback');
-
-     console.log(props.data1);
     
      const classes = useStyle(); 
      const onCaseTypeChange = (event) => {
@@ -182,7 +180,12 @@ function Graph(props) {
       legend: {
         display: true
       },
-      type: "bar"
+      type: "bar",
+      title:{
+        display: props.data1[0].monYear,
+        text: props.data1[0].monYear,
+        fontSize:15
+        }
     };
 
     return (
@@ -203,11 +206,12 @@ function Graph(props) {
               height={'100px'}
               options={{
                 title:{
-                display: 'Case Registered under Detection Work',
-                text: 'Case Registered under Detection Work',
+                display: props.data1[0].monYear,
+                text: props.data1[0].monYear,
                 fontSize:15
                 }
               }}
+              
             />
           </Paper>  
         </Grid>
@@ -225,8 +229,8 @@ function Graph(props) {
                 }]
               },
             title: {
-                display: 'Score',
-                text: 'Score',
+                display: props.data1[0].monYear,
+                text: props.data1[0].monYear,
                 fontSize: 15
               }
             }}
@@ -234,6 +238,7 @@ function Graph(props) {
           </Paper>  
           <Paper className={classes.pageContent}>
             <div >
+              <h4 style={{paddingBottom: '14px'}}> {props.data1[0].monYear} </h4>
           <RadioGroup row onChange={onCaseTypeChange} value={cases}>
               <FormControlLabel value= "Feedback" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Feedback</span>}/> 
               <FormControlLabel value= "Handling" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Handling</span>}/>

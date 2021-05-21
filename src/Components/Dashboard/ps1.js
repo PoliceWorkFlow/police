@@ -27,9 +27,9 @@ class comparativeAnal extends React.Component{
             case_chosen: 'Under Investigation',
             months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             selectedDate: handleDateChange(new Date()),
-            //policeStation: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
-            policeStation: ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
-            ps_choosen: 'PS1',
+            policeStation: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
+          //  policeStation: ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
+            ps_choosen: 'Nangal',
             ipc: [],
             local: [],
             challan: [],
@@ -40,6 +40,40 @@ class comparativeAnal extends React.Component{
          }
     }
     
+    componentDidMount() { 
+      const index = this.state.policeStation.indexOf(this.state.ps_choosen) + 1;
+      var token = sessionStorage.getItem('jwtToken');
+      
+      fetch(this.props.link + '/api/extractDetailsPS', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json', 'jwttoken': token},
+        body: JSON.stringify({
+            id: '11' ,
+            monYear: this.state.selectedDate,
+            range: this.state.time_choosen,
+            ps:index
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+
+        if(data.auth === false)
+           alert('Problem in Authorization!!!\nKindly do it again!!')
+         else if(data === 'error')
+            alert('Kindly click submit button again')
+          else{ 
+            this.setState({flag: true});   
+            this.setState({ipc: data.ipc});
+            this.setState({local: data.local});
+            this.setState({challan: data.challan});
+            if(this.state.case_chosen === 'Challan Cases')
+              this.setState({case_chosen: 'Under Investigation'});
+            else
+            this.setState({case_chosen: 'Challan Cases'});
+          }
+      })
+      
+    }
     onCaseTypeChange = (event) => {
         this.setState({case_chosen: event.target.value});
     }
@@ -70,7 +104,7 @@ class comparativeAnal extends React.Component{
     onSubmit = () => {
 
         const index = this.state.policeStation.indexOf(this.state.ps_choosen) + 1;
-        console.log(index);
+
           if(this.state.time_choosen === '')
             alert('Kindly select date range');
 

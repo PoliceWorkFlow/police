@@ -9,8 +9,7 @@ export default class StackedBarChart extends React.Component{
         this.state = {
          }
       }
-    
-
+   
     ConfigObj = (report) => {
        
         const cases_in_court= [(report[0].caseincourt)/10, (report[1].caseincourt)/10, (report[2].caseincourt)/10, (report[3].caseincourt)/10, (report[4].caseincourt)/10, (report[5].caseincourt)/10, (report[6].caseincourt)/10, (report[7].caseincourt)/10, (report[8].caseincourt)/10, (report[9].caseincourt)/10];
@@ -30,8 +29,7 @@ export default class StackedBarChart extends React.Component{
                 text: ''
             },
             xAxis: {
-                //categories: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']
-                categories:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']
+                categories: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']
             },
             yAxis: {
                 min: 0,
@@ -47,13 +45,38 @@ export default class StackedBarChart extends React.Component{
                   showInLegend: true,
                 },
                 series: {
-                    stacking: 'normal'
+                    stacking: 'normal',
+                    events: {
+                        legendItemClick: function (e) {
+                    
+                            if(e.target.userOptions.name === 'DeSelect All Properties') {
+                                   console.log(this.visible);
+                                   if(this.visible){
+                                    for (let i = 0; i < 8; i++) {
+                                       if(this.index !== i) 
+                                         this.chart.series[i].hide();
+                                    }
+                                }
+                                else{
+                                    for (let i = 0; i < 8; i++) {
+                                        if(this.index !== i) 
+                                          this.chart.series[i].show();
+                                     }
+                                }                                    
+                               }
+    
+                        }} 
                 }
             },
             credits : {
                 enabled: false
             },
             series: [
+                { 
+                    name: 'DeSelect All Properties',
+                          
+                },
+
                 {
                     name: 'Disposal of Complaints',
                     data: disp_comp
@@ -63,15 +86,15 @@ export default class StackedBarChart extends React.Component{
                     data: untrace_cases
                 },
                 {
-                    name: 'PO arrested ',
+                    name: 'PO arrested' ,
                     data: po_arrested
                 },
                 {
-                    name: 'Property Disp ',
+                    name: 'Property Disp',
                     data: prop_disp
                 },
                 {
-                    name: 'Crime against Property ',
+                    name: 'Crime against Property',
                     data: untrace_prop
                 },
                 {
@@ -81,8 +104,7 @@ export default class StackedBarChart extends React.Component{
                 { 
                     name: 'Case In Court',
                     data: cases_in_court
-                },  
-               
+                }
              ],
             
         }
@@ -111,8 +133,8 @@ export default class StackedBarChart extends React.Component{
                 text: ''
             },
             xAxis: {
-               // categories: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']
-               categories:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']
+                categories: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur']
+               //categories:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10']
             },
             yAxis: {
                 min: 0,
@@ -121,21 +143,48 @@ export default class StackedBarChart extends React.Component{
                 }
             },
             legend: {
-                reversed: true
+                reversed: true,
             },
             plotOptions: {
                 bar: {
                   showInLegend: true,
                 },
                 series: {
-                    stacking: 'normal'
-                }
+                    stacking: 'normal',
+                    events: {
+                        legendItemClick: function (e) {
+                        
+                            if(e.target.userOptions.name === 'DeSelect All Properties') {
+                                   if(this.visible){
+                                    for (let i = 0; i < 9; i++) {
+                                       if(this.index !== i) 
+                                         this.chart.series[i].hide();
+                                    }
+                                }
+                                else{
+                                    for (let i = 0; i < 9; i++) {
+                                        if(this.index !== i) 
+                                          this.chart.series[i].show();
+                                     }
+                                }                                    
+                               }
+    
+                        }} 
+                },
+                
             },
             credits : {
                 enabled: false
             },
             series: [
-
+                { 
+                    name: 'DeSelect All Properties',
+                    itemStyle: {
+                        cursor: 'pointer',
+                        fontSize: '90px'
+                    },
+                      
+                },
                 {
                     name: 'Gambling',
                     data: gambling,
@@ -175,6 +224,7 @@ export default class StackedBarChart extends React.Component{
         return configObj1
     }
 
+
    /* hideAtrributes = () => {
         let i = 0;
 
@@ -196,9 +246,8 @@ export default class StackedBarChart extends React.Component{
                  <HighchartsReact
                             highcharts={Highcharts} 
                             options={this.ConfigObj(this.props.Report)}
-                            
-                            containerProps={{ style: { height: "430px", width: "450px" }}}
-                            //callback={this.highchartsCallback}   
+                            containerProps={{ style: { height: "480px", width: "470px" }}}
+                            callback={this.highchartsCallback}   
                    />
                   </div> 
             )
@@ -210,7 +259,7 @@ export default class StackedBarChart extends React.Component{
                 <HighchartsReact
                     highcharts={Highcharts} 
                     options={this.ConfigObj1(this.props.Report)}  
-                    containerProps={{ style: { height: "430px", width: "450px" } }}
+                    containerProps={{ style: { height: "480px", width: "470px" } }}
         
                     callback={this.highchartsCallback}
                  />

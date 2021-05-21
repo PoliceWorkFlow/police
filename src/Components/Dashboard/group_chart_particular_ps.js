@@ -126,8 +126,10 @@ function setData(data, type) {
     }
 
     else{
-        for(i=0; i<data.length; i++)
-           result.push(data[i].monYear);
+        for(i=0; i<data.length; i++){
+          var d = data[i].monYear.split(' ')[0].slice(0,3) + ' ' + data[i].monYear.split(' ')[1];
+           result.push(d);
+        }
     }
    
     return result;

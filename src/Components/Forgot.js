@@ -7,6 +7,7 @@ class Signin extends React.Component {
    	super(props);
    	this.state = {
         police_station : ['SSP Office','Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
+     // police_station: ['SSP Office','PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
         station_chosen: '',
 	    avatarStyle: {backgroundColor:'#1bbd7e'},
 		paperStyle: { padding :10, height:'29%',width:300, margin:"20px auto", backgroundColor: 'white'}   

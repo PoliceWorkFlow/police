@@ -10,10 +10,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //policeStation: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
-       policeStation:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
-      ps_choosen1: 'PS1',
-      ps_choosen2: 'PS2',
+      policeStation: ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur'],
+      // policeStation:  ['PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
+      ps_choosen1: 'Nangal',
+      ps_choosen2: 'City Morinda',
       selectedDate: this.props.report[0].monYear,
       data1: [this.props.report[0]],
       data2: [this.props.report[1]],
@@ -151,7 +151,7 @@ class App extends React.Component {
         </div>
         <div>     
        
-      <Group data1={this.state.data1} data2={this.state.data2} /> 
+      <Group data1={this.state.data1} data2={this.state.data2} date={this.state.selectedDate} /> 
        
         </div>  
        </div> 
