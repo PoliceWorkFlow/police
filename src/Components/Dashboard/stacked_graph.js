@@ -71,6 +71,7 @@ export default class StackedBarChart extends React.Component{
             credits : {
                 enabled: false
             },
+
             series: [
                 { 
                     name: 'DeSelect All Properties',

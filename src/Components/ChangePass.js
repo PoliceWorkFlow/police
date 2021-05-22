@@ -19,12 +19,9 @@ class Signin extends React.Component {
     let slugparam = this.props.match.params.slug;
 
     let splitslug = slugparam.split('+++');
-    let reqDate = splitslug[0];
-    let emailName = splitslug[1].split('++');
-    let token = emailName[0];
-    let station = emailName[1];
+    let token = splitslug[0];
+    let station = splitslug[1];
     this.setState({ police_station: station });
-    console.log(token);
     
     fetch(this.props.link + '/api/checkLink', {
       method: 'post',
@@ -37,21 +34,16 @@ class Signin extends React.Component {
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        if (data !== 'success') {
+         if (data === 'link expired'){
+           alert('Link has been expired!!!\nKindly send the reset password link again')
+            this.props.history.push('/')
+            this.props.onRouteChange('signin')
+         }
+
+       else if (data !== 'success') {
           alert('Error!! Kindly send the Link again!!!')
           this.props.history.push('/')
           this.props.onRouteChange('signin')
-        }
-        else{
-          let date1 = new Date(reqDate);
-          let currentDate = new Date();
-          let difference = currentDate - date1;
-      
-          if (difference > 900000) {
-            alert('Link has been expired!!!\nKindly send the reset password link again')
-            this.props.history.push('/')
-            this.props.onRouteChange('signin')
-          }
         }
      })
    }
@@ -68,6 +60,12 @@ class Signin extends React.Component {
     this.props.history.push('/')
     this.props.onRouteChange('signin')
   }
+
+  something=(e)=> {
+    if (e.keyCode === 13) {
+        this.onSubmit()
+    }
+   }
 
   onSubmit = () => {
     const link = this.props.link;
@@ -117,6 +115,7 @@ class Signin extends React.Component {
                 name="password"
                 id="new_pass"
                 onChange={this.onPassChange1}
+                onKeyDown={(e) => this.something(e) }
               />
             </div>
             <div className="mv3">
@@ -127,6 +126,7 @@ class Signin extends React.Component {
                 name="password"
                 id="confirm_pass"
                 onChange={this.onPassChange2}
+                onKeyDown={(e) => this.something(e) }
               />
             </div>
           </fieldset>
