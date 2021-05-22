@@ -197,7 +197,7 @@ class App extends Component {
   render(){
     const {route} = this.state;
     var currentLocation = window.location.href;
-   // console.log(currentLocation);
+    console.log(currentLocation);
 
     if(currentLocation.includes('/change-password')){
       console.log(currentLocation);
