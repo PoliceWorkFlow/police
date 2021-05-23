@@ -106,6 +106,8 @@ class Signin extends React.Component {
   
 
   render() {
+	  console.log(this.props.station);
+	  console.log(this.state.police_station);
     
     return (
       <article style={this.state.paperStyle} >
