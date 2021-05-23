@@ -7,7 +7,6 @@ class Signin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      police_station: this.props.station,
       new_pass: '',
       station : ['Nangal', 'City Morinda', 'Sri Anandpur Sahib', 'City Rupnagar', 'Kiratpur Sahib', 'Sri Chamkaur Sahib', 'Sadar Rupnagar', 'Sadar Morinda', 'Nurpurbedi', 'Singh Bhagwantpur', 'SSP Office'],
       confirm_pass: '',
@@ -85,7 +84,7 @@ class Signin extends React.Component {
             method: 'post',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({
-              station: this.state.police_station,
+              station: this.props.station,
               new_pass: this.state.new_pass
             })
           })
@@ -106,15 +105,14 @@ class Signin extends React.Component {
   
 
   render() {
-	  console.log(this.props.station);
-	  console.log(this.state.police_station);
-    
+	 
+  
     return (
       <article style={this.state.paperStyle} >
         <div className='pt3 pb1 w5'>
           <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
             <legend className="f3 fw6 ph0 mh0">Reset Password</legend>
-            <label className="db pt2 fw6 lh-copy f5">{this.state.police_station}</label>
+            <label className="db pt2 fw6 lh-copy f5">{this.props.station}</label>
             <div className="mv3">
               <label className="db fw6 lh-copy f6" htmlFor="code">Enter Verification Code </label>
               <input
