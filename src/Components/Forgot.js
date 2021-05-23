@@ -10,6 +10,7 @@ class Signin extends React.Component {
      // police_station: ['SSP Office','PS1','PS2','PS3','PS4','PS5','PS6','PS7','PS8','PS9','PS10'],
         station_chosen: '',
 	    avatarStyle: {backgroundColor:'#1bbd7e'},
+      
 		paperStyle: { padding :10, height:'29%',width:300, margin:"20px auto", backgroundColor: 'white'}   
    	}
    }
@@ -32,12 +33,13 @@ class Signin extends React.Component {
         })
        .then(response => response.json())
        .then(data => {
-           if(data === 'Email sent'){
-            alert('Link has been send to the official Email ID of the station!!!')
-            this.props.onRouteChange('signin')
+           if(data.msg === 'Email sent'){
+            sessionStorage.setItem('forgotToken', data.token);
+            alert('Code has been send to the official Email ID of the station!!!')
+            this.props.onRouteChange('resetPass', this.state.station_chosen)
           }
           else
-            alert('Kindly click the "Send Link" button again!!!')  
+            alert('Kindly click the "Send Code" button again!!!')  
        }) 
       }
       
@@ -59,7 +61,7 @@ class Signin extends React.Component {
 				</FormControl>
                 </div>  
         <Button variant="contained" color="secondary" onClick={this.onSubmit}>
-				Send Link  
+				Send Code  
 			</Button>
             <div className='pa3'>
         <Button variant="contained" color="lightsecondary" onClick={() => this.props.onRouteChange('signin')}>

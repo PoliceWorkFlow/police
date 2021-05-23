@@ -36,7 +36,7 @@ class App extends Component {
        ipcCheck: [],
       localCheck: [],
       recoveryCheck: [],
-     //link: 'http://localhost:3000',
+    // link: 'http://localhost:3000',
      link: 'http://103.118.50.49'
     }
   }
@@ -55,6 +55,10 @@ class App extends Component {
           return a.id - b.id;
         });
         this.setState({progressReport: report});
+     }
+
+     else if(route === 'resetPass' && data !== 0){
+       this.setState({policeStation: data})
      }
     
     else if(route === 'station' && data !== 0){
@@ -196,20 +200,7 @@ class App extends Component {
 
   render(){
     const {route} = this.state;
-    var currentLocation = window.location.href;
-   // console.log(currentLocation);
-
-    if(currentLocation.includes('/change-password')){
-      console.log(currentLocation);
-      return(
-        <div className='App signin pt6'>
-          <Router >
-          <Route path='/change-password/:slug' render={(props) => <ChangePass onRouteChange={this.onRouteChange} link={this.state.link} {...props}/>}/>
-          </Router>
-         </div>
-      );
-    }
-
+  
     if(route === 'signin'){
        return(
         <div className='App signin'>
@@ -218,6 +209,14 @@ class App extends Component {
            {/*<Footer />*/}
            </div>
        );
+    }
+
+    else if(route === 'resetPass'){
+      return(
+        <div className='App signin pt6'>
+           <ChangePass onRouteChange={this.onRouteChange} link={this.state.link} station={this.state.policeStation}/>
+         </div>
+      );
     }
 
   else if(route === 'Forgot'){
