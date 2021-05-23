@@ -11,6 +11,7 @@ import Stacked from './stacked_graph'
 import StackedPS from './graph_investigation'
 import ComparativeAnal from './ps1';
 import Bar from './simplechart';
+import Bar2 from './relativeData';
 import Compare from './compare';
 import Table2 from './table2';
 
@@ -84,10 +85,11 @@ function Dashboard(props){
                 <h1 className='center pl6' style={{ color: '#E7040F', fontWeight: '700'}}>Police Stations Performance Review Portal</h1>
                 </div>
                 <RadioGroup row onChange={handleChange} value={graph}>
-                <h3 className='pl4 pt2 pr4' >Comparative analysis based on </h3>
-                    <FormControlLabel value= "pr" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Progress Report (Summary)</span>}/>
-                   <FormControlLabel value= "pr2" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Progress Report (Detailed)</span>}/> 
-                    <FormControlLabel value= "mr" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Monthly Report</span>}/>
+                <h3 className='pl2 pt2 pr3' >Comparative analysis based on </h3>
+                    <FormControlLabel value= "pr" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Summarized Prog Rept</span>}/>
+                   <FormControlLabel value= "pr2" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Relative Prog Rept</span>}/> 
+                   <FormControlLabel value= "pr3" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Detailed Prog Rept</span>}/> 
+                    <FormControlLabel value= "mr" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Monthly Rept</span>}/>
                 </RadioGroup>
                
                  { 
@@ -158,19 +160,52 @@ function Dashboard(props){
 
                         </div>
                         <div class="column" >
-                            <Table2 report={report}/>
+                            <Table2 report={report} flag = {1}/>
                         </div>
                         </div>
                        </div>
-                    :     
-                    <div>
-                       <Paper className={classes.pageContent}>
-                         <StackedPS link={props.link} /> 
-                        </Paper>
+                    : 
+                    
+                    graph === 'pr3'
+                    ? 
+                        <div>
+                        <div className='center pt2 pb2'>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                              <DatePicker
+                                    variant="outlined"
+                                    openTo="year"
+                                    views={["year", "month"]}
+                                    dateFormat="MM/yyyy"
+                                    label="Select Month"
+                              
+                                    value={selectedDate}
+                                    onChange= {date => onChangeDate(date)}  
+                                    />  
+                              </MuiPickersUtilsProvider> 
+                        </div>
+                              <div class="row">
+                              <div class="column">
+                                 <Bar2 Report={report} date={selectedDate} flag = {1} />
+                              <div style={{paddingTop: '20px'}}> 
+                                 <Bar2 Report = {report} date={selectedDate} flag = {2} />
+                              </div>
+      
+                              </div>
+                              <div class="column" style={{paddingLeft: '30px'}} >
+                              <Table2 report={report} flag = {2}/>
+                              </div>
+                              </div>
+                              </div>
+
+                       :
+                        <div>
                         <Paper className={classes.pageContent}>
-                         <ComparativeAnal link={props.link}/>
-                        </Paper>
-                    </div> 
+                              <StackedPS link={props.link} /> 
+                              </Paper>
+                              <Paper className={classes.pageContent}>
+                              <ComparativeAnal link={props.link}/>
+                              </Paper>
+                        </div> 
                    }
                 </div>
                 {

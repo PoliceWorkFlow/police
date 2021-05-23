@@ -68,7 +68,7 @@ export default function CustomizedTables(props) {
   ];
   const classes = useStyles();
 
-
+  if(props.flag === 1){
   return (
     <div>
       <div>
@@ -77,14 +77,13 @@ export default function CustomizedTables(props) {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Name of PS</StyledTableCell>
-                <StyledTableCell align="right" >Case in Court </StyledTableCell>
-                <StyledTableCell align="right" >Heinous Crime </StyledTableCell>
-                <StyledTableCell align="right" >Crime against Property</StyledTableCell>
-                <StyledTableCell align="right" >Property Disp</StyledTableCell>
-                <StyledTableCell align="right" >PO arrested</StyledTableCell>
-                
-                <StyledTableCell align="right" >Untraced cases in court</StyledTableCell>
-                <StyledTableCell align="right" >Disposal of Complaints</StyledTableCell>
+                <StyledTableCell align="right" >Case in Court (0.1 Pts) </StyledTableCell>
+                <StyledTableCell align="right" >Heinous Crime (2 Pts)</StyledTableCell>
+                <StyledTableCell align="right" >Crime agt Property (0.1 Pts)</StyledTableCell>
+                <StyledTableCell align="right" >Property Disp (0.1 Pts)</StyledTableCell>
+                <StyledTableCell align="right" >PO arrested (2 Pts)</StyledTableCell>
+                <StyledTableCell align="right" >Untraced cases in court (0.2 Pts)</StyledTableCell>
+                <StyledTableCell align="right" >Disp of Complaints (0.1 Pts)</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -112,14 +111,14 @@ export default function CustomizedTables(props) {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Name of PS</StyledTableCell>
-                <StyledTableCell align="right" >Cleaniness</StyledTableCell>
-                <StyledTableCell align="right" >Handling</StyledTableCell>
-                <StyledTableCell align="right" >Feedback</StyledTableCell>
-                <StyledTableCell align="right" >NDPS </StyledTableCell>
-                <StyledTableCell align="right" >Commercial</StyledTableCell>
-                <StyledTableCell align="right" >Arm</StyledTableCell>
-                <StyledTableCell align="right" >Excise</StyledTableCell>
-                <StyledTableCell align="right" >Gambling</StyledTableCell>
+                <StyledTableCell align="right" >Cleaniness (1 Pt)</StyledTableCell>
+                <StyledTableCell align="right" >Handling (1 Pt)</StyledTableCell>
+                <StyledTableCell align="right" >Feedback (1 Pt)</StyledTableCell>
+                <StyledTableCell align="right" >NDPS (0.4 Pts)</StyledTableCell>
+                <StyledTableCell align="right" >Commercial (2 Pts)</StyledTableCell>
+                <StyledTableCell align="right" >Arm (1 Pt)</StyledTableCell>
+                <StyledTableCell align="right" >Excise (0.2 Pts)</StyledTableCell>
+                <StyledTableCell align="right" >Gambling (0.2 Pts)</StyledTableCell>
                 
               </TableRow>
             </TableHead>
@@ -145,6 +144,86 @@ export default function CustomizedTables(props) {
 
       </div>
     </div>
-
   );
+  }
+
+  else{
+    return (
+      <div>
+        <div style={{ paddingTop: '40px' }}>
+          <TableContainer className={classes.container}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Name of PS</StyledTableCell>
+                  <StyledTableCell align="right" >Case in Court </StyledTableCell>
+                  <StyledTableCell align="right" >Heinous Crime</StyledTableCell>
+                  <StyledTableCell align="right" >Crime agt Property</StyledTableCell>
+                  <StyledTableCell align="right" >Property Disp </StyledTableCell>
+                  <StyledTableCell align="right" >PO arrested </StyledTableCell>
+                  <StyledTableCell align="right" >Untraced cases in court </StyledTableCell>
+                  <StyledTableCell align="right" >Disp of Complaints </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <StyledTableRow key={row.name}>
+                    <StyledTableCell component="th" scope="row">
+                      {row.name}
+                    </StyledTableCell>
+                    <StyledTableCell align="right" >{row.v1}%</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v3}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v5}%</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v2}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v4}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v6}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v7}%</StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+        <div style={{ paddingTop: '70px' }}>
+          <TableContainer className={classes.container}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Name of PS</StyledTableCell>
+                  <StyledTableCell align="right" >Cleaniness</StyledTableCell>
+                  <StyledTableCell align="right" >Handling </StyledTableCell>
+                  <StyledTableCell align="right" >Feedback </StyledTableCell>
+                  <StyledTableCell align="right" >NDPS </StyledTableCell>
+                  <StyledTableCell align="right" >Commercial </StyledTableCell>
+                  <StyledTableCell align="right" >Arm </StyledTableCell>
+                  <StyledTableCell align="right" >Excise </StyledTableCell>
+                  <StyledTableCell align="right" >Gambling </StyledTableCell>
+                  
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows2.map((row) => (
+                  <StyledTableRow key={row.name}>
+                    <StyledTableCell component="th" scope="row">
+                      {row.name}
+                    </StyledTableCell>
+                    <StyledTableCell align="right" >{row.v8}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v7}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v6}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v1}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v5}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v2}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v3}</StyledTableCell>
+                    <StyledTableCell align="right" >{row.v4}</StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+  
+        </div>
+      </div>
+    );
+
+  }
 }

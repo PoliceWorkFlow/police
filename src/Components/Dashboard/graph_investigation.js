@@ -6,6 +6,7 @@ import "date-fns";
 import GroupChart from './group_chart';
 import Stacked from './stacked_graph_ps'
 import 'tachyons';
+import Table from './table3';
 
 function handleDateChange(date){
   const months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -162,33 +163,48 @@ class StackedChart extends React.Component{
 				     </MuiPickersUtilsProvider>
              </div> 
              <Grid container>
-           
-              <Grid item xs={6}>
-                <Paper className='pa2 mr2'>
+            
+              <Grid item xs={12}>
+                <div className='pl6'>
                  <RadioGroup row onChange={this.handleChange1} value={this.state.case_chosen}>
-                    <FormControlLabel value= "Under Investigation" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Under Investigation</span>}/>
-                    <FormControlLabel value= "Under Investigation Over 1 Year" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Under Investigation Over 1 Year</span>}/>
-                    <FormControlLabel value= "Under Investigation Over 6 Month" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Under Investigation Over 6 Month</span>}/>
+                    <FormControlLabel value= "Under Investigation" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Under Investigation</span>}/>
+                    <FormControlLabel value= "Under Investigation Over 1 Year" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Under Investigation Over 1 Year</span>}/>
+                    <FormControlLabel value= "Under Investigation Over 6 Month" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.9rem' }}>Under Investigation Over 6 Month</span>}/>
                 </RadioGroup>
-
-                {this.state.ipc.length === 0 || this.state.local.length === 0 
+                </div>
+                </Grid>
+                <Grid item xs={6}>
+                <Paper className='pa2 mr2'>
+                  {this.state.ipc.length === 0 || this.state.local.length === 0 
+                      ?  <p></p>
+                      :
+                      <GroupChart ipc={this.state.ipc} local={this.state.local} case_chosen={this.state.case_chosen} />
+                  }
+                  </Paper>
+                  </Grid>
+                <Grid item xs={6}>
+                 {  this.state.ipc.length === 0 || this.state.local.length === 0 
                      ?  <p></p>
                      :
-                     <GroupChart ipc={this.state.ipc} local={this.state.local} case_chosen={this.state.case_chosen} />
-                }
-                </Paper>
+                      <Table ipc={this.state.ipc} local={this.state.local} case_chosen={this.state.case_chosen} />
+                 }
+                  </Grid>
 
-              </Grid>
-
-              <Grid item xs={6}>
-                <Paper className='pa2 ml2'>
-              <RadioGroup row onChange={this.handleChange2} value={this.state.case_chosen2}>
+                <div className='pt4'>
+                  
+                <Grid item xs={12}>  
+                <RadioGroup row onChange={this.handleChange2} value={this.state.case_chosen2}>
                     <FormControlLabel value= "Cancellation/Untraced" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Cancellation/Untraced</span>}/>
                     <FormControlLabel value= "Under Investigation Over 3 Month" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Under Investigation Over 3 Month</span>}/>
                     <FormControlLabel value= "Under Investigation less than 3 month" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Under Investigation less than 3 month</span>}/>
                     <FormControlLabel value= "Challan Cases" name='graph' control = {<Radio/>} label={<span style={{ fontSize: '.8rem' }}>Challan Cases</span>}/>
                 </RadioGroup>
-
+                </Grid>
+                </div>
+              
+               <Grid item xs={6}>
+              
+                <Paper className='pa2 mr2'>
                 {
                    this.state.case_chosen2 === 'Challan Cases' && this.state.challan.length !== 0
                    ? <div className='center'>
@@ -202,6 +218,14 @@ class StackedChart extends React.Component{
                 }
               </Paper>
               </Grid>
+              <Grid item xs={6}>
+                 { this.state.ipc.length === 0 || this.state.local.length === 0 || this.state.challan.length === 0
+                     ?  <p></p>
+                     :
+                      <Table ipc={this.state.ipc} local={this.state.local} challan={this.state.challan} case_chosen={this.state.case_chosen2}/>
+                   }
+                  </Grid>
+            
              </Grid>
   
            </div > 
@@ -212,43 +236,6 @@ class StackedChart extends React.Component{
 
 export default StackedChart;
 
-     /* var challan = data.challan; 
-                 challan.sort(function(a, b) {
-                   return a.id - b.id;
-                 });
-                 this.setState({challan});
 
-                 const overloading = [1*challan[0].overloading, 1*challan[1].overloading, 1*challan[2].overloading, 1*challan[3].overloading, 1*challan[4].overloading, 1*challan[5].overloading, 1*challan[6].overloading, 1*challan[7].overloading, 1*challan[8].overloading, 1*challan[9].overloading ];
-                 const drunken = [1*challan[0].drunken, 1*challan[1].drunken, 1*challan[2].drunken, 1*challan[3].drunken, 1*challan[4].drunken, 1*challan[5].drunken, 1*challan[6].drunken, 1*challan[7].drunken, 1*challan[8].drunken, 1*challan[9].drunken ];
-                 const overspeed = [1*challan[0].overspeed, 1*challan[1].overspeed, 1*challan[2].overspeed, 1*challan[3].overspeed, 1*challan[4].overspeed, 1*challan[5].overspeed, 1*challan[6].overspeed, 1*challan[7].overspeed, 1*challan[8].overspeed, 1*challan[9].overspeed ];
-                 const withoutHelmet = [1*challan[0].withoutHelmet, 1*challan[1].withoutHelmet, 1*challan[2].withoutHelmet, 1*challan[3].withoutHelmet, 1*challan[4].withoutHelmet, 1*challan[5].withoutHelmet, 1*challan[6].withoutHelmet, 1*challan[7].withoutHelmet, 1*challan[8].withoutHelmet, 1*challan[9].withoutHelmet ];
-                 const covid19 = [1*challan[0].covid19, 1*challan[1].covid19, 1*challan[2].covid19, 1*challan[3].covid19, 1*challan[4].covid19, 1*challan[5].covid19, 1*challan[6].covid19, 1*challan[7].covid19, 1*challan[8].covid19, 1*challan[9].covid19 ];
-                 const others = [1*challan[0].others, 1*challan[1].others, 1*challan[2].others, 1*challan[3].others, 1*challan[4].others, 1*challan[5].others, 1*challan[6].others, 1*challan[7].others, 1*challan[8].others, 1*challan[9].others]
-                 
-                 this.setState({overloading: overloading});
-                 this.setState({drunken: drunken});
-                 this.setState({overspeed: overspeed});
-                 this.setState({withoutHelmet: withoutHelmet});
-                 this.setState({covid19: covid19});
-                 this.setState({others: others});
-
-                 var recovery = data.recovery; 
-                 recovery.sort(function(a, b) {
-                   return a.id - b.id;
-                 });
-                 this.setState({recovery});
-         
-                 var ipc = data.ipc; 
-                 ipc.sort(function(a, b) {
-                   return a.id - b.id;
-                 });
-                 this.setState({ipc});
-         
-                 var local = data.local; 
-                 local.sort(function(a, b) {
-                   return a.id - b.id;
-                 });
-                 this.setState({local});
                 
-                 this.setState({flag: true});
-                 */
+     

@@ -73,7 +73,7 @@ class Signin extends React.Component {
 	render() {
 
 		return (
-			<div style={{paddingTop: '13%'}}>
+			<div style={{paddingTop: '12%'}}>
 			<article style={this.state.paperStyle} className="br3 ba shadow-2 b--black-10 mv4 w-100 w-50-m w-25-l mw5 center">
 				<Avatar style={this.state.avatarStyle} className="center pa3 shadow-2"><LockOutlinedIcon /></Avatar>
 				<main className="pa3 black-80">

@@ -97,12 +97,13 @@ class comparativeAnal extends React.Component{
         else if(monthCurr.split(' ')[1] === monYear.split(' ')[1] &&  this.state.months.indexOf(monthCurr.split(' ')[0]) < this.state.months.indexOf(monYear.split(' ')[0]))
            alert('You have entered wrong month!!!!')
 
-        else   
-         this.setState({selectedDate: monYear})
+        else {  
+         this.setState({selectedDate: monYear});
+        }
     }
 
     onSubmit = () => {
-
+      
         const index = this.state.policeStation.indexOf(this.state.ps_choosen) + 1;
 
           if(this.state.time_choosen === '')
@@ -207,6 +208,8 @@ class comparativeAnal extends React.Component{
                 </div>
                   
          }
+
+         
         
         </div>
      );

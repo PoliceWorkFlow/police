@@ -204,7 +204,6 @@ class App extends Component {
     if(route === 'signin'){
        return(
         <div className='App signin'>
-          {/*<Logo />*/}
            <SignIn onRouteChange={this.onRouteChange} link={this.state.link}/>
            {/*<Footer />*/}
            </div>
