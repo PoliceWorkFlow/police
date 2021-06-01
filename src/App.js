@@ -37,7 +37,7 @@ class App extends Component {
       localCheck: [],
       recoveryCheck: [],
     // link: 'http://localhost:3000',
-     link: 'http://103.118.50.49'
+     link: 'http://psprp.iitrpr.ac.in'
     }
   }
 
